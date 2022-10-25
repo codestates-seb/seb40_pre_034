@@ -4,7 +4,7 @@
 |[김윤희](https://github.com/kyh1685)|[김은서](https://github.com/EUNSEO814)|[나호연](https://github.com/nahoyeon)|[오현지](https://github.com/opc13579)|[김찬중](https://github.com/ClimberCode)|[김현욱](https://github.com/oasis791)|[이주영](https://github.com/homebird9)|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |FE|FE|FE|FE|BE|BE|BE|
-|<img src="https://avatars.githubusercontent.com/u/62630941?v=4" width="100">|사진|사진|사진|사진|사진|사진|
+|<img src="https://avatars.githubusercontent.com/u/62630941?v=4" width="100">|사진|<img src="https://avatars.githubusercontent.com/u/91938347?s=400&u=7c01e6702381f4e9cfc9cf83d99dea7ee4996a88&v=4" width="100">|사진|사진|사진|사진|
 
 ### Commit Message
 |Tag Name|Description|
