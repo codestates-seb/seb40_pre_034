@@ -20,6 +20,7 @@ const GlobalStyles = createGlobalStyle`
 
     button {
         /* font-family: inherit; */
+        display: inline-block;
         cursor: pointer;
         outline: none;
         padding : 0.8em;
