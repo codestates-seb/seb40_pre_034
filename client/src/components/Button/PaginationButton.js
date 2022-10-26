@@ -8,7 +8,6 @@ export const PaginationButton = styled.button`
   line-height: 0.5;
   box-shadow: none;
   &:hover {
-    /* background-color: #d6d9dc; */
     background-color: ${(props) => (props.checked ? "#F48225" : "#d6d9dc")};
   }
 `;
