@@ -11,3 +11,9 @@ export const LightBlueButton = styled.button`
     background-color: #b3d3ea;
   }
 `;
+{
+  /* * width를 props로 내려주거나, 굳이 필요없으면 글씨 길이만큼 늘어납니다.
+ex1)
+      <LightBlueButton>test</LightBlueButton>
+      <LightBlueButton width="200px">test</LightBlueButton> */
+}
