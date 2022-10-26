@@ -50,6 +50,11 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    public void deleteMember(Long memberId) {
+        Member findByDelete = findVerifiedMember(memberId);
+        memberRepository.delete(findByDelete);
+    }
+
     public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember =
                 memberRepository.findById(memberId);
