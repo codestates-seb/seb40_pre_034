@@ -9,7 +9,7 @@ const VoteContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const VoteButton = styled.button`
+const VoteButtonStyle = styled.button`
   display: inline-block;
   position: relative;
   width: 40px;
@@ -36,22 +36,28 @@ const PathColor = styled.path`
     fill: #f48225;
   }
 `;
-const VoteButtonComponent = () => {
+const VoteButton = ({ number }) => {
   return (
     <VoteContainer>
-      <VoteButton>
+      <VoteButtonStyle>
         <SVG>
           <PathColor d="M2 25h32L18 9 2 25Z"></PathColor>
         </SVG>
-      </VoteButton>
-      <Text>1</Text>
-      <VoteButton>
+      </VoteButtonStyle>
+      <Text>{number}</Text>
+      <VoteButtonStyle>
         <SVG>
           <PathColor d="M2 11h32L18 27 2 11Z"></PathColor>
         </SVG>
-      </VoteButton>
+      </VoteButtonStyle>
     </VoteContainer>
   );
 };
 
-export default VoteButtonComponent;
+export default VoteButton;
+
+{
+  /* 사용 예시 - (vote기능 구현한다고 하면 편한걸로 바꿔 사용하세요~)
+  <VoteButton number="2" />
+ */
+}

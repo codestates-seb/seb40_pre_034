@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const WhiteButton = styled.button`
+const WhiteButtonStyle = styled.button`
   width: ${(props) => (props.width ? props.width : "auto")};
   color: hsl(206, 100%, 40%);
   border: calc(1px / 2) solid hsl(206 85% 57%);
@@ -13,9 +13,14 @@ export const WhiteButton = styled.button`
   }
 `;
 
+const WhiteButton = ({ text, width }) => {
+  return <WhiteButtonStyle width={width}>{text}</WhiteButtonStyle>;
+};
+export default WhiteButton;
+
 {
-  /* * width를 props로 내려주거나, 굳이 필요없으면 글씨 길이만큼 늘어납니다.
-  ex1)
-  <WhiteButton>join</WhiteButton>
-<WhiteButton width="150px">join</WhiteButton> */
+  /* 사용 예시 - width는 필요할 때만 사용하시면 됩니다.
+  <WhiteButton text="join" width="200px" />
+  <WhiteButton text="join" />
+ */
 }
