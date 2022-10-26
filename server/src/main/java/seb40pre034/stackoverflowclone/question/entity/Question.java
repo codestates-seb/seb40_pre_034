@@ -1,4 +1,4 @@
-package seb40pre034.stackoverflowclone.question.dto;
+package seb40pre034.stackoverflowclone.question.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
