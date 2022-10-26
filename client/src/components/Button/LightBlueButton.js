@@ -10,6 +10,11 @@ export const LightBlueButton = styled.button`
   &:hover {
     background-color: #b3d3ea;
   }
+  &:active {
+    background-color: hsl(205, 56%, 76%);
+    border-color: hsl(205, 36%, 53%);
+    box-shadow: none;
+  }
 `;
 {
   /* * width를 props로 내려주거나, 굳이 필요없으면 글씨 길이만큼 늘어납니다.

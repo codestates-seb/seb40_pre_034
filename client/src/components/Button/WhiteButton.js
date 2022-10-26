@@ -8,6 +8,9 @@ export const WhiteButton = styled.button`
   &:hover {
     background-color: #f0f8ff;
   }
+  &:active {
+    background-color: hsl(206, 96%, 90%);
+  }
 `;
 
 {
