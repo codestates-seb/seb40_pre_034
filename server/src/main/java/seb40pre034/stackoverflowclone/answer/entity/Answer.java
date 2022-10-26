@@ -25,7 +25,7 @@ public class Answer {
 
 //    작성 시간
 //    @Column(nullable = false)
-//    private  created_at;
+//    private timestamp created_at;
 
 //    회원 ID
 //    @ManyToOne 답변 : 회원 = N : 1

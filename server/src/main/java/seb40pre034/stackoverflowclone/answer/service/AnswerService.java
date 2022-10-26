@@ -22,12 +22,9 @@ public class AnswerService {
         return answerRepository.save(answer);
     }
 
-    // 유저 답변을 찾은 뒤 없으면 에러 발생
-    public Answer findVerifiedAnswer(long answerId) {
-        Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
-        Answer findAnswer = optionalAnswer.orElseThrow(() ->
-                new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
-        return findAnswer;
+    //조회 기능
+    public Answer findAnswer(long answerId) {
+        return findVerifiedAnswer(answerId);
     }
 
     // 업데이트 기능
@@ -35,26 +32,26 @@ public class AnswerService {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
 
         Optional.ofNullable(answer.getAnswer_content())
-                .ifPresent(answerBody -> findAnswer.setAnswer_content(answerBody));
+                .ifPresent(findAnswer::setAnswer_content);
 
-        Answer updatedQuestion = answerRepository.save(findAnswer);
-
-        return updatedQuestion;
+        return answerRepository.save(findAnswer);
 
     }
 
-    //vote 기능
-    public Answer voteAnswer(long answerId, int Answer_vote) {
+    //삭제 기능
+    public void deleteAnswer(long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
-        findAnswer.setAnswer_vote(Answer_vote);
-        Answer updateAnswer = answerRepository.save(findAnswer);
-        return updateAnswer;
+        answerRepository.delete(findAnswer);
+    }
 
-
+    //중복
+    public Answer findVerifiedAnswer(long answerId) {
+        Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
+        return optionalAnswer.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+    }
+}
 
 //     Member findAnswerMember(long memberId) {
 //        Answer findAnswer = findVerifiedAnswer(answerId)
 //        return findAnswer.getMember();
-    }
-
-}
