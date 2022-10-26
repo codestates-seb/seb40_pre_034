@@ -1,11 +1,11 @@
 import GlobalStyles from "./style/GlobalStyle";
-import QuestionElement from "./components/QuestionElement/QuestionElement";
+import Loading from "./components/Loading/Loading";
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <QuestionElement />
+      <Loading />
     </>
   );
 }
