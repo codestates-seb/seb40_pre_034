@@ -12,7 +12,7 @@ const UserAvatar = styled.div`
 `;
 
 const Anchor = styled.a`
-  font-size: ${(props) => (props.nickName ? "1.15384615rem" : "12px")};
+  font-size: ${(props) => (props.mainName ? "1.15384615rem" : "12px")};
   text-decoration-line: none;
   color: hsl(206, 100%, 40%);
   cursor: pointer;
@@ -61,9 +61,24 @@ const ReputationScore = styled.div`
 `;
 
 const UserTags = styled.div`
-  //나중에 사용하실것 같아서 일단 넣어뒀습니다..
+  //혹시 필요하질지도 몰라서 만들어 뒀습니다. 필요하면 사용하시고, 아니면 삭제해주세요!
 `;
-const User = () => {
+const User = ({ nickName, location, score }) => {
+  //임시 더미 데이터입니다. 나중에 변경해주세요.
+  const tagged = [
+    {
+      id: 1,
+      stack: "python",
+    },
+    {
+      id: 2,
+      stack: "pandas",
+    },
+    {
+      id: 3,
+      stack: "dataframe",
+    },
+  ];
   return (
     <>
       <UserInfoContainer>
@@ -79,18 +94,20 @@ const User = () => {
         </UserAvatar>
         <UserInfo>
           <UserDetail>
-            <Anchor nickName href="https://stackoverflow.com/users/userId/nickname">
-              nickname
+            <Anchor mainName href="https://stackoverflow.com/users/userId/nickname">
+              {nickName}
             </Anchor>
-            <UserLocation>Mare Tranquillitatis</UserLocation>
+            <UserLocation>{location}</UserLocation>
             <Flair>
-              <ReputationScore>1,050</ReputationScore>
+              <ReputationScore>{score}</ReputationScore>
             </Flair>
           </UserDetail>
-          <UserTags className="userTags">
-            <Anchor href="/questions/tagged/python">python, </Anchor>
-            <Anchor href="/questions/tagged/pandas">pandas, </Anchor>
-            <Anchor href="/questions/tagged/dataframe">dataframe</Anchor>
+          <UserTags>
+            {tagged.map((el) => (
+              <Anchor key={el.id} href="/questions/tagged/{el.stack}">
+                {" " + el.stack + " "}
+              </Anchor>
+            ))}
           </UserTags>
         </UserInfo>
       </UserInfoContainer>
