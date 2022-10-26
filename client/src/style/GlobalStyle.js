@@ -19,7 +19,20 @@ const GlobalStyles = createGlobalStyle`
     }
 
     button {
+        /* font-family: inherit; */
         cursor: pointer;
+        outline: none;
+        padding : 0.8em;
+        border: none;
+        border-radius : 3px;
+        font-weight: normal;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
+        &:hover {
+            transition: 0.4s all;
+        }
     }
 `;
 
