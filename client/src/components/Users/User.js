@@ -61,7 +61,7 @@ const ReputationScore = styled.div`
 `;
 
 const UserTags = styled.div`
-  //나중에 사용하실것 같아서 일단 넣어뒀습니다.
+  //나중에 사용하실것 같아서 일단 넣어뒀습니다..
 `;
 const User = () => {
   return (
