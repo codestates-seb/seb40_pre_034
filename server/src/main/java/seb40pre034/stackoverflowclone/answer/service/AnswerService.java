@@ -7,9 +7,11 @@ import seb40pre034.stackoverflowclone.exception.BusinessLogicException;
 import seb40pre034.stackoverflowclone.exception.ExceptionCode;
 
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class AnswerService {
     private final AnswerRepository answerRepository;
 
