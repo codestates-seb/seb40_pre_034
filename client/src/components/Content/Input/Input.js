@@ -1,25 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-const Input = ({ children, value, type, onChange, sub }) => {
-  return (
-    <Container>
-      <Box>
-        <label htmlFor="title">{children}</label>
-        <span>{sub}</span>
-      </Box>
-
-      <input
-        defaultValue={value}
-        onChange={onChange}
-        type={type}
-        autoComplete="off"
-      />
-    </Container>
-  );
-};
-
-export default Input;
 
 const Container = styled.div`
   display: flex;
@@ -52,3 +33,23 @@ const Box = styled.div`
     color: #0074cc;
   }
 `;
+
+const Input = ({ children, value, type, onChange, sub }) => {
+  return (
+    <Container>
+      <Box>
+        <label htmlFor="title">{children}</label>
+        <span>{sub}</span>
+      </Box>
+
+      <input
+        defaultValue={value}
+        onChange={onChange}
+        type={type}
+        autoComplete="off"
+      />
+    </Container>
+  );
+};
+
+export default Input;
