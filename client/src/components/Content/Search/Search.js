@@ -2,16 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { ReactComponent as SearchImg } from "../../assets/search.svg";
 
-const Search = () => {
-  return (
-    <Container>
-      <SearchImg />
-      <SearchInput type="text" placeholder="Search..." />
-    </Container>
-  );
-};
-export default Search;
-
 const Container = styled.div`
   display: flex;
   justify-items: center;
@@ -35,3 +25,14 @@ const SearchInput = styled.input`
     color: #838c95;
   }
 `;
+
+const Search = () => {
+  return (
+    <Container>
+      <SearchImg />
+      <SearchInput type="text" placeholder="Search..." />
+    </Container>
+  );
+};
+export default Search;
+
