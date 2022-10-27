@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.w3c.dom.Text;
+import seb40pre034.stackoverflowclone.audit.Auditable;
 
 import javax.persistence.*;
 
@@ -12,7 +13,8 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "ANSWER")
-public class Answer {
+
+public class Answer extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
@@ -23,9 +25,7 @@ public class Answer {
     @Column(nullable = false)
     private int Answer_vote = 0;
 
-//    작성 시간
-//    @Column(nullable = false)
-//    private timestamp created_at;
+
 
 //    회원 ID
 //    @ManyToOne 답변 : 회원 = N : 1
