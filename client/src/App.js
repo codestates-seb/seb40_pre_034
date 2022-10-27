@@ -1,5 +1,5 @@
-import GlobalStyles from "./style/GlobalStyle";
-
+import GlobalStyles from './style/GlobalStyle';
+import Modal from './components/Modal/Modal';
 function App() {
   return (
     <>
