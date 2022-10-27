@@ -3,23 +3,14 @@
     "browser": true,
     "es2021": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:import/recommended",
-    "plugin:jsx-a11y/recommended",
-    "plugin:prettier/recommended"
-  ],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
     "extends": [
       "eslint:recommended",
       "plugin:react/recommended",
       "plugin:import/recommended",
       "plugin:jsx-a11y/recommended",
-      "plugin:prettier/recommended"
+      "plugin:prettier/recommended",
+      "eslint:recommended",
+      "plugin:react/recommended"
     ],
     "parserOptions": {
       "ecmaFeatures": {
@@ -33,4 +24,4 @@
       "react/jsx-uses-react": 0,
       "react/prop-types": "off"
     }
-  }}
+  }
