@@ -27,20 +27,14 @@ public class Answer extends Auditable {
 
 
 
-//    회원 ID
-//    @ManyToOne 답변 : 회원 = N : 1
-//    @JoinColumn(name = "MEMBER_ID")
-//    private Long member_id;
+//  회원 ID
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Long member_id;
 
-//    게시글 ID
-//    @ManyToOne 답변 : 질문 = N : 1
-//    @JoinColumn(name = "QUESTION_ID")
-//    private Long question_id;
-
-
-//    답변 ID
-//    @ManyToOne 답변 : 게시글 = N : 1
-//    @JoinColumn(name = "ANSWER_ID")
-//    private Long answer_id;
+//  게시글 ID
+    @ManyToOne
+    @JoinColumn(name = "QUESTION_ID")
+    private Long question_id;
 
 }
