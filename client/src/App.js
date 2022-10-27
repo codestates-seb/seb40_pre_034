@@ -5,7 +5,6 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Loading />
     </>
   );
 }
