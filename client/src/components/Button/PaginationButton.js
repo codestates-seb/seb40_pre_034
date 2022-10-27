@@ -11,9 +11,9 @@ const PaginationButtonStyle = styled.button`
     background-color: ${(props) => (props.checked ? "#F48225" : "#d6d9dc")};
   }
 `;
-const PaginationButton = ({ width, checked, text }) => {
+const PaginationButton = ({ width, isChecked, text }) => {
   return (
-    <PaginationButtonStyle width={width} checked={checked}>
+    <PaginationButtonStyle width={width} checked={isChecked}>
       {text}
     </PaginationButtonStyle>
   );
@@ -27,7 +27,7 @@ export default PaginationButton;
 <PaginationButton text="1" />
 <PaginationButton text="next" /> 
 
-<PaginationButton text="2" checked />
-<PaginationButton text="prev" checked />
+<PaginationButton text="2" isChecked />
+<PaginationButton text="prev" isChecked />
 */
 }

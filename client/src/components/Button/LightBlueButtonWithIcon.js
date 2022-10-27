@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { BiFilter } from "react-icons/bi";
+import { AiFillEye } from "react-icons/ai";
 
 const LightBlueButtonStyle = styled.button`
   display: flex;
@@ -25,22 +27,36 @@ const InnerText = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  line-height: 1.9;
+`;
+const Icon = styled.div`
+  margin-right: 5px;
+  font-size: 20px;
 `;
 
-const LightBlueButton = ({ text, width }) => {
+const LightBlueButtonWithIcon = ({ text, width, isFilter }) => {
   return (
     <LightBlueButtonStyle width={width}>
-      <InnerText>{text}</InnerText>
+      <InnerText filter={isFilter}>
+        <Icon>{isFilter ? <BiFilter /> : <AiFillEye />}</Icon>
+        {text}
+      </InnerText>
     </LightBlueButtonStyle>
   );
 };
 
-export default LightBlueButton;
+export default LightBlueButtonWithIcon;
 
 {
   /* 사용 예시 
-  <LightBlueButton text="Something" />
+  1) filter 아이콘 사용하고 싶을 때 (filter인자로 안넣어주면 eye아이콘 나옴)
+      <LightBlueButtonWithIcon isFilter text="filter" />
+
+  2) eye 아이콘 사용하고 싶을 때 
+  <LightBlueButtonWithIcon text="Watch a tag" />
+
+  3.) 아이콘 안넣고 싶을 때 <LightBlueButton /> 
+
+  그냥 아이콘 들어가는 거랑 안들어가는 버튼 컴포넌트를 나눴습니다...
 
  */
 }
