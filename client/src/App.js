@@ -1,15 +1,11 @@
-import SignupInfo from "./components/SignupInfo/SignupInfo";
 import GlobalStyles from "./style/GlobalStyle";
-import SearchBar from "./components/Search/SearchBar";
-import SortedTab from "./components/SortedTab/SortedTab";
+import TagPage from "./page/TagPage/TagPage";
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <SignupInfo />
-      <SearchBar />
-      <SortedTab />
+      <TagPage />
     </>
   );
 }
