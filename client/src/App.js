@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Loading />
+      <div>test</div>
     </>
   );
 }
