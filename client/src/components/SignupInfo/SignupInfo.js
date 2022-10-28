@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { RiShareBoxLine } from "react-icons/ri";
 
@@ -17,23 +17,21 @@ const BottomText = styled.div`
   padding: 16px;
 `;
 
-const NavLink = styled(Link)`
-  font-weight: 500;
-  text-decoration: none;
-  color: #0074cc;
-  cursor: pointer;
-  :hover {
-    color: #1e9dfe;
-  }
-`;
+// const NavLink = styled(Link)`
+//   font-weight: 500;
+//   text-decoration: none;
+//   color: #0074cc;
+//   cursor: pointer;
+//   :hover {
+//     color: #1e9dfe;
+//   }
+// `;
 
 const SignupInfo = () => {
   return (
     <SignupSection>
       <BottomText>
-        <div>
-          Already have an account? <NavLink to="/users/login">Log in</NavLink>
-        </div>
+        <div>{/* Already have an account? <NavLink to="/users/login">Log in</NavLink> */}</div>
         <div>
           Are you an employer? Sign up on Talent
           <RiShareBoxLine />
