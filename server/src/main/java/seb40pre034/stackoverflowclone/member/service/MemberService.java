@@ -1,9 +1,11 @@
 package seb40pre034.stackoverflowclone.member.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import seb40pre034.stackoverflowclone.exception.BusinessLogicException;
 import seb40pre034.stackoverflowclone.exception.ExceptionCode;
 import seb40pre034.stackoverflowclone.member.entity.Member;
@@ -22,10 +24,9 @@ public class MemberService {
     }
 
     public Member createdMember(Member member) {
-        verifyExistsEmail(member.getEmail());
-        Member saveMember = memberRepository.save(member);
+       verifyExistsEmail(member.getEmail());
 
-        return saveMember;
+        return memberRepository.save(member);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
@@ -38,6 +39,8 @@ public class MemberService {
                 .ifPresent(email -> member.setEmail(email));
         Optional.ofNullable(member.getPassword())
                 .ifPresent(password -> member.setPassword(password));
+        Optional.ofNullable(member.getMemberStatus())
+                .ifPresent(memberStatus -> member.setMemberStatus(memberStatus));
 
         return memberRepository.save(findMember);
     }
