@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -37,11 +36,7 @@ const InputBox = () => {
   return (
     <Container>
       <Box>
-          <label htmlFor="title">
-          displayName,
-          email,
-          password
-        </label>
+        <label htmlFor="title">displayName, email, password</label>
         <span></span>
       </Box>
     </Container>
