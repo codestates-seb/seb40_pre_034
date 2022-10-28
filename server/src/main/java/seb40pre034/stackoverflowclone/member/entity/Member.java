@@ -8,10 +8,12 @@ import lombok.Setter;
 import seb40pre034.stackoverflowclone.audit.Auditable;
 import seb40pre034.stackoverflowclone.question.entity.Question;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Getter
 @Setter
@@ -19,6 +21,7 @@ import java.util.List;
 @Table(name = "MEMBER")
 @Entity
 public class Member extends Auditable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
