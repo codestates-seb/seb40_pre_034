@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import seb40pre034.stackoverflowclone.member.entity.Member;
 
-import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -17,7 +16,7 @@ public class MemberDto {
         @Email
         private String email;
 
-        @NotBlank(message = "닉네임을 입력해 주세요ㅕ")
+        @NotBlank(message = "닉네임을 입력해 주세요.")
         private String nickName;
 
         @NotBlank(message = "패스워드를 입력해 주세요.")
@@ -29,15 +28,17 @@ public class MemberDto {
     public static class Patch{
         private Long memberId;
 
-        @NotBlank
-        @Email
         private String email;
 
-        @NotBlank(message = "닉네임을 입력해 주세요ㅕ")
         private String nickName;
 
-        @NotBlank(message = "패스워드를 입력해 주세요.")
         private String password;
+
+        private Member.MemberStatus memberStatus;
+
+        public void setMemberId(Long memberId) {
+            this.memberId = memberId;
+        }
     }
 
     @Getter
@@ -47,10 +48,10 @@ public class MemberDto {
         private String email;
         private String nickName;
         private String password;
-        private Member.MemberStatus status;
+        private Member.MemberStatus memberStatus;
 
-        public String getMemberStatus(){
-            return status.getStatus();
+        public String getMemberStatus() {
+            return memberStatus.getStatus();
         }
     }
 }
