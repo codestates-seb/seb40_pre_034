@@ -12,7 +12,7 @@ export const TextArea = styled.textarea`
   }
 `;
 
-export const TextInput = styled.input.attrs({
+const TextInput = styled.input.attrs({
   type: "text",
 })`
   padding: 7px;
@@ -23,3 +23,5 @@ export const TextInput = styled.input.attrs({
     outline: 1px solid #59a4de;
   }
 `;
+
+export default TextInput;
