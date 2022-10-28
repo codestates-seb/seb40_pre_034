@@ -34,13 +34,13 @@ public class MemberService {
         Member findMember = findVerifiedMember(member.getMemberId());
 
         Optional.ofNullable(member.getNickName())
-                .ifPresent(nickName -> member.setNickName(nickName));
+                .ifPresent(nickName -> findMember.setNickName(nickName));
         Optional.ofNullable(member.getEmail())
-                .ifPresent(email -> member.setEmail(email));
+                .ifPresent(email -> findMember.setEmail(email));
         Optional.ofNullable(member.getPassword())
-                .ifPresent(password -> member.setPassword(password));
+                .ifPresent(password -> findMember.setPassword(password));
         Optional.ofNullable(member.getMemberStatus())
-                .ifPresent(memberStatus -> member.setMemberStatus(memberStatus));
+                .ifPresent(memberStatus -> findMember.setMemberStatus(memberStatus));
 
         return memberRepository.save(findMember);
     }
@@ -58,7 +58,7 @@ public class MemberService {
         memberRepository.delete(findByDelete);
     }
 
-    public Member findVerifiedMember(long memberId) {
+    public Member findVerifiedMember(Long memberId) {
         Optional<Member> optionalMember =
                 memberRepository.findById(memberId);
         Member findMember =
