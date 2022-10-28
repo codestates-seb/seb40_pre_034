@@ -10,7 +10,7 @@ export const Test = styled.div`
   width: 1700px;
 `;
 
-// const Loading = () => {
+const Loading = () => {
 //   const [loading, setLoading] = useState(false);
 
 //   useEffect(() => {
@@ -24,5 +24,5 @@ export const Test = styled.div`
       <ClipLoader color={"#f48225"} loading={loading} size={100} />
     </Test>
   );
-// };
+};
 export default Loading;
