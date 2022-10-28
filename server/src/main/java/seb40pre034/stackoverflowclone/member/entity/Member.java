@@ -10,6 +10,7 @@ import seb40pre034.stackoverflowclone.question.entity.Question;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -25,10 +26,10 @@ public class Member extends Auditable {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(length = 10, nullable = false)
+    @Column(nullable = false)
     private String nickName;
 
-    @Column(length = 12, nullable = false)
+    @Column(nullable = false)
     private String password;
 
     public Member(String email, String nickName, String password) {
@@ -41,11 +42,10 @@ public class Member extends Auditable {
     @Column(length = 20, nullable = false)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
 
-    @OneToMany
-    @JoinColumn(name = "question_id")
-    private List<Question> questions;
+//    @OneToMany(mappedBy = "member")
+//    private List<Question> questions = new ArrayList<>();
 
-    public enum MemberStatus{
+    public enum MemberStatus {
         MEMBER_ACTIVE("활동중"),
         MEMBER_QUIT("회원 탈퇴");
 
@@ -58,12 +58,10 @@ public class Member extends Auditable {
     }
 
     /*
-    @OneToMany
-    @JoinColumn(name = "answer_id")
-    private List<Answer> answers;
+    @OneToMany(mappedBy = "member")
+    private List<Answer> answers = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = "comment_id")
+    @OneToMany(mappedBy = "member")
     private List<Comment> comments;
     */
 }
