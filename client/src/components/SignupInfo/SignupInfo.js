@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { RiShareBoxLine } from "react-icons/ri";
 
@@ -15,25 +14,29 @@ const BottomText = styled.div`
   height: 78px;
   font-size: 13px;
   padding: 16px;
+  span {
+    color: #0074cc;
+  }
 `;
-
-const NavLink = styled(Link)`
-  font-weight: 500;
-  text-decoration: none;
-  color: #0074cc;
-  cursor: pointer;
-  :hover {
-    color: #1e9dfe;
+const BottomDescription = styled.div`
+  margin-top: 2rem;
+  font-size: 13px;
+  color: #6a737c;
+  span {
+    color: #0074cc;
   }
 `;
 
 const SignupInfo = () => {
   return (
     <SignupSection>
+      <BottomDescription>
+        By clicking “Sign up”, you agree to our
+        <span> terms of service, privacy policy</span> and
+        <span> cookie policy</span>
+      </BottomDescription>
       <BottomText>
-        <div>
-          Already have an account? <NavLink to="/users/login">Log in</NavLink>
-        </div>
+        Already have an account? <span>Log in</span>
         <div>
           Are you an employer? Sign up on Talent
           <RiShareBoxLine />
