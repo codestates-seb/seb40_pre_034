@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import Char from '../../img/Char.png';
+import styled from "styled-components";
+import Char from "../../img/Char.png";
 
 export const QuestionEl = styled.div`
   // 전체 틀 CSS
