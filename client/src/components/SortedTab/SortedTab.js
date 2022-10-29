@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SortedTab = styled.button`
+const SortedBox = styled.button`
   border-radius: 3px;
   width: ${(props) => props.width || "68.44px"};
   height: ${(props) => props.height || "33px"};
@@ -21,5 +21,9 @@ const SortedTab = styled.button`
     background-color: ${(props) => props.background || "rgb(230, 230, 230)"};
   }
 `;
+
+const SortedTab = ({ text }) => {
+  return <SortedBox>{text}</SortedBox>;
+};
 
 export default SortedTab;
