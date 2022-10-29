@@ -37,7 +37,7 @@ export const CategoryListQu = styled.li`
 `;
 
 export const CategoryListTags = styled(CategoryListQu)`
-  padding-left: 16px;
+  padding-left: 24px;
 `;
 
 export const CategoryListUsers = styled(CategoryListTags)``;
@@ -70,7 +70,7 @@ const Sidebar = () => {
           <CategoryLists>
             <CategoryListQu>
               <RiEarthLine />
-              Questions
+              &nbsp; Questions
             </CategoryListQu>
             <CategoryListTags>Tags</CategoryListTags>
             <CategoryListUsers>Users</CategoryListUsers>
