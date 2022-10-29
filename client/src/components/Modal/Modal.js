@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { VscChromeClose } from "react-icons/vsc";
 import { useState, useEffect } from "react";
-
+import BlueButton from "../Button/BlueButton";
+import WhiteButton from "../Button/WhiteButton";
 export const ModalBackground = styled.div`
   position: fixed;
   top: 0%;
   left: 0%;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(60, 60, 60, 0.643);
-  opacity: 0.6;
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 99;
   animation: 0.3s;
 `;
@@ -94,7 +94,7 @@ const Modal = () => {
   return (
     <>
       <ModalBackground>
-        {openModal == true ? (
+        {openModal === true ? (
           <ModalContainer>
             <ModalArticle>
               <Xbutton
@@ -119,7 +119,10 @@ const Modal = () => {
                 </FooterContent>
                 <Explain>You’ll find more tips in the sidebar.</Explain>
               </ModalContent>
-              <BottomArea></BottomArea>
+              <BottomArea>
+                <BlueButton text="Start Writing" width="95px" />
+                <WhiteButton text="Don't show me this again" width="200px" />
+              </BottomArea>
             </ModalArticle>
           </ModalContainer>
         ) : null}
