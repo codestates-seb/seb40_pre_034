@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import BlueButton from "../../components/Button/BlueButton";
 import { CardStyle } from "../../components/SideCard/CardStyle";
-import InputBox from "../../components/Input/InputBox";
+// import InputBox from "../../components/Input/InputBox";
+// import { MdError } from "react-icons/md";
 
 const InputArea = styled.div`
   background-color: hsl(0, 0%, 100%);
@@ -39,7 +40,21 @@ const Anchor2 = styled.a`
   color: hsl(206, 100%, 40%);
   font-size: 13px;
 `;
+
 const Input = styled.input`
+  width: ${(props) => (props.width ? props.width : "268px")};
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  height: 35px;
+  border: 1px solid rgb(186, 191, 196);
+  border-radius: 3px;
+  &:focus {
+    border-color: #0a95ff;
+    outline: 4px solid hsl(206, 96%, 90%);
+  }
+`;
+
+const FailInput = styled.input`
   width: ${(props) => (props.width ? props.width : "268px")};
   padding: 8px 10px;
   margin-bottom: 10px;
@@ -66,8 +81,8 @@ const LoginInput = () => {
       <InputArea>
         <InputTiTle>
           <InputTxt>Email</InputTxt>
-          <InputBox />
-          <Input type="text" />
+          <Input />
+          <FailInput type="text" placeholder="Example@example.com"></FailInput>
           <ErrorMSG>The email is not a valid email address.</ErrorMSG>
           <ErrorMSG>The email or password is incorrect.</ErrorMSG>
         </InputTiTle>
@@ -76,7 +91,7 @@ const LoginInput = () => {
             <InputTxt>Password</InputTxt>
             <Anchor2 href="/">forgot password?</Anchor2>
           </PwArea>
-          <InputBox />
+          <Input />
         </InputTiTle>
         <BlueButton text="Log in" width="268px" />
       </InputArea>
