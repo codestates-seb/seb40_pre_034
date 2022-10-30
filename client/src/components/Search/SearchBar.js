@@ -5,8 +5,9 @@ const Container = styled.div`
   display: flex;
   justify-items: center;
   align-items: center;
-  width: ${(props) => props.width || "50%"};
-  margin: ${(props) => props.margin || "10px"};
+  width: ${(props) => (props.width ? props.width : "50%")};
+  color: hsl(0, 0%, 100%);
+  margin: ${(props) => (props.margin ? props.margin : "10px")};
   svg {
     position: absolute;
     margin-left: 10px;
@@ -24,8 +25,8 @@ const SearchInput = styled.input`
   border-radius: 3px;
   border: 1px solid #babfc4;
   background: #fff;
-  width: ${(props) => props.width || "100%"};
-  height: ${(props) => props.height || "32px"};
+  width: ${(props) => (props.width ? props.width : "100%")};
+  height: ${(props) => (props.height ? props.height : "32px")};
   padding-left: 35px;
   &::placeholder {
     color: #838c95;
