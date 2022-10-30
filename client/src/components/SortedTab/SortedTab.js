@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SortedTabBox = styled.button`
+const SortedBox = styled.button`
   border-radius: 3px;
   width: ${(props) => (props.width ? props.width : "68.44px")};
   height: ${(props) => (props.height ? props.height : "33px")};
@@ -30,7 +30,7 @@ const SortedTabBox = styled.button`
 `;
 
 const SortedTab = ({ text }) => {
-  return <SortedTabBox>{text}</SortedTabBox>;
+  return <SortedBox>{text}</SortedBox>;
 };
 
 export default SortedTab;
