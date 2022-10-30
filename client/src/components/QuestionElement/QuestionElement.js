@@ -17,7 +17,7 @@ const QuestionOption = styled.section`
   flex-direction: column;
   align-items: end;
   padding-top: 2px;
-  width: 5%;
+  min-width: 65px;
 
   & > div {
     font-size: 13px;
@@ -32,7 +32,6 @@ const QuestionOption = styled.section`
 const QuestionMain = styled.section`
   // 오른쪽 Section 넓이, 높이 조절
   margin-left: 15px;
-  width: 95%;
 `;
 
 const QuestionCotent = styled.div`
