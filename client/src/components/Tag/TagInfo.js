@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import TagButton from "../Button/TagButton";
+import Tags from "./Tags";
 
 function TagInfo() {
   return (
     <Container>
       <div>
-        <TagButton>javascript</TagButton>
+        <Tags>javascript</Tags>
       </div>
       <p>
         For questions regarding programming in ECMAScript (JavaScript/JS) and its various dialects/implementations

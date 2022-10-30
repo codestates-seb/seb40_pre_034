@@ -35,11 +35,11 @@ const Container = styled.div`
         border-bottom-right-radius: 3px;
       }
       &:hover {
-        background-color: ${(props) => props.background || "rgb(230, 230, 230)"};
+        background-color: ${(props) => (props.background ? props.background : "rgb(230, 230, 230)")};
       }
       cursor: pointer;
+     }
     }
-  }
 `;
 
 function TagMain() {

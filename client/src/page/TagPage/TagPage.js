@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import TagButton from "../../components/Button/TagButton";
 import TagList from "../../components/Tag/TagList";
 import TagMain from "../../components/Tag/TagMain";
 
@@ -16,8 +15,6 @@ function TagPage() {
   return (
     <Container>
       <TagMain />
-      <TagButton text="javascript" />
-      <TagButton text="html" />
       <TagList />
     </Container>
   );
