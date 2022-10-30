@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import TagButton from "../../components/Button/TagButton";
-import TagInfo from "../../components/Tag/TagInfo";
 import TagList from "../../components/Tag/TagList";
 import TagMain from "../../components/Tag/TagMain";
 
@@ -16,11 +15,10 @@ const Container = styled.section`
 function TagPage() {
   return (
     <Container>
-      <TagInfo />
-      <TagList />
       <TagMain />
       <TagButton text="javascript" />
       <TagButton text="html" />
+      <TagList />
     </Container>
   );
 }

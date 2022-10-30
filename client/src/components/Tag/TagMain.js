@@ -1,25 +1,5 @@
 import styled from "styled-components";
-import { TextInput } from "../../page/TagPage/Textinput";
-
-function TagMain() {
-  return (
-    <Container>
-      <h1>Tags</h1>
-      <p>
-        A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags
-        makes it easier for others to find and answer your question.
-      </p>
-      <div className="interface">
-        <TextInput placeholder="Filter by tag name" width={"200px"} />
-        <div className="filterBtn">
-          <button>Popular</button>
-          <button>Name</button>
-          <button>New</button>
-        </div>
-      </div>
-    </Container>
-  );
-}
+import TextInput from "../../page/TagPage/TextInput";
 
 const Container = styled.div`
   width: 100%;
@@ -37,15 +17,15 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
   }
-  .filterBtn {
+  .filter {
     button {
       padding: 10px;
       color: rgb(82, 89, 96);
-      background-color: #f8f9f9;
-      border: 1px solid #9fa6ad;
+      background-color: rgb(248, 249, 249);
+      border: 1px solid rgb(159, 166, 173);
       margin-left: -1px;
       font-size: 12px;
-      cursor: pointer;
+
       &:first-child {
         border-top-left-radius: 3px;
         border-bottom-left-radius: 3px;
@@ -54,8 +34,32 @@ const Container = styled.div`
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
       }
+      &:hover {
+        background-color: ${(props) => props.background || "rgb(230, 230, 230)"};
+      }
+      cursor: pointer;
     }
   }
 `;
+
+function TagMain() {
+  return (
+    <Container>
+      <h1>Tags</h1>
+      <p>
+        A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags
+        makes it easier for others to find and answer your question.
+      </p>
+      <div className="interface">
+        <TextInput placeholder="Filter by tag name" width={"200px"} />
+        <div className="filter">
+          <button>Popular</button>
+          <button>Name</button>
+          <button>New</button>
+        </div>
+      </div>
+    </Container>
+  );
+}
 
 export default TagMain;
