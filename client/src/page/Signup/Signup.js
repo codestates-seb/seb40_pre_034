@@ -1,5 +1,8 @@
 import styled from "styled-components";
+import { useState } from "react";
+import axios from "axios";
 
+import SignupInfo from "../../components/SignupInfo/SignupInfo";
 import SignupIntro from "../../components/SignupInfo/SignupIntro";
 import InputBox from "../../components/Input/InputBox";
 import BlueButton from "../../components/Button/BlueButton";
@@ -14,6 +17,11 @@ const Container = styled.div`
 
 const SignupContainer = styled.div`
   margin-left: 100px;
+
+  p {
+    font-size: 12px;
+    line-height: 16px;
+  }
 `;
 
 const SignupForm = styled.form`
@@ -26,7 +34,6 @@ const SignupForm = styled.form`
   max-width: 330px;
 
   p {
-    font-size: 12px;
     color: #6a737c;
     margin-bottom: 10px;
   }
@@ -41,9 +48,47 @@ const InputContainer = styled.div`
   }
 `;
 
-const CheckboxContainer = styled.div``;
+const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  margin: 10px 0;
+
+  input {
+    margin-right: 4px;
+  }
+
+  p {
+    color: #000;
+  }
+`;
 
 const Signup = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // const isEmailValid = () => {
+  //   const pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+  //   return pattern.test(email);
+  // };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // console.log(isEmailValid(email));
+    const user = {
+      nickname: name,
+      email: email,
+      password: password,
+    };
+
+    axios
+      .post("http://localhost:4001/users", user)
+      .then((res) => console.log(res.status))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <Container>
       <SignupIntro />
@@ -52,21 +97,29 @@ const Signup = () => {
         <SignupForm>
           <InputContainer>
             <div>Display name</div>
-            <InputBox />
+            <InputBox value={name} handleValue={setName} />
           </InputContainer>
           <InputContainer>
             <div>Email</div>
-            <InputBox />
+            {/* 유효성 검사 */}
+            <InputBox value={email} handleValue={setEmail} />
           </InputContainer>
           <InputContainer>
             <div>Password</div>
-            <InputBox />
+            <InputBox value={password} handleValue={setPassword} />
           </InputContainer>
           <p>Passwords must contain at least eight characters, including at least 1 letter and 1 number.</p>
-          <CheckboxContainer></CheckboxContainer>
-          <BlueButton text="Sign up" width="268px" />
-          {/* SignupInfo자리 */}
+          <CheckboxContainer>
+            <input type="checkbox" />
+            <p>
+              Opt-in to receive occasional product updates, user research invitations, company announcements, and
+              digests.
+            </p>
+          </CheckboxContainer>
+          <BlueButton text="Sign up" width="268px" handleSubmit={handleSubmit} />
+          <SignupInfo />
         </SignupForm>
+        {/* SignupInfoAdd 자리 */}
       </SignupContainer>
     </Container>
   );
