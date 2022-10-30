@@ -24,7 +24,7 @@ const InputStyle = styled.input`
   cursor: pointer;
   & :focus {
     border-color: hsl(205, 47%, 42%);
-    outline: 4px solid hsl(205, 41%, 63%);
+    outline: 4px solid hsl(206, 96%, 90%);
   }
 `;
 
