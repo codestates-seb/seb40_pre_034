@@ -50,7 +50,7 @@ const InputTiTle = styled.div`
   justify-content: center;
   align-content: center;
 `;
-const InputTxt = styled.div`
+const InputTxt = styled.label`
   margin: 2px;
   cursor: pointer;
   font-size: 1.15384615rem;
