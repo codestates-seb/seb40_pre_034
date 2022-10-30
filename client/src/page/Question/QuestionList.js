@@ -1,14 +1,17 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 import BlueButton from "../../components/Button/BlueButton";
 import LightBlueButtonWithIcon from "../../components/Button/LightBlueButtonWithIcon";
-import SortedTabt from "../../components/SortedTab/SortedTab";
+import SortedTab from "../../components/SortedTab/SortedTab";
 import QuestionsCount from "../../components/QuestionsCount/QuestionsCount";
-import QuestionElement from "../../components/QuestionElement/QuestionElement";
+// import QuestionElement from "../../components/QuestionElement/QuestionElement";
+import Pagination from "../../components/Pagination/Pagination";
 import YellowCard from "../../components/SideCard/YellowCard/YCExample";
 import WhiteCard from "../../components/SideCard/WhiteCard";
 
-import dummyData from "./dummyData";
+// import dummyData from "./dummyData";
 
 const Container = styled.div`
   display: flex;
@@ -49,6 +52,32 @@ const ButtonContainer = styled.div`
 `;
 
 const QuestionList = () => {
+  const [questions, setQuestions] = useState([]);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * 10;
+
+  // const [sortTab, setSortTab] = useState("Newest");
+
+  useEffect(() => {
+    /*axios
+      .get("URL", { params: { tab: sortTab } })
+      .then((res) => setQuestions(res.data))
+      .catch((err) => console.log(err));
+  }, []); */
+
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts")
+      .then((res) => setQuestions(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  /* 
+  정렬탭 바뀔 때마다 상태 관리되도록 수정
+  const changeSortTab = () => {
+    setSortTab();
+  }; */
+
   return (
     <Container>
       <QuestionContainer>
@@ -58,19 +87,18 @@ const QuestionList = () => {
         </QuestionHeader>
 
         <QuestionOption>
-          {/* count 서버에서 받아와야함 */}
-          <QuestionsCount count={10} text="questions" />
+          <QuestionsCount count={questions.length} text="questions" />
           <ButtonContainer>
             <QuestionSort>
-              <SortedTabt text="Newest" />
-              <SortedTabt text="Popular" />
+              <SortedTab text="Newest" />
+              <SortedTab text="Popular" />
             </QuestionSort>
-            <LightBlueButtonWithIcon isFilter text="Filter" />
+            <LightBlueButtonWithIcon isFilter="true" text="Filter" />
           </ButtonContainer>
         </QuestionOption>
 
         <Questions>
-          {dummyData.map((question, idx) => {
+          {/* {dummyData.map((question, idx) => {
             return (
               <li key={idx}>
                 <QuestionElement
@@ -85,9 +113,20 @@ const QuestionList = () => {
                 />
               </li>
             );
-          })}
+          })} */}
+          {questions.slice(offset, offset + limit).map(({ id, title, body }) => (
+            <article key={id}>
+              <h3>
+                {id}. {title}
+              </h3>
+              <p>{body}</p>
+            </article>
+          ))}
         </Questions>
+
+        <Pagination total={questions.length} limit={limit} page={page} setPage={setPage} setLimit={setLimit} />
       </QuestionContainer>
+
       <SideDescription>
         <YellowCard />
         <WhiteCard text="Custom Filters" />
