@@ -18,7 +18,7 @@ const GlobalStyles = createGlobalStyle`
         text-decoration: none;
     }
 
-        button {
+    button {
         /* font-family: inherit; */
         display: inline-block;
         cursor: pointer;
