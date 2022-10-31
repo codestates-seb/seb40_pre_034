@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.w3c.dom.Text;
 import seb40pre034.stackoverflowclone.audit.Auditable;
+import seb40pre034.stackoverflowclone.member.entity.Member;
+import seb40pre034.stackoverflowclone.question.entity.Question;
 
 import javax.persistence.*;
 
@@ -31,10 +33,10 @@ public class Answer extends Auditable {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    private Long member_id;
+    private Member memberId;
 
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
-    private Long question_id;
+    private Question questionId;
 
 }
