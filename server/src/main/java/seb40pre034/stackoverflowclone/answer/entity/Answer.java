@@ -29,16 +29,12 @@ public class Answer extends Auditable {
     @ColumnDefault("0")
     private int Answer_vote;
 
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Long member_id;
 
-
-//  회원 ID
-//    @ManyToOne
-//    @JoinColumn(name = "MEMBER_ID")
-//    private Long member_id;
-
-//  게시글 ID
-//    @ManyToOne
-//    @JoinColumn(name = "QUESTION_ID")
-//    private Long question_id;
+    @ManyToOne
+    @JoinColumn(name = "QUESTION_ID")
+    private Long question_id;
 
 }
