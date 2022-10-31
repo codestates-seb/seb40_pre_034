@@ -22,6 +22,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Question createQuestion(Question question) {
+        question.setVote(0);
         return questionRepository.save(question);
     }
 
