@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { CardStyle } from "./CardStyle";
+
 const WhiteCardTitle = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,9 +18,9 @@ const WhiteCardTitle = styled.div`
 `;
 const WhiteCard = ({ text }) => {
   return (
-    <>
+    <CardStyle>
       <WhiteCardTitle>{text}</WhiteCardTitle>
-    </>
+    </CardStyle>
   );
 };
 

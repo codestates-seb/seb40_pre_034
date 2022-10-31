@@ -23,14 +23,15 @@ const InputStyle = styled.input`
   border-radius: 3px;
   cursor: pointer;
   & :focus {
-    box-shadow: 0px 22px 70px 4px hsl(205, 41%, 63%);
     border-color: hsl(205, 47%, 42%);
+    outline: 4px solid hsl(206, 96%, 90%);
   }
 `;
 
 const TextArea = styled.div`
   padding: 0 10px;
   width: 100%;
+  font-size: 13px;
 `;
 const Checkbox = ({ text }) => {
   return (
