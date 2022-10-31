@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import TextInput from "../../page/TagPage/TextInput";
+import SortedTab from "../SortedTab/SortedTab";
 
 const Container = styled.div`
   width: 100%;
@@ -53,9 +54,9 @@ function TagHeader() {
       <div className="interface">
         <TextInput placeholder="Filter by tag name" width={"200px"} />
         <div className="filter">
-          <button>Popular</button>
-          <button>Name</button>
-          <button>New</button>
+          <SortedTab text="Popular"></SortedTab>
+          <SortedTab text="Popular"></SortedTab>
+          <SortedTab text="Popular"></SortedTab>
         </div>
       </div>
     </Container>
