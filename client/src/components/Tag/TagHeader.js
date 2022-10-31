@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import TextInput from "../../page/TagPage/TextInput";
+import { TextInput } from "../../page/TagPage/TagPage";
 import SortedTab from "../SortedTab/SortedTab";
 
 const Container = styled.div`

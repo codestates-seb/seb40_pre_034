@@ -27,6 +27,4 @@ function TagInfo() {
   );
 }
 
-
-
 export default TagInfo;

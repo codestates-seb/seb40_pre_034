@@ -11,6 +11,19 @@ const Container = styled.section`
   gap: 50px;
 `;
 
+export const TextInput = styled.input.attrs({
+  type: "text",
+})`
+  padding: 7px;
+  border: 1px solid #babfc4;
+  border-radius: 3px;
+  width: ${(props) => (props.width ? props.width : "100%")};
+  &:focus {
+    border-color: #0a95ff;
+    outline: 4px solid hsl(206, 96%, 90%);
+  }
+`;
+
 function TagPage() {
   return (
     <Container>

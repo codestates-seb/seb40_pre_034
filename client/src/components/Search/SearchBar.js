@@ -14,7 +14,7 @@ const Container = styled.div`
   }
   input:focus {
     border-color: #0a95ff;
-    outline: none;
+    outline: 4px solid hsl(206, 96%, 90%);
   }
   border-color: hsl(210, 8%, 75%);
   background-color: hsl(0, 0%, 100%);
