@@ -5,8 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import seb40pre034.stackoverflowclone.audit.Auditable;
+import seb40pre034.stackoverflowclone.member.entity.Member;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -24,11 +26,10 @@ public class Question extends Auditable {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @Column(nullable = false)
     @ColumnDefault("0")
     private Integer vote;
 
-//    @ManyToOne
-//    @JoinColumn(name = "member_id")
-//    private Long memberId;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member memberId;
 }
