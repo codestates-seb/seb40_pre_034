@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { AskQTags } from "./AskQTags";
 import { useState } from "react";
 import BlueButton from "../../components/Button/BlueButton";
 import { TextArea, TextInput } from "./AskQuestion";
+import AskQTags from "./AskQTags";
 
 const Container = styled.div`
   flex-grow: 1;

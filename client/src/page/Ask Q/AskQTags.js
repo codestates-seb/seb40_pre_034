@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Tag } from "./AskQuestion";
 
-export const Container = styled.div`
+const Container = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid #babfc4;
@@ -25,7 +25,11 @@ export const Container = styled.div`
   }
 `;
 
-export const AskQTags = ({ tags, setTags }) => {
+const AskQTags = ({ tags, setTags }) => {
+  const removeTags = (indexToRemove) => {
+    setTags(tags.filter((_, index) => index !== indexToRemove));
+  };
+
   const addTags = (event) => {
     const filtered = tags.filter((el) => el === event.target.value);
     if (event.target.value !== "" && filtered.length === 0) {
@@ -39,11 +43,17 @@ export const AskQTags = ({ tags, setTags }) => {
       <ul id="tags">
         {tags.map((el, index) => (
           <li key={index} className="tag">
-            <Tag>{el}</Tag>
+            <Tag>
+              {el}
+              <span className="tag-close-icon" onClick={() => removeTags(index)}>
+                &times;
+              </span>
+            </Tag>
           </li>
         ))}
       </ul>
       <input
+        className="tag-input"
         type="text"
         id="tag"
         onKeyUp={(event) => (event.key === "Enter" || event.key === " " ? addTags(event) : null)}
@@ -52,3 +62,5 @@ export const AskQTags = ({ tags, setTags }) => {
     </Container>
   );
 };
+
+export default AskQTags;
