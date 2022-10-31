@@ -13,6 +13,5 @@ public interface AnswerMapper {
     Answer answerPostDtoToAnswer(AnswerDto.Post requestBody);
     Answer answerPatchDtoToAnswer(AnswerDto.Patch requestBody);
     AnswerDto.Response answerToAnswerResponse(Answer answer);
-
     List<AnswerDto.Response> answersToAnswerResponseDtos(List<Answer> answers);
 }

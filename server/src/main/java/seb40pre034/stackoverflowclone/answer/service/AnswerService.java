@@ -8,6 +8,7 @@ import seb40pre034.stackoverflowclone.exception.ExceptionCode;
 
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,10 @@ public class AnswerService {
     //조회 기능
     public Answer findAnswer(long answerId) {
         return findVerifiedAnswer(answerId);
+    }
+
+    public List<Answer> findAnswers(long answerId) {
+        return answerRepository.findAll();
     }
 
     // 업데이트 기능
