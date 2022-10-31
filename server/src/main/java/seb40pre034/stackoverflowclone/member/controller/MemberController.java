@@ -20,6 +20,7 @@ import java.util.List;
 @RequestMapping("/members")
 @Validated
 @Slf4j
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
@@ -29,7 +30,7 @@ public class MemberController {
         this.mapper = mapper;
     }
 
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
         Member member = mapper.memberPostToMember(requestBody);
         Member createdMember = memberService.createdMember(member);
@@ -46,7 +47,7 @@ public class MemberController {
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(
-                        mapper.memberToMemberResponse(updatedMember)), HttpStatus.OK);
+                        mapper.memberToMemberResponse(updatedMember)), HttpStatus.CREATED);
     }
 
     @GetMapping("/{member-id}")
