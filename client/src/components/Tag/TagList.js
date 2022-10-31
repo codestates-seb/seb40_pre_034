@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import TagInfo from "./TagInfo";
 
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, auto));
+  gap: 12px;
+`;
+
 function TagList() {
   const users = [];
 
@@ -16,11 +22,5 @@ function TagList() {
     </Container>
   );
 }
-
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, auto));
-  gap: 12px;
-`;
 
 export default TagList;
