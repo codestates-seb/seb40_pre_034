@@ -3,11 +3,6 @@ import styled from "styled-components";
 const InputContainer = styled.div`
   color: hsl(210, 8%, 5%);
   padding: 0px 2px;
-  padding-top: 0px;
-  padding-right: 2px;
-  padding-bottom: 0px;
-  padding-left: 2px;
-  font-weight: 600;
 `;
 
 const Input = styled.input`
@@ -23,13 +18,11 @@ const Input = styled.input`
   }
 `;
 
-const InputBox = () => {
+const InputBox = ({ value, handleValue }) => {
   return (
-    <>
-      <InputContainer className="inputContainer">
-        <Input type="text" />
-      </InputContainer>
-    </>
+    <InputContainer className="inputContainer">
+      <Input type="text" defaultValue={value} onChange={(e) => handleValue(e.target.value)} />
+    </InputContainer>
   );
 };
 

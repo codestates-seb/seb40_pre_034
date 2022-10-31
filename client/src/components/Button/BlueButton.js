@@ -13,8 +13,12 @@ const BlueButtonStyle = styled.button`
   }
 `;
 
-const BlueButton = ({ text, width }) => {
-  return <BlueButtonStyle width={width}>{text}</BlueButtonStyle>;
+const BlueButton = ({ text, width, handleSubmit }) => {
+  return (
+    <BlueButtonStyle width={width} onClick={handleSubmit}>
+      {text}
+    </BlueButtonStyle>
+  );
 };
 
 export default BlueButton;
