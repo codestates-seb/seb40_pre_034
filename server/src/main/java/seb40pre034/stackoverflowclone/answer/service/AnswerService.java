@@ -30,7 +30,7 @@ public class AnswerService {
         return findVerifiedAnswer(answerId);
     }
 
-    public List<Answer> findAnswers(long answerId) {
+    public List<Answer> findAnswers() {
         return answerRepository.findAll();
     }
 
