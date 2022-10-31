@@ -35,18 +35,6 @@ export const Tag = styled.a`
   }
 `;
 
-export const TextArea = styled.textarea`
-  border: 1px solid #babfc4;
-  border-radius: 3px;
-  width: ${(props) => props.width || "100%"};
-  height: ${(props) => props.height || "200px"};
-  resize: none;
-  padding: 10px;
-  &:focus {
-    outline: 1px solid #59a4de;
-  }
-`;
-
 export const TextInput = styled.input.attrs({
   type: "text",
 })`

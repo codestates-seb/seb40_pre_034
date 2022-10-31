@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
 import BlueButton from "../../components/Button/BlueButton";
-import { TextArea, TextInput } from "./AskQuestion";
+import { TextInput } from "./AskQuestion";
 import AskQTags from "./AskQTags";
+import CustomEditor from "../../components/Edit/CustomEditor";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -39,15 +40,10 @@ const Container = styled.div`
 function AskForm() {
   const initialTags = [];
   const [setTitle] = useState("");
-  const [setBody] = useState("");
   const [tags, setTags] = useState(initialTags);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
-  };
-
-  const handleBodyChange = (e) => {
-    setBody(e.target.value);
   };
 
   return (
@@ -69,8 +65,14 @@ function AskForm() {
           <label htmlFor="body">
             What are the details of your problem?
             <p>Introduce the problem and expand on what you put in the title. Minimum 20 characters.</p>
+            {/* 사용 설명 : 
+- editor.getData()로 에디터 값을 가져오고 그 값을 state로 관리하기
+
+화면 출력 예시 : 
+- const sanitizer = dompurify.sanitize; => xss 방어를 위해 꼭 함께 사용해주기
+- <div dangerouslySetInnerHTML={{ __html: sanitizer(data) }}></div> (자식 태그 없어야하므로 닫는 태그 사용) */}
+            <CustomEditor width="700px" height="300px" value="" />
           </label>
-          <TextArea id="body" name="body" onChange={handleBodyChange} />
         </div>
         <div className="input_try">
           <label htmlFor="try">
@@ -78,8 +80,8 @@ function AskForm() {
             <p>
               Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters.
             </p>
+            <CustomEditor width="700px" height="300p" value="" />
           </label>
-          <TextArea id="try" name="try" onChange={handleBodyChange} />
         </div>
         <div className="input_tag">
           <label htmlFor="tag">
