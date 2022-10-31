@@ -45,9 +45,11 @@ const AskQTags = ({ tags, setTags }) => {
           <li key={index} className="tag">
             <Tag>
               {el}
-              <span className="tag-close-icon" onClick={() => removeTags(index)}>
-                &times;
-              </span>
+              <button className="tag-close-icon" onClick={() => removeTags(index)}></button>
+              {/* <span className="tag-close-icon" onClick={() => removeTags(index)}> */}
+              &times;
+              {/* </span> */}
+              {/* span 써야 제대로 나오는데 에러 뜸 */}
             </Tag>
           </li>
         ))}

@@ -65,12 +65,6 @@ function AskForm() {
           <label htmlFor="body">
             What are the details of your problem?
             <p>Introduce the problem and expand on what you put in the title. Minimum 20 characters.</p>
-            {/* 사용 설명 : 
-- editor.getData()로 에디터 값을 가져오고 그 값을 state로 관리하기
-
-화면 출력 예시 : 
-- const sanitizer = dompurify.sanitize; => xss 방어를 위해 꼭 함께 사용해주기
-- <div dangerouslySetInnerHTML={{ __html: sanitizer(data) }}></div> (자식 태그 없어야하므로 닫는 태그 사용) */}
             <CustomEditor width="700px" height="300px" value="" />
           </label>
         </div>
