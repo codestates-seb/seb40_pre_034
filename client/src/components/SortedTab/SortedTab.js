@@ -8,13 +8,11 @@ const SortedBox = styled.button`
   font-size: 13px;
   text-align: center;
   padding: ${(props) => (props.padding ? props.padding : "10px")};
-  margin: ${(props) => (props.margin ? props.margin : "none")};
-  padding: 10px;
+  margin: "none";
   color: rgb(82, 89, 96);
   background-color: rgb(248, 249, 249);
   border: 1px solid rgb(159, 166, 173);
   margin-left: -1px;
-  font-size: 12px;
   &:first-child {
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
@@ -24,7 +22,7 @@ const SortedBox = styled.button`
     border-bottom-right-radius: 3px;
   }
   &:hover {
-    background-color: ${(props) => (props.background ? props.background : "rgb(230, 230, 230)")};
+    background-color: rgb(230, 230, 230);
   }
   cursor: pointer;
 `;

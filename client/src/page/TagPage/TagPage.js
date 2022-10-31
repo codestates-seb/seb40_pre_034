@@ -1,6 +1,6 @@
 import styled from "styled-components";
+import TagHeader from "../../components/Tag/TagHeader";
 import TagList from "../../components/Tag/TagList";
-import TagMain from "../../components/Tag/TagMain";
 
 const Container = styled.section`
   max-width: 1100px;
@@ -14,7 +14,7 @@ const Container = styled.section`
 function TagPage() {
   return (
     <Container>
-      <TagMain />
+      <TagHeader />
       <TagList />
     </Container>
   );
