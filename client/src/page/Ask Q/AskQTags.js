@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Tag } from "./AskTag";
+import { Tag } from "./AskQuestion";
 
 export const Container = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ export const Container = styled.div`
   }
 `;
 
-export const TagsInput = ({ tags, setTags }) => {
+export const AskQTags = ({ tags, setTags }) => {
   const addTags = (event) => {
     const filtered = tags.filter((el) => el === event.target.value);
     if (event.target.value !== "" && filtered.length === 0) {
@@ -47,7 +47,7 @@ export const TagsInput = ({ tags, setTags }) => {
         type="text"
         id="tag"
         onKeyUp={(event) => (event.key === "Enter" || event.key === " " ? addTags(event) : null)}
-        placeholder="e.g. (iphone android sql)"
+        placeholder="e.g. (ajax objective-c r)"
       />
     </Container>
   );

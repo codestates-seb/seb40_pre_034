@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { TagsInput } from "./TagsInput";
-import { TextArea, TextInput } from "./TextInput";
+import { AskQTags } from "./AskQTags";
 import { useState } from "react";
 import BlueButton from "../../components/Button/BlueButton";
+import { TextArea, TextInput } from "./AskQuestion";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -56,10 +56,10 @@ function AskForm() {
         <div className="input_title">
           <label htmlFor="title">
             Title
-            <p>Be specific and imagine you’re asking a question to another person</p>
+            <p>Be specific and imagine you’re asking a question to another person.</p>
           </label>
           <TextInput
-            placeholder="e.g. Is there an R function for finding the index of an element in a vector"
+            placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
             id="title"
             name="title"
             onChange={handleTitleChange}
@@ -67,17 +67,26 @@ function AskForm() {
         </div>
         <div className="input_body">
           <label htmlFor="body">
-            Body
-            <p>Include all the information someone would need to answer your question</p>
+            What are the details of your problem?
+            <p>Introduce the problem and expand on what you put in the title. Minimum 20 characters.</p>
           </label>
           <TextArea id="body" name="body" onChange={handleBodyChange} />
+        </div>
+        <div className="input_try">
+          <label htmlFor="try">
+            What did you try and what were you expecting?
+            <p>
+              Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters.
+            </p>
+          </label>
+          <TextArea id="try" name="try" onChange={handleBodyChange} />
         </div>
         <div className="input_tag">
           <label htmlFor="tag">
             Tags
-            <p>Add up to 5 tags to describe what your question is about</p>
+            <p>Add up to 5 tags to describe what your question is about. Start typing to see suggestions.</p>
           </label>
-          <TagsInput tags={tags} setTags={setTags} />
+          <AskQTags tags={tags} setTags={setTags} />
         </div>
       </div>
       <BlueButton text="Review your question" />
