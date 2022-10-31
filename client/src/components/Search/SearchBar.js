@@ -33,12 +33,13 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchBar = () => {
+const SearchBar = ({ width }) => {
   return (
     <Container>
-      <SearchInput type="text" placeholder="Search..." />
+      <SearchInput type="text" placeholder="Search..." width={width} />
       <BiSearchAlt2 />
     </Container>
   );
 };
+
 export default SearchBar;
