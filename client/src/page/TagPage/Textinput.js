@@ -21,7 +21,7 @@ const TextInput = styled.input.attrs({
   width: ${(props) => (props.width ? props.width : "100%")};
   &:focus {
     border-color: #0a95ff;
-    outline: none;
+    outline: 4px solid hsl(206, 96%, 90%);
   }
 `;
 
