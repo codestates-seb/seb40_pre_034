@@ -31,6 +31,7 @@ const InputStyle = styled.input`
 const TextArea = styled.div`
   padding: 0 10px;
   width: 100%;
+  font-size: 13px;
 `;
 const Checkbox = ({ text }) => {
   return (
