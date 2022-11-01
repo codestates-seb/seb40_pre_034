@@ -5,14 +5,23 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const Container = styled.div`
   max-width: ${(props) => props.width || 700}px;
-  height: ${(props) => props.height || 300}px;
-  background-color: lightgray;
+
+  .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+    height: ${(props) => props.height || 300}px;
+  }
 `;
 
-const CustomEditor = ({ width, height, value = "" }) => {
+const CustomEditor = ({ width, height, value = "", handleValue }) => {
   return (
     <Container width={width} height={height}>
-      <CKEditor data={value} editor={ClassicEditor} />
+      <CKEditor
+        data={value}
+        editor={ClassicEditor}
+        onChange={(editor) => {
+          const data = editor.getData();
+          handleValue(data);
+        }}
+      />
     </Container>
   );
 };
