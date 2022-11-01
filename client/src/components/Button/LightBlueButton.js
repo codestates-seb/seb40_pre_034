@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 const LightBlueButtonStyle = styled.button`
-  display: flex;
+  /* display: flex;
   align-items: center;
   justify-content: center;
-  align-content: center;
+  align-content: center; */
   width: ${(props) => (props.width ? props.width : "auto")};
   color: hsl(205, 47%, 42%);
   background-color: hsl(205, 46%, 92%);
@@ -21,19 +21,15 @@ const LightBlueButtonStyle = styled.button`
   }
 `;
 
-const InnerText = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  line-height: 1.9;
-`;
+// const InnerText = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   line-height: 1.9;
+// `;
 
 const LightBlueButton = ({ text, width }) => {
-  return (
-    <LightBlueButtonStyle width={width}>
-      <InnerText>{text}</InnerText>
-    </LightBlueButtonStyle>
-  );
+  return <LightBlueButtonStyle width={width}>{text}</LightBlueButtonStyle>;
 };
 
 export default LightBlueButton;

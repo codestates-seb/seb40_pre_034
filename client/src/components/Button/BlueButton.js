@@ -4,6 +4,7 @@ const BlueButtonStyle = styled.button`
   width: ${(props) => (props.width ? props.width : "auto")};
   color: hsl(0, 0%, 100%);
   background-color: hsl(206, 100%, 52%);
+  border: 1px solid hsl(206, 100%, 52%);
   &:hover {
     background-color: hsl(206, 100%, 40%);
   }
@@ -12,8 +13,12 @@ const BlueButtonStyle = styled.button`
   }
 `;
 
-const BlueButton = ({ text, width }) => {
-  return <BlueButtonStyle width={width}>{text}</BlueButtonStyle>;
+const BlueButton = ({ text, width, handleSubmit }) => {
+  return (
+    <BlueButtonStyle width={width} onClick={handleSubmit}>
+      {text}
+    </BlueButtonStyle>
+  );
 };
 
 export default BlueButton;
