@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Tag } from "./AskQuestion";
+import { Tag } from "./AskQForm";
 
 const Container = styled.div`
   display: flex;
@@ -40,19 +40,18 @@ const AskQTags = ({ tags, setTags }) => {
 
   return (
     <Container>
-      <ul id="tags">
-        {tags.map((el, index) => (
-          <li key={index} className="tag">
-            <Tag>
-              {el}
-              <button className="tag-close-icon" onClick={() => removeTags(index)}></button>
-              {/* <span className="tag-close-icon" onClick={() => removeTags(index)}> */}
-              &times;
-              {/* </span> */}
-              {/* span 써야 제대로 나오는데 에러 뜸 */}
-            </Tag>
-          </li>
-        ))}
+      <ul id="tag">
+        {tags &&
+          tags.map((el, index) => (
+            <li key={index} className="tag">
+              <Tag>
+                {el}
+                <span role="presentation" className="tag-close-icon" onClick={() => removeTags(index)}>
+                  &times;
+                </span>
+              </Tag>
+            </li>
+          ))}
       </ul>
       <input
         className="tag-input"
