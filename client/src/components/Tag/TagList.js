@@ -16,7 +16,7 @@ function TagList() {
   }
 
   axios
-    .get("http://localhost:4000/tagdata")
+    .get("http://localhost:4000/items")
     .then((res) => console.log(res.data))
     .catch((error) => console.log(error));
 

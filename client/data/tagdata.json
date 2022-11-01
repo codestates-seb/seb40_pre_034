@@ -210,8 +210,5 @@
       "count": 263895,
       "name": "pandas"
     }
-  ],
-  "has_more": true,
-  "quota_max": 10000,
-  "quota_remaining": 9979
+  ]
 }
