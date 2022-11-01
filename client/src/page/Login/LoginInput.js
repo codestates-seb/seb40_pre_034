@@ -77,7 +77,7 @@ const LoginInput = () => {
     console.log(login);
 
     axios
-      .post("http://localhost:4000/login", login)
+      .post("http://ec2-13-125-126-67.ap-northeast-2.compute.amazonaws.com:8080/members/login", login)
       .then(
         (res) => console.log(res.data),
         // {
