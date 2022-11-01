@@ -26,6 +26,7 @@ public class AnswerService {
     }
 
     //조회 기능
+    @Transactional
     public Answer findAnswer(long answerId) {
         return findVerifiedAnswer(answerId);
     }
@@ -54,8 +55,10 @@ public class AnswerService {
     //중복
     public Answer findVerifiedAnswer(long answerId) {
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
-        return optionalAnswer.orElseThrow(() ->
+        Answer findAnswer = optionalAnswer.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+
+        return findAnswer;
     }
 }
 

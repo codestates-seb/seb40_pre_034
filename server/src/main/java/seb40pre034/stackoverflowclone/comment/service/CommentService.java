@@ -1,5 +1,6 @@
 package seb40pre034.stackoverflowclone.comment.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import seb40pre034.stackoverflowclone.comment.entity.Comment;
 import seb40pre034.stackoverflowclone.comment.repository.CommentRepository;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Transactional
 public class CommentService {
 
-    private CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
 
     public CommentService(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
@@ -24,19 +25,20 @@ public class CommentService {
     }
 
     public Comment updateComment(Comment comment) {
-        Comment findComment = findVerifiedCommet(comment.getCommentId());
+        Comment findComment = findVerifiedComment(comment.getCommentId());
 
         Optional.ofNullable(comment.getComment_content())
                 .ifPresent(findComment::setComment_content);
+
         return commentRepository.save(findComment);
     }
 
-    public void deleteComment(Long commentId) {
-        Comment findComment = findVerifiedCommet(commentId);
+    public void deleteComment(long commentId) {
+        Comment findComment = findVerifiedComment(commentId);
         commentRepository.delete(findComment);
     }
 
-    public Comment findVerifiedCommet(long commentId) {
+    public Comment findVerifiedComment(long commentId) {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
         return optionalComment.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));

@@ -2,6 +2,8 @@ package seb40pre034.stackoverflowclone.answer.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import seb40pre034.stackoverflowclone.member.entity.Member;
+
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,6 +18,12 @@ public class AnswerDto {
         @NotBlank(message = "답변 내용을 입력해 주세요.")
         private String answer_content;
         private List<String> imgUrls;
+
+        public Member getMember() {
+            Member member = new Member();
+            member.setMemberId(member.getMemberId());
+            return member;
+        }
     }
 
     @AllArgsConstructor
@@ -38,7 +46,8 @@ public class AnswerDto {
         private long answerId;
         private String answer_content;
         private List<String> imgUrls;
-        private LocalDateTime date;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
         private Integer vote;
     }
 

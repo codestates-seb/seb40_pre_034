@@ -2,21 +2,21 @@ package seb40pre034.stackoverflowclone.comment.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 public class CommentDto {
 
-    @AllArgsConstructor
     @Getter
+    @AllArgsConstructor
     public static class Post {
+
         @NotBlank(message = "댓글 내용을 입력해 주세요.")
         private String comment_content;
     }
 
-    @AllArgsConstructor
     @Getter
+    @AllArgsConstructor
     public static class Patch {
         private long commentId;
 
@@ -28,8 +28,8 @@ public class CommentDto {
         }
     }
 
-    @AllArgsConstructor
     @Getter
+    @AllArgsConstructor
     public static class Response {
         private long commentId;
         private String comment_content;

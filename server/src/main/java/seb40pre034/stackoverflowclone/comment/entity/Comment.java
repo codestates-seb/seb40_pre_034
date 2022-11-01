@@ -1,7 +1,6 @@
 package seb40pre034.stackoverflowclone.comment.entity;
 
 
-import jdk.jfr.Enabled;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,15 +14,15 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@Enabled
+@Entity
 @Table(name = "COMMENT")
 public class Comment extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
-    @Column(columnDefinition = "TEXT",nullable = false)
-    private String Comment_content;
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String comment_content;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
