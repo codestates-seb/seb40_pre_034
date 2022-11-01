@@ -19,11 +19,7 @@ public class AnswerDto {
         private String answer_content;
         private List<String> imgUrls;
 
-        public Member getMember() {
-            Member member = new Member();
-            member.setMemberId(member.getMemberId());
-            return member;
-        }
+
     }
 
     @AllArgsConstructor
@@ -48,7 +44,7 @@ public class AnswerDto {
         private List<String> imgUrls;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-        private Integer vote;
+        private Integer answer_vote;
     }
 
 }

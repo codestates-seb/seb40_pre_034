@@ -24,7 +24,7 @@ public class Comment extends Auditable {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String comment_content;
 
-    @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
-    private Member memberId;
+//    @ManyToOne
+//    @JoinColumn(name = "MEMBER_ID")
+//    private Member member;
 }
