@@ -22,6 +22,7 @@ public class AnswerService {
 
     //유저 답변 저장
     public Answer createAnswer(Answer answer) {
+        answer.setAnswer_vote(0);
         return answerRepository.save(answer);
     }
 
