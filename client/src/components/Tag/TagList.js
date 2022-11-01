@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import TagInfo from "./TagInfo";
+import axios from "axios";
 
 const Container = styled.div`
   display: grid;
@@ -13,6 +14,11 @@ function TagList() {
   for (let i = 0; i < 22; i++) {
     users.push("1");
   }
+
+  axios
+    .get("http://localhost:4000/tagdata")
+    .then((res) => console.log(res.data))
+    .catch((error) => console.log(error));
 
   return (
     <Container>
