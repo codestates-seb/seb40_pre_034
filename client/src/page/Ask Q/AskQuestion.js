@@ -40,6 +40,9 @@ const Container = styled.div`
 `;
 
 function AskQuestion() {
+  const initialTags = [];
+  const [tagsLabel, setTagsLabel] = useState(initialTags);
+
   // eslint-disable-next-line no-unused-vars
   const postQuestions = async () => {
     try {
@@ -120,8 +123,6 @@ function AskQuestion() {
           <TextInput
             type="text"
             placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
-            id="title"
-            name="title"
             onChange={onInput}
           />
         </div>
@@ -141,12 +142,13 @@ function AskQuestion() {
             <CustomEditor type="text" width="700px" height="300p" value="" onChange={onInput3} />
           </label>
         </div>
+
         <div className="input_tag">
           <label htmlFor="tag">
             Tags
             <p>Add up to 5 tags to describe what your question is about. Start typing to see suggestions.</p>
           </label>
-          <AskQTags onChange={onInput4} />
+          <AskQTags tags={tagsLabel} setTags={setTagsLabel} onChange={onInput4} />
         </div>
       </div>
       <BlueButton type="button" text="Review your question" onClick={onInput5} />

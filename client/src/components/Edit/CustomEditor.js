@@ -6,7 +6,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 const Container = styled.div`
   max-width: ${(props) => props.width || 700}px;
   height: ${(props) => props.height || 300}px;
-  background-color: lightgray;
+  background-color: lightgrey;
 `;
 
 const CustomEditor = ({ width, height, value = "" }) => {
