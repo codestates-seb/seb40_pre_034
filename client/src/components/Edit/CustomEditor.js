@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
@@ -9,10 +8,18 @@ const Container = styled.div`
   background-color: lightgrey;
 `;
 
-const CustomEditor = ({ width, height, value = "" }) => {
+const CustomEditor = ({ handleValue, width, height, value = "" }) => {
   return (
     <Container width={width} height={height}>
-      <CKEditor data={value} editor={ClassicEditor} />
+      <CKEditor
+        data={value}
+        editor={ClassicEditor}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          console.log(data);
+          handleValue(data);
+        }}
+      />
     </Container>
   );
 };

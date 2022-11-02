@@ -41,24 +41,24 @@ const Container = styled.div`
 
 function AskQuestion() {
   const initialTags = [];
-  const [tagsLabel, setTagsLabel] = useState(initialTags);
+  const [tags, setTags] = useState(initialTags);
+  console.log(tags);
 
-  // eslint-disable-next-line no-unused-vars
+  const [title, setTitle] = useState();
+  console.log(title);
+
+  const onInput = (e) => {
+    setTitle(e.target.value);
+    console.log(title);
+  };
+
   const postQuestions = async () => {
     try {
       const res = await axios.post(
-        "http://ec2-13-125-126-67.ap-northeast-2.compute.amazonaws.com:8080/questions/ask",
+        "http://ec2-54-180-153-246.ap-northeast-2.compute.amazonaws.com:8080/questions/ask",
         {
           title: title,
-          content: content,
-          imgUrl: imgUrl,
           tags: tags,
-          click: click,
-        },
-        {
-          headers: {
-            "Content-type": "application.json",
-          },
         },
       );
       console.log(res);
@@ -66,47 +66,6 @@ function AskQuestion() {
       console.log(err);
     }
   };
-
-  const [title, setTitle] = useState();
-  console.log(title);
-
-  const [content, setContent] = useState();
-  console.log(content);
-
-  const [imgUrl, setImgUrl] = useState();
-  console.log(imgUrl);
-
-  const [tags, setTags] = useState();
-  console.log(tags);
-
-  const [click, setClick] = useState();
-  console.log(setClick);
-
-  const onInput = (e) => {
-    setTitle(e.target.value);
-  };
-  console.log(title);
-
-  const onInput2 = (e) => {
-    setContent(e.target.value);
-  };
-  console.log(content);
-
-  const onInput3 = (e) => {
-    setImgUrl(e.target.value);
-  };
-  console.log(imgUrl);
-
-  const onInput4 = (e) => {
-    setTags(e.target.value);
-  };
-  console.log(tags);
-
-  const onInput5 = (e) => {
-    setClick(e.target.value);
-  };
-
-  console.log(click);
 
   return (
     <Container>
@@ -130,7 +89,7 @@ function AskQuestion() {
           <label htmlFor="body">
             What are the details of your problem?
             <p>Introduce the problem and expand on what you put in the title. Minimum 20 characters.</p>
-            <CustomEditor type="text" width="700px" height="300px" value="" onChange={onInput2} />
+            <CustomEditor type="text" width="700px" height="300px" handleValue={setTitle} />
           </label>
         </div>
         <div className="input_try">
@@ -139,19 +98,22 @@ function AskQuestion() {
             <p>
               Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters.
             </p>
-            <CustomEditor type="text" width="700px" height="300p" value="" onChange={onInput3} />
+            <CustomEditor type="text" width="700px" height="300p" handleValue={setTitle} />
           </label>
         </div>
-
         <div className="input_tag">
           <label htmlFor="tag">
             Tags
             <p>Add up to 5 tags to describe what your question is about. Start typing to see suggestions.</p>
           </label>
-          <AskQTags tags={tagsLabel} setTags={setTagsLabel} onChange={onInput4} />
+          <AskQTags tags={tags} setTags={setTags} />
         </div>
       </div>
-      <BlueButton type="button" text="Review your question" onClick={onInput5} />
+      <BlueButton
+        // type="button"
+        text="Review your question"
+        handleSubmit={postQuestions}
+      />
     </Container>
   );
 }
