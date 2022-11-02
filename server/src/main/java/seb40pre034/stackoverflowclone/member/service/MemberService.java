@@ -1,11 +1,10 @@
 package seb40pre034.stackoverflowclone.member.service;
 
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import seb40pre034.stackoverflowclone.exception.BusinessLogicException;
 import seb40pre034.stackoverflowclone.exception.ExceptionCode;
 import seb40pre034.stackoverflowclone.member.entity.Member;
@@ -18,13 +17,16 @@ import java.util.Optional;
 @Transactional
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Member createdMember(Member member) {
-       verifyExistsEmail(member.getEmail());
+        verifyExistsEmail(member.getEmail());
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
 
         return memberRepository.save(member);
     }
