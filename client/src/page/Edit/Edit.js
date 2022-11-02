@@ -1,8 +1,9 @@
 import BlueButton from "../../components/Button/BlueButton";
 import WhiteButton from "../../components/Button/WhiteButton";
 import styled from "styled-components";
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 import CustomEditor from "../../components/Edit/CustomEditor";
+import axios from "axios";
 import dompurify from "dompurify";
 
 const Container = styled.div`
@@ -41,20 +42,60 @@ const Input = styled.input`
     outline: none;
   }
 `;
-
+const Display = styled.div`
+  width: 630px;
+  margin: 0.6rem 0;
+`;
+const EditorContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 const TextContainer = styled.div``;
-
 const TagContainer = styled.div``;
 
 const SummaryContainer = styled.div``;
 
-const ButtonContainer = styled.div``;
+const ButtonContainer = styled.div`
+  margin-top: 16px;
+  width: 630px;
+  & :first-child {
+    margin-right: 10px;
+  }
+`;
+
 const Edit = () => {
   const sanitizer = dompurify.sanitize;
 
-  //   const [title, setTitle] = useState("");
-  //   const [text,setText] = useState('')
-  //   const [tag,setTag] = useState('')
+  const [value, setValue] = useState("");
+  const [title, setTitle] = useState("");
+  const [editorVal, setEditorVal] = useState("");
+  const [tag, setTag] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/questions/12")
+      .then((res) => setValue(res.data))
+      .catch((err) => console.log(err));
+  });
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    const edit = {
+      title: title,
+      content: editorVal,
+      tags: tag,
+    };
+    axios
+      .patch("http://localhost:4000/questions/12", edit)
+      .then((res) => console.log(res.status))
+      .catch((err) => console.log(err));
+  };
+
+  const onChangeHandler = (e) => {
+    setTitle(e.target.value);
+    setTag(e.target.value);
+  };
 
   return (
     <Container>
@@ -64,19 +105,18 @@ const Edit = () => {
       </RevContainer>
       <TitleContainer>
         <Title>Title</Title>
-        <Input type="text" />
-        {/* <Input type="text" value={title} /> */}
+        <Input type="text" defaultValue={setTitle ? value.title : null} onChange={onChangeHandler} />
       </TitleContainer>
       <TextContainer>
         <Title>Body</Title>
-        {/* edit 라이이브러리 불러오기 */}
-        <CustomEditor width="650" value="sges" />
-        <div dangerouslySetInnerHTML={{ __html: sanitizer("<div></div>") }}></div>
-        {/* 라이브러리 내용 나오게 하기 */}
+        <EditorContainer>
+          <CustomEditor width="630" handleValue={setEditorVal} value={value.content} />
+          <Display dangerouslySetInnerHTML={{ __html: sanitizer(editorVal) }} />
+        </EditorContainer>
       </TextContainer>
       <TagContainer>
         <Title>Tags</Title>
-        <Input type="text" />
+        <Input type="text" defaultValue={setTag ? value.tag : null} />
       </TagContainer>
       <SummaryContainer>
         <Title>Summary</Title>
@@ -86,7 +126,7 @@ const Edit = () => {
         />
       </SummaryContainer>
       <ButtonContainer>
-        <BlueButton text="Save edits" />
+        <BlueButton text="Save edits" handleSubmit={onSubmitHandler} />
         <WhiteButton text="Cancel" />
       </ButtonContainer>
     </Container>
