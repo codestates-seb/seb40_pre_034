@@ -5,8 +5,21 @@ import { useState, useEffect } from "react";
 import CustomEditor from "../../components/Edit/CustomEditor";
 import axios from "axios";
 import dompurify from "dompurify";
+import EditSideCard from "./EditSideCard";
+
+//이미지는 ? 어떻게 처리하지????
 
 const Container = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  align-content: center;
+  padding: 0 120px;
+  /* & :first-child {
+    margin-right: 10px;
+  } */
+`;
+const InputContainer = styled.div`
   margin-top: 70px;
   /* width: 100vw; */
   /* height: 100vh; */
@@ -77,7 +90,7 @@ const Edit = () => {
       .get("http://localhost:4000/questions/12")
       .then((res) => setValue(res.data))
       .catch((err) => console.log(err));
-  });
+  }, []);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -85,10 +98,12 @@ const Edit = () => {
       title: title,
       content: editorVal,
       tags: tag,
+      // rev : rev,
+      // summary : summary
     };
     axios
       .patch("http://localhost:4000/questions/12", edit)
-      .then((res) => console.log(res.status))
+      .then((res) => console.log(res.status)) //질문상세페이지로 화면이동
       .catch((err) => console.log(err));
   };
 
@@ -99,36 +114,41 @@ const Edit = () => {
 
   return (
     <Container>
-      <RevContainer>
-        <Title>Rev</Title>
-        <Input type="text" />
-      </RevContainer>
-      <TitleContainer>
-        <Title>Title</Title>
-        <Input type="text" defaultValue={setTitle ? value.title : null} onChange={onChangeHandler} />
-      </TitleContainer>
-      <TextContainer>
-        <Title>Body</Title>
-        <EditorContainer>
-          <CustomEditor width="630" handleValue={setEditorVal} value={value.content} />
-          <Display dangerouslySetInnerHTML={{ __html: sanitizer(editorVal) }} />
-        </EditorContainer>
-      </TextContainer>
-      <TagContainer>
-        <Title>Tags</Title>
-        <Input type="text" defaultValue={setTag ? value.tag : null} />
-      </TagContainer>
-      <SummaryContainer>
-        <Title>Summary</Title>
-        <Input
-          type="text"
-          placeholder="briefly explain your change(corrected spelling, fixed grammar, improve formatting)"
-        />
-      </SummaryContainer>
-      <ButtonContainer>
-        <BlueButton text="Save edits" handleSubmit={onSubmitHandler} />
-        <WhiteButton text="Cancel" />
-      </ButtonContainer>
+      <InputContainer>
+        <RevContainer>
+          <Title>Rev</Title>
+          <Input type="text" />
+        </RevContainer>
+        <TitleContainer>
+          <Title>Title</Title>
+          <Input type="text" defaultValue={setTitle ? value.title : null} onChange={onChangeHandler} />
+        </TitleContainer>
+        <TextContainer>
+          <Title>Body</Title>
+          <EditorContainer>
+            <CustomEditor width="630" handleValue={setEditorVal} value={value.content} />
+            <Display dangerouslySetInnerHTML={{ __html: sanitizer(editorVal) }} />
+          </EditorContainer>
+        </TextContainer>
+        <TagContainer>
+          <Title>Tags</Title>
+          <Input type="text" defaultValue={setTag ? value.tag : null} />
+        </TagContainer>
+        <SummaryContainer>
+          <Title>Summary</Title>
+          <Input
+            type="text"
+            placeholder="briefly explain your change(corrected spelling, fixed grammar, improve formatting)"
+          />
+        </SummaryContainer>
+        <ButtonContainer>
+          <BlueButton text="Save edits" handleSubmit={onSubmitHandler} />
+          {/* 질문 상세페이지로 화면 이동 */}
+          <WhiteButton text="Cancel" />
+        </ButtonContainer>
+      </InputContainer>
+      {/* sideCard */}
+      <EditSideCard />
     </Container>
   );
 };
