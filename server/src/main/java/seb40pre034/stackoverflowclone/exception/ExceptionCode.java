@@ -6,7 +6,9 @@ public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "회원을 조회할 수 없습니다."),
     MEMBER_EXISTS(409, "동일한 이메일이 존재합니다."),
     QUESTION_NOT_FOUND(404, "Question not found"),
-    ANSWER_NOT_FOUND(404, "Question not found");
+    ANSWER_NOT_FOUND(404, "Answer not found"),
+    COMMENT_NOT_FOUND(404,"Comment not found");
+    ;
 
     @Getter
     private int code;

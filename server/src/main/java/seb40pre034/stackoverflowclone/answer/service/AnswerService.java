@@ -8,6 +8,7 @@ import seb40pre034.stackoverflowclone.exception.ExceptionCode;
 
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,12 +22,18 @@ public class AnswerService {
 
     //유저 답변 저장
     public Answer createAnswer(Answer answer) {
+        answer.setAnswer_vote(0);
         return answerRepository.save(answer);
     }
 
     //조회 기능
+    @Transactional
     public Answer findAnswer(long answerId) {
         return findVerifiedAnswer(answerId);
+    }
+
+    public List<Answer> findAnswers() {
+        return answerRepository.findAll();
     }
 
     // 업데이트 기능
@@ -49,8 +56,10 @@ public class AnswerService {
     //중복
     public Answer findVerifiedAnswer(long answerId) {
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
-        return optionalAnswer.orElseThrow(() ->
+        Answer findAnswer = optionalAnswer.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+
+        return findAnswer;
     }
 }
 

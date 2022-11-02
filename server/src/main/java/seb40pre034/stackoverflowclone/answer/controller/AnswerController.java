@@ -8,10 +8,12 @@ import seb40pre034.stackoverflowclone.answer.dto.AnswerDto;
 import seb40pre034.stackoverflowclone.answer.entity.Answer;
 import seb40pre034.stackoverflowclone.answer.mapper.AnswerMapper;
 import seb40pre034.stackoverflowclone.answer.service.AnswerService;
+import seb40pre034.stackoverflowclone.dto.MultiResponseDto;
 import seb40pre034.stackoverflowclone.dto.SingleResponseDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @RestController
 @RequestMapping("/answers")
@@ -37,8 +39,6 @@ public class AnswerController {
         );
     }
 
-
-
     @PatchMapping("/edit/{answer-id}")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId,
                                       @Valid @RequestBody AnswerDto.Patch requestBody) {
@@ -51,11 +51,18 @@ public class AnswerController {
     }
 
     @GetMapping("/{answer-id}")
-    public ResponseEntity getAnswer(@PathVariable("answer-Id") long answerId) {
+    public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId) {
         Answer answer = answerService.findAnswer(answerId);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.answerToAnswerResponse(answer)),
+                HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity getAnswers() {
+        List<Answer> answers = answerService.findAnswers();
+        return new ResponseEntity(new MultiResponseDto<>(mapper.answersToAnswerResponseDtos(answers)),
                 HttpStatus.OK);
     }
 
