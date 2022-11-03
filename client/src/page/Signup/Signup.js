@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import SignupInfo from "../../components/SignupInfo/SignupInfo";
@@ -62,6 +63,7 @@ const Signup = () => {
   const [nameErrorMsg, setNameErrorMsg] = useState("");
   const [emailErrorMsg, setEmailErrorMsg] = useState("");
   const [pwdErrorMsg, setPwdErrorMsg] = useState("");
+  const navigate = useNavigate();
 
   const isValid = (type, value) => {
     const pattern = {
@@ -110,7 +112,7 @@ const Signup = () => {
         email: email,
         password: password,
       })
-      .then((res) => console.log(res.status))
+      .then(() => navigate("/"))
       .catch((error) => console.log(error));
   };
 

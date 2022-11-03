@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+
 import Sidebar from "../../components/Sidebar/Sidebar";
-import Footer from "../../components/Footer/Footer";
 import TopBar from "../../components/TopBar/TopBar";
 import VoteButton from "../../components/Button/VoteButton";
 import BlueButton from "../../components/Button/BlueButton";
@@ -199,24 +200,25 @@ export const IconArea = styled.div`
 `;
 
 const QuestionDetail = () => {
-  const [questionDetail, setQuestionDetail] = useState([]); // 답변만 관ㄹ
+  const [questionDetail, setQuestionDetail] = useState([]);
   const [answers, setAnswers] = useState([]);
-  const [editorVal, setEditiorVal] = useState("");
+  const [editorVal, setEditiorVal] = useState(""); // 답변만 관리
   // const [questionDelete, setQuestionDelete] = useState("");
   // const [answerDelete, setAnswerDelete] = useState("");
-
+  const { id } = useParams();
+  const navigate = useNavigate();
   const sanitizer = dompurify.sanitize;
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/questionTitle/1`)
+      .get("http://localhost:4000/questions/" + id)
       .then((res) => setQuestionDetail(res.data))
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4001/answers`)
+      .get(`http://localhost:4002/answers`)
       .then((res) => setAnswers(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -225,11 +227,11 @@ const QuestionDetail = () => {
     e.preventDefault();
 
     axios
-      .post(`http://localhost:4001/answers`, {
+      .post(`http://localhost:4002/answers`, {
         answer: editorVal,
       })
-      .then((res) => console.log(res.status))
-      .then(() => (window.location.href = "http://localhost:3000/"));
+      .then((res) => console.log(res.status));
+    // .then(() => (window.location.href = "http://localhost:3000/"));
   };
 
   // const onQuestionDelete = () => {
@@ -263,18 +265,18 @@ const QuestionDetail = () => {
                 {/* <IoClose size="24" onClick={() => onQuestionDelete()} /> */}
                 {/* ask question 페이지로 이동 */}
                 <IoClose size="24" />
-                {/* <BlueButton text="Ask Question" width="120px" onClick = {} /> */}
-                {/* ask question 페이지로 이동 */}
-                <BlueButton text="Ask Question" width="120px" />
+                <Link to="/ask">
+                  <BlueButton text="Ask Question" width="120px" />
+                </Link>
               </ContentHeader>
               <QuestionInfo>
                 <QuestionAsked>
                   <span>Asked</span>
-                  <strong>{questionDetail.asked} hours ago</strong>
+                  <strong>{/* {questionDetail.asked}  */}hours ago</strong>
                 </QuestionAsked>
                 <QuestionModified>
                   <span>Modified</span>
-                  <strong>{questionDetail.modified} mins ago</strong>
+                  <strong>{/* {questionDetail.modified} */} mins ago</strong>
                 </QuestionModified>
                 <QuestionViewed>
                   <span>Viewed</span>
@@ -288,7 +290,7 @@ const QuestionDetail = () => {
                       <VoteButton />
                     </QuestionContainerLeftMainAside>
                     <QuestionContainerLeftMainIntroduce>
-                      <h2>{questionDetail.content}</h2>
+                      <div dangerouslySetInnerHTML={{ __html: sanitizer(questionDetail.content) }}></div>
                       <LanguageBtn>
                         {questionDetail.tags &&
                           questionDetail.tags.map((tag, idx) => {
@@ -298,7 +300,7 @@ const QuestionDetail = () => {
                       </LanguageBtn>
                       <UseBtn>
                         <button>Share</button>
-                        <button>Edit</button>
+                        <button onClick={() => navigate(`/edit/${id}`)}>Edit</button>
                         <button>Follow</button>
                       </UseBtn>
                     </QuestionContainerLeftMainIntroduce>
@@ -354,9 +356,6 @@ const QuestionDetail = () => {
             </ContentTemplate>
           </ContentSection>
         </MainSection>
-        <FooterSection>
-          <Footer />
-        </FooterSection>
       </Container>
     </>
   );

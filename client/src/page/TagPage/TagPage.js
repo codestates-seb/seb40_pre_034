@@ -1,8 +1,15 @@
 import styled from "styled-components";
 import TagHeader from "./TagHeader";
 import TagList from "./TagList";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
-const Container = styled.section`
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
+`;
+
+const MainContainer = styled.section`
   max-width: 1100px;
   width: calc(100% - 164px);
   padding: 24px;
@@ -27,8 +34,11 @@ export const TextInput = styled.input.attrs({
 function TagPage() {
   return (
     <Container>
-      <TagHeader />
-      <TagList />
+      <Sidebar />
+      <MainContainer>
+        <TagHeader />
+        <TagList />
+      </MainContainer>
     </Container>
   );
 }

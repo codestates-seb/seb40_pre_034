@@ -6,7 +6,7 @@ import { BsInboxFill } from "react-icons/bs";
 import { AiFillTrophy, AiFillQuestionCircle } from "react-icons/ai";
 import { FaStackExchange } from "react-icons/fa";
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { Link /* useNavigate */ } from "react-router-dom";
 
 const HeaderContainer = styled.header`
   background-color: hsl(210, 8%, 97.5%);
@@ -122,9 +122,11 @@ const TopBar = () => {
   return (
     <HeaderContainer>
       <TopBarContainer>
-        <LogoContainer>
-          <LogoArea />
-        </LogoContainer>
+        <Link to="/">
+          <LogoContainer>
+            <LogoArea />
+          </LogoContainer>
+        </Link>
         {isLogin ? (
           <NavItems>
             <NavAnchor href="/">Products</NavAnchor>
@@ -165,9 +167,13 @@ const TopBar = () => {
           </>
         ) : (
           <BtnArea2>
-            <LightBlueButton text="Log in" />
+            <Link to="/login">
+              <LightBlueButton text="Log in" />
+            </Link>
             <AddStyle>
-              <BlueButton text="Sign up" />
+              <Link to="/signup">
+                <BlueButton text="Sign up" />
+              </Link>
             </AddStyle>
           </BtnArea2>
         )}

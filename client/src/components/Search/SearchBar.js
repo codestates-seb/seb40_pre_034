@@ -36,7 +36,6 @@ const SearchInput = styled.input`
 const SearchBar = ({ width, keyword, setKeyword, handleSearch }) => {
   return (
     <Container>
-      <SearchInput type="text" placeholder="Search..." />
       <SearchInput
         type="text"
         width={width}

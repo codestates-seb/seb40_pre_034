@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useParams, useNavigate } from "react-router-dom";
 import BlueButton from "../../components/Button/BlueButton";
 import WhiteButton from "../../components/Button/WhiteButton";
 import { useState, useEffect } from "react";
@@ -57,17 +58,22 @@ const ButtonContainer = styled.div`
 
 const EditInput = () => {
   const sanitizer = dompurify.sanitize;
-
+  const { id } = useParams();
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
   const [editorVal, setEditorVal] = useState("");
   const [tags, setTags] = useState("");
-  console.log(value.tags);
+  console.log(tags);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/questions/12")
-      .then((res) => setValue(res.data))
+      .get("http://localhost:4000/questions/" + id)
+      .then((res) => {
+        setTitle(res.data.title);
+        setValue(res.data.content);
+        setTags(res.data.tags);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -79,32 +85,37 @@ const EditInput = () => {
       tags: tags,
     };
     axios
-      .patch("http://localhost:4000/questions/12", edit)
-      .then((res) => console.log(res.status)) //질문상세페이지로 화면이동
+      .patch("http://localhost:4000/questions/" + id, edit)
+      .then(() => navigate(`/${id}`)) //질문상세페이지로 화면이동
       .catch((err) => console.log(err));
   };
 
-  const onChangeHandler = (e) => {
-    setTitle(e.target.value);
-    setTags(e.target.value);
-  };
+  // const onChangeHandler = (e) => {
+  //   setTitle(e.target.value);
+  //   setTags(e.target.value);
+  // };
+
   return (
     <InputContainer>
       <TitleContainer>
         <Title>Title</Title>
-        <Input type="text" defaultValue={setTitle ? value.title : null} onChange={onChangeHandler} />
+        <Input
+          type="text"
+          defaultValue={title /* setTitle ? value.title : null */}
+          onChange={(e) => setTitle(e.target.value)}
+        />
       </TitleContainer>
       <TextContainer>
         <Title>Body</Title>
         <EditorContainer>
-          <CustomEditor width="630" handleValue={setEditorVal} value={value.content} />
+          <CustomEditor width="630" handleValue={setEditorVal} value={value} />
           <Display dangerouslySetInnerHTML={{ __html: sanitizer(editorVal) }} />
         </EditorContainer>
       </TextContainer>
       <TagContainer>
         <Title>Tags</Title>
         {/* 나중에 버튼 형식으로 가져오기 */}
-        <Input type="text" defaultValue={setTags ? value.tags : null} />
+        <Input type="text" defaultValue={setTags ? tags : null} />
       </TagContainer>
       <ButtonContainer>
         <BlueButton text="Save edits" handleSubmit={onSubmitHandler} />

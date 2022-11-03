@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
+import Sidebar from "../../components/Sidebar/Sidebar";
 import BlueButton from "../../components/Button/BlueButton";
 // import LightBlueButtonWithIcon from "../../components/Button/LightBlueButtonWithIcon";
 import SortedTab from "../../components/SortedTab/SortedTab";
@@ -13,7 +15,18 @@ import WhiteCard from "../../components/SideCard/WhiteCard";
 
 const Container = styled.div`
   display: flex;
+  justify-content: center;
+  margin-top: 70px;
+`;
+
+const MainContainer = styled.div`
+  display: flex;
+  max-width: 1000px;
   padding: 20px;
+
+  ul {
+    list-style: none;
+  }
 `;
 
 const SideDescription = styled.div``;
@@ -55,56 +68,61 @@ const QuestionList = () => {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * 10;
 
-  const [sortTab, setSortTab] = useState("Newest");
+  /* const [sortTab, setSortTab] = useState("Newest"); */
 
   useEffect(() => {
     axios
-      .get("/", { params: { tab: sortTab } })
+      .get("http://localhost:4000/questions" /* , { params: { tab: sortTab } } */)
       .then((res) => setQuestions(res.data))
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <Container>
-      <QuestionContainer>
-        <QuestionHeader>
-          <h1>All Questions</h1>
-          <BlueButton text="Ask Question" />
-        </QuestionHeader>
+      <Sidebar />
+      <MainContainer>
+        <QuestionContainer>
+          <QuestionHeader>
+            <h1>All Questions</h1>
+            <Link to="/ask">
+              <BlueButton text="Ask Question" />
+            </Link>
+          </QuestionHeader>
 
-        <QuestionOption>
-          <QuestionsCount count={questions.length} text="questions" />
-          <ButtonContainer>
-            <QuestionSort>
-              <SortedTab text="Newest" handleSortTab={setSortTab} />
-              <SortedTab text="Popular" handleSortTab={setSortTab} />
-            </QuestionSort>
-            {/* <LightBlueButtonWithIcon isFilter="true" text="Filter" /> */}
-          </ButtonContainer>
-        </QuestionOption>
+          <QuestionOption>
+            <QuestionsCount count={questions.length} text="questions" />
+            <ButtonContainer>
+              <QuestionSort>
+                <SortedTab text="Newest" /* handleSortTab={setSortTab} */ />
+                <SortedTab text="Popular" /* handleSortTab={setSortTab} */ />
+              </QuestionSort>
+              {/* <LightBlueButtonWithIcon isFilter="true" text="Filter" /> */}
+            </ButtonContainer>
+          </QuestionOption>
 
-        <Questions>
-          {questions.slice(offset, offset + limit).map((question) => {
-            return (
-              <li key={question.id}>
-                <QuestionElement
-                  voteCnt={question.vote}
-                  answersCnt={question.answers}
-                  viewsCnt={question.views}
-                  title={question.title}
-                  content={question.content}
-                  tags={question.tags}
-                  nickname={question.nickname}
-                  createdAt={question.createdAt}
-                />
-              </li>
-            );
-          })}
-        </Questions>
+          <Questions>
+            {questions.slice(offset, offset + limit).map((question) => {
+              return (
+                <li key={question.id}>
+                  <QuestionElement
+                    id={question.id}
+                    voteCnt={question.vote}
+                    answersCnt={question.answers}
+                    viewsCnt={question.views}
+                    title={question.title}
+                    content={question.content}
+                    tags={question.tags}
+                    nickname={question.nickname}
+                    createdAt={question.createdAt}
+                  />
+                </li>
+              );
+            })}
+          </Questions>
 
-        <Pagination total={questions.length} limit={limit} page={page} setPage={setPage} setLimit={setLimit} />
-      </QuestionContainer>
-
+          <Pagination total={questions.length} limit={limit} page={page} setPage={setPage} setLimit={setLimit} />
+        </QuestionContainer>
+      </MainContainer>
       <SideDescription>
         <YellowCard />
         <WhiteCard text="Custom Filters" />

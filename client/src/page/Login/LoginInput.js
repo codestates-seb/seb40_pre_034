@@ -3,6 +3,7 @@ import styled from "styled-components";
 import BlueButton from "../../components/Button/BlueButton";
 import { CardStyle } from "../../components/SideCard/CardStyle";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const InputArea = styled.div`
   width: 316px;
@@ -66,6 +67,7 @@ const LoginInput = () => {
     handleSubmit,
     formState: { isSubmitting, errors },
   } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     await new Promise((r) => setTimeout(r, 1000));
@@ -78,14 +80,12 @@ const LoginInput = () => {
 
     axios
       .post("http://ec2-13-125-126-67.ap-northeast-2.compute.amazonaws.com:8080/members/login", login)
-      .then(
-        (res) => console.log(res.data),
-        // {
-        //   if (res.status === 201) {
-        //     console.log("페이지 이동");
-        //   }
-        // }
-      )
+      .then((res) => {
+        if (res.status === 201) {
+          console.log("페이지 이동");
+          navigate("/");
+        }
+      })
       .catch((error) => console.log(error));
   };
 
