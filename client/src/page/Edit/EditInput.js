@@ -5,11 +5,9 @@ import { useState, useEffect } from "react";
 import CustomEditor from "../../components/Edit/CustomEditor";
 import axios from "axios";
 import dompurify from "dompurify";
+
 const InputContainer = styled.div`
   margin-top: 70px;
-  /* width: 100vw; */
-  /* height: 100vh; */
-  /* background-color: beige; */
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -17,9 +15,7 @@ const InputContainer = styled.div`
   justify-content: center;
 `;
 
-const TitleContainer = styled.div`
-  /* display: flex; */
-`;
+const TitleContainer = styled.div``;
 
 const Title = styled.div`
   font-size: 1.2rem;
