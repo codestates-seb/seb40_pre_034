@@ -1,24 +1,52 @@
 import styled from "styled-components";
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const Container = styled.div`
   max-width: ${(props) => props.width || 700}px;
-  height: ${(props) => props.height || 300}px;
-  background-color: lightgrey;
+
+  .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+    height: ${(props) => props.height || 300}px;
+  }
 `;
 
-const CustomEditor = ({ handleValue, width, height, value = "" }) => {
+const CustomEditor = ({ width, height, value = "", handleValue }) => {
+  const custom_config = {
+    toolbar: {
+      items: [
+        "heading",
+        "|",
+        "bold",
+        "italic",
+        "link",
+        "bulletedList",
+        "numberedList",
+        "|",
+        "blockQuote",
+        "insertTable",
+        "|",
+        "imageUpload",
+        "undo",
+        "redo",
+      ],
+    },
+    table: {
+      contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
+    },
+  };
+
   return (
     <Container width={width} height={height}>
       <CKEditor
-        data={value}
         editor={ClassicEditor}
+        data={value}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log(data);
+
           handleValue(data);
         }}
+        config={custom_config}
       />
     </Container>
   );
