@@ -10,14 +10,16 @@ const Container = styled.section`
     padding: 0 24px 24px 24px;
   }
   .title {
-    font-size: 27px;
+    line-height: 22%;
+    position: relative;
+
+    top: 60px;
+    font-size: 28px;
+    font-weight: 700;
     padding: 60px 0;
     background-image: url("https://cdn.sstatic.net/Img/ask/background.svg?v=2e9a8205b368");
     background-position: right;
     background-repeat: no-repeat;
-  }
-  .form {
-    display: flex;
   }
 `;
 
