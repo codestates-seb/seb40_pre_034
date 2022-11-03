@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import BlueButton from "../../components/Button/BlueButton";
 import AskQTags from "./AskQTags";
 import CustomEditor from "../../components/Edit/CustomEditor";
@@ -71,7 +70,8 @@ function AskQuestion() {
       const res = await axios
         .post(
           // "http://ec2-54-180-153-246.ap-northeast-2.compute.amazonaws.com:8080/questions/ask",
-          "http://localhost:4000/questions",
+          // eslint-disable-next-line no-undef
+          `${process.env.REACT_APP_API_URL}/questions/ask`,
           {
             title: title,
             content: content,
