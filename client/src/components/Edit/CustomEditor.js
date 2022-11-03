@@ -12,6 +12,30 @@ const Container = styled.div`
 `;
 
 const CustomEditor = ({ width, height, value = "", handleValue }) => {
+  const custom_config = {
+    toolbar: {
+      items: [
+        "heading",
+        "|",
+        "bold",
+        "italic",
+        "link",
+        "bulletedList",
+        "numberedList",
+        "|",
+        "blockQuote",
+        "insertTable",
+        "|",
+        "imageUpload",
+        "undo",
+        "redo",
+      ],
+    },
+    table: {
+      contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
+    },
+  };
+
   return (
     <Container width={width} height={height}>
       <CKEditor
@@ -19,9 +43,10 @@ const CustomEditor = ({ width, height, value = "", handleValue }) => {
         data={value}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log(data);
+
           handleValue(data);
         }}
+        config={custom_config}
       />
     </Container>
   );

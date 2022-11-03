@@ -1,21 +1,26 @@
 import { createGlobalStyle } from "styled-components";
-import { reset } from "styled-reset";
 
 const GlobalStyles = createGlobalStyle`
-    ${reset}
 
     * {
         margin: 0;
-        padding: 0;
         box-sizing: border-box;
     }
 
-    ol,ul,li {
-        list-style: none;
-    }
+    /* 
+    적용시 에디터에서 list 디자인이 정상적으로 나오지 않음
+        ol,ul,li {
+            list-style: none;
+        } 
+    */
 
     a {
         text-decoration: none;
+    }
+    
+    table, td {
+        border: 1px solid #000;
+        border-collapse: collapse;
     }
 
     button {
