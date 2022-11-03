@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import BlueButton from "../../components/Button/BlueButton";
-import LightBlueButtonWithIcon from "../../components/Button/LightBlueButtonWithIcon";
+// import LightBlueButtonWithIcon from "../../components/Button/LightBlueButtonWithIcon";
 import SortedTab from "../../components/SortedTab/SortedTab";
 import QuestionsCount from "../../components/QuestionsCount/QuestionsCount";
 import QuestionElement from "../../components/QuestionElement/QuestionElement";
@@ -59,7 +59,7 @@ const QuestionList = () => {
 
   useEffect(() => {
     axios
-      .get("/questions", { params: { tab: sortTab } })
+      .get("/", { params: { tab: sortTab } })
       .then((res) => setQuestions(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -79,14 +79,14 @@ const QuestionList = () => {
               <SortedTab text="Newest" handleSortTab={setSortTab} />
               <SortedTab text="Popular" handleSortTab={setSortTab} />
             </QuestionSort>
-            <LightBlueButtonWithIcon isFilter="true" text="Filter" />
+            {/* <LightBlueButtonWithIcon isFilter="true" text="Filter" /> */}
           </ButtonContainer>
         </QuestionOption>
 
         <Questions>
-          {questions.slice(offset, offset + limit).map((question, idx) => {
+          {questions.slice(offset, offset + limit).map((question) => {
             return (
-              <li key={idx}>
+              <li key={question.id}>
                 <QuestionElement
                   voteCnt={question.vote}
                   answersCnt={question.answers}
