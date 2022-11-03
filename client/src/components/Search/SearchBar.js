@@ -32,10 +32,16 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchBar = () => {
+const SearchBar = ({ keyword, setKeyword, handleSearch }) => {
   return (
     <Container>
-      <SearchInput type="text" placeholder="Search..." />
+      <SearchInput
+        type="text"
+        value={keyword}
+        placeholder="Search..."
+        onChange={(e) => setKeyword(e.target.value)}
+        onKeyDown={handleSearch}
+      />
       <BiSearchAlt2 />
     </Container>
   );

@@ -6,6 +6,7 @@ import { BsInboxFill } from "react-icons/bs";
 import { AiFillTrophy, AiFillQuestionCircle } from "react-icons/ai";
 import { FaStackExchange } from "react-icons/fa";
 import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 
 const HeaderContainer = styled.header`
   background-color: hsl(210, 8%, 97.5%);
@@ -106,6 +107,17 @@ const AddStyle2 = styled.div`
 const TopBar = () => {
   const [isLogin] = useState(false);
   //아직 구현 안되어있음. 데이터 받아서 처리하기
+  const [keyword, setKeyword] = useState("");
+  // const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    if (keyword.length > 0 && e.key === "Enter") {
+      // navigate("/search", { state: { keyword: keyword } });
+      // setKeyword("");
+    }
+  };
+
+  console.log(keyword);
 
   return (
     <HeaderContainer>
@@ -130,7 +142,7 @@ const TopBar = () => {
             </NavItems>
           </Nav>
         )}
-        <SearchBar width="700px" />
+        <SearchBar width="700px" keyword={keyword} setKeyword={setKeyword} handleSearch={handleSearch} />
         {isLogin ? (
           <>
             <AddStyle2>
