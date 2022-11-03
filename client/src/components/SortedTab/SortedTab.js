@@ -27,8 +27,8 @@ const SortedBox = styled.button`
   cursor: pointer;
 `;
 
-const SortedTab = ({ text }) => {
-  return <SortedBox>{text}</SortedBox>;
+const SortedTab = ({ text, handleSortTab }) => {
+  return <SortedBox onClick={() => handleSortTab(text)}>{text}</SortedBox>;
 };
 
 export default SortedTab;
