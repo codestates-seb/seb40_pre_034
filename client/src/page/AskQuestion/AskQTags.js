@@ -10,6 +10,8 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     gap: 3px;
+    list-style: none;
+    padding-left: 5px;
   }
   > input {
     flex-grow: 1;
