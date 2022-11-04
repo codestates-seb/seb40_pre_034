@@ -62,6 +62,7 @@ function AskQuestion() {
 
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
+  const [questionId, setQuestionId] = useState();
   // console.log(title);
 
   const navigate = useNavigate();
@@ -73,7 +74,6 @@ function AskQuestion() {
 
   const postQuestions = async () => {
     try {
-      // 질문 번호
       const res = await axios
         .post(
           // "http://ec2-54-180-153-246.ap-northeast-2.compute.amazonaws.com:8080/questions/ask",
@@ -83,6 +83,7 @@ function AskQuestion() {
             title: title,
             content: content,
             tags: tags,
+            questionId: questionId,
           },
         )
         .then((res) => navigate(`/${res.data.id}`));
@@ -127,7 +128,7 @@ function AskQuestion() {
         </div>
       </div>
 
-      <Reviewbutton>
+      <Reviewbutton questionId={questionId} setQuestionId={setQuestionId}>
         <BlueButton text="Review your question" handleSubmit={postQuestions} />
       </Reviewbutton>
     </Container>
