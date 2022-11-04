@@ -17,4 +17,6 @@ public interface QuestionService {
     public void deleteQuestion(long questionId);
 
     public Question findVerifiedQuestion(long questionId);
+
+    public void increaseViews(long questionId);
 }
