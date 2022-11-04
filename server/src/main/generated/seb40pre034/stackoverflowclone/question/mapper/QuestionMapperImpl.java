@@ -10,8 +10,9 @@ import seb40pre034.stackoverflowclone.question.entity.Question;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-01T10:01:58+0900",
-    comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.15 (Azul Systems, Inc.)"
+    date = "2022-11-04T00:02:57+0900",
+    comments = "version: 1.5.1.Final, compiler: javac, environment: Java 15.0.1 (Oracle Corporation)"
+
 )
 @Component
 public class QuestionMapperImpl implements QuestionMapper {
@@ -57,6 +58,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         Integer vote = null;
         LocalDateTime createdAt = null;
         LocalDateTime modifiedAt = null;
+        Integer views = null;
 
         if ( question.getQuestionId() != null ) {
             questionId = question.getQuestionId();
@@ -66,54 +68,28 @@ public class QuestionMapperImpl implements QuestionMapper {
         vote = question.getVote();
         createdAt = question.getCreatedAt();
         modifiedAt = question.getModifiedAt();
+        views = question.getViews();
 
-        QuestionDto.Response response = new QuestionDto.Response( questionId, title, content, vote, createdAt, modifiedAt );
+        String nickname = null;
+        List<String> tags = null;
+        Integer answers = null;
+
+        QuestionDto.Response response = new QuestionDto.Response( questionId, title, content, vote, createdAt, modifiedAt, nickname, tags, views, answers );
 
         return response;
     }
 
     @Override
-    public List<QuestionDto.ListResponse> questionsToQuestionResponses(List<Question> questions) {
+    public List<QuestionDto.Response> questionsToQuestionResponses(List<Question> questions) {
         if ( questions == null ) {
             return null;
         }
 
-        List<QuestionDto.ListResponse> list = new ArrayList<QuestionDto.ListResponse>( questions.size() );
+        List<QuestionDto.Response> list = new ArrayList<QuestionDto.Response>( questions.size() );
         for ( Question question : questions ) {
-            list.add( questionToListResponse( question ) );
+            list.add( questionToQuestionResponse( question ) );
         }
 
         return list;
-    }
-
-    protected QuestionDto.ListResponse questionToListResponse(Question question) {
-        if ( question == null ) {
-            return null;
-        }
-
-        long questionId = 0L;
-        String title = null;
-        String content = null;
-        Integer vote = null;
-        LocalDateTime createdAt = null;
-        LocalDateTime modifiedAt = null;
-
-        if ( question.getQuestionId() != null ) {
-            questionId = question.getQuestionId();
-        }
-        title = question.getTitle();
-        content = question.getContent();
-        vote = question.getVote();
-        createdAt = question.getCreatedAt();
-        modifiedAt = question.getModifiedAt();
-
-        String nickname = null;
-        String tag = null;
-        Integer views = null;
-        Integer answerSum = null;
-
-        QuestionDto.ListResponse listResponse = new QuestionDto.ListResponse( questionId, title, content, vote, createdAt, modifiedAt, nickname, tag, views, answerSum );
-
-        return listResponse;
     }
 }

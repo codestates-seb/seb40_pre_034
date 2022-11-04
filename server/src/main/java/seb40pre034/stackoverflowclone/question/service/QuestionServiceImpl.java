@@ -8,7 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import seb40pre034.stackoverflowclone.exception.BusinessLogicException;
 import seb40pre034.stackoverflowclone.exception.ExceptionCode;
 import seb40pre034.stackoverflowclone.question.entity.Question;
+import seb40pre034.stackoverflowclone.question.entity.QuestionTag;
 import seb40pre034.stackoverflowclone.question.repository.QuestionRepository;
+import seb40pre034.stackoverflowclone.question.repository.QuestionTagRepository;
+import seb40pre034.stackoverflowclone.tag.repository.TagRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +26,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public Question createQuestion(Question question) {
         question.setVote(0);
+        question.setViews(1);
         return questionRepository.save(question);
     }
 
@@ -41,6 +45,13 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public Question findQuestion(long questionId) {
         return findVerifiedQuestion(questionId);
+    }
+
+    @Override
+    public void increaseViews(long questionId) {
+        Question foundQuestion = findQuestion(questionId);
+        foundQuestion.setViews(foundQuestion.getViews() + 1);
+        questionRepository.save(foundQuestion);
     }
 
     @Override

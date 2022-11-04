@@ -10,8 +10,8 @@ import seb40pre034.stackoverflowclone.answer.entity.Answer;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-01T10:01:58+0900",
-    comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.15 (Azul Systems, Inc.)"
+    date = "2022-11-03T23:27:50+0900",
+    comments = "version: 1.5.1.Final, compiler: javac, environment: Java 15.0.1 (Oracle Corporation)"
 )
 @Component
 public class AnswerMapperImpl implements AnswerMapper {
