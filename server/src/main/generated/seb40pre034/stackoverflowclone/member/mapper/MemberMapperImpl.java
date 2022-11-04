@@ -11,6 +11,7 @@ import seb40pre034.stackoverflowclone.member.entity.Member;
     value = "org.mapstruct.ap.MappingProcessor",
     date = "2022-11-03T23:27:50+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 15.0.1 (Oracle Corporation)"
+
 )
 @Component
 public class MemberMapperImpl implements MemberMapper {

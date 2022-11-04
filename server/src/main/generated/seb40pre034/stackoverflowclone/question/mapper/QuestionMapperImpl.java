@@ -12,6 +12,7 @@ import seb40pre034.stackoverflowclone.question.entity.Question;
     value = "org.mapstruct.ap.MappingProcessor",
     date = "2022-11-04T00:02:57+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 15.0.1 (Oracle Corporation)"
+
 )
 @Component
 public class QuestionMapperImpl implements QuestionMapper {

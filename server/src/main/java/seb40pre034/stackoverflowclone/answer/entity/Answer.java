@@ -5,8 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
-import org.w3c.dom.Text;
 import seb40pre034.stackoverflowclone.audit.Auditable;
+import seb40pre034.stackoverflowclone.member.entity.Member;
+import seb40pre034.stackoverflowclone.question.entity.Question;
 
 import javax.persistence.*;
 
@@ -29,16 +30,18 @@ public class Answer extends Auditable {
     @ColumnDefault("0")
     private int Answer_vote;
 
-
-
-//  회원 ID
 //    @ManyToOne
 //    @JoinColumn(name = "MEMBER_ID")
-//    private Long member_id;
-
-//  게시글 ID
+//    private Member member;
+//
+//    public void addMember(Member member) {
+//        this.member = member;
+//    }
+//
 //    @ManyToOne
 //    @JoinColumn(name = "QUESTION_ID")
-//    private Long question_id;
-
+//    private Question question;
+//    public void addQuestion(Question question) {
+//        this.question = question;
+//    }
 }

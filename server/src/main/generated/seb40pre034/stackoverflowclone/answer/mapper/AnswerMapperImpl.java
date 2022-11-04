@@ -1,6 +1,7 @@
 package seb40pre034.stackoverflowclone.answer.mapper;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
@@ -63,5 +64,19 @@ public class AnswerMapperImpl implements AnswerMapper {
         AnswerDto.Response response = new AnswerDto.Response( answerId, answer_content, imgUrls, date, vote );
 
         return response;
+    }
+
+    @Override
+    public List<AnswerDto.Response> answersToAnswerResponseDtos(List<Answer> answers) {
+        if ( answers == null ) {
+            return null;
+        }
+
+        List<AnswerDto.Response> list = new ArrayList<AnswerDto.Response>( answers.size() );
+        for ( Answer answer : answers ) {
+            list.add( answerToAnswerResponse( answer ) );
+        }
+
+        return list;
     }
 }
