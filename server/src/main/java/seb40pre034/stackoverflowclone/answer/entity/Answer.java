@@ -1,21 +1,20 @@
 package seb40pre034.stackoverflowclone.answer.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import seb40pre034.stackoverflowclone.audit.Auditable;
 import seb40pre034.stackoverflowclone.member.entity.Member;
 import seb40pre034.stackoverflowclone.question.entity.Question;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
+@Builder
 @Table(name = "ANSWER")
 
 public class Answer extends Auditable {
@@ -30,18 +29,12 @@ public class Answer extends Auditable {
     @ColumnDefault("0")
     private int Answer_vote;
 
-//    @ManyToOne
-//    @JoinColumn(name = "MEMBER_ID")
-//    private Member member;
-//
-//    public void addMember(Member member) {
-//        this.member = member;
-//    }
-//
-//    @ManyToOne
-//    @JoinColumn(name = "QUESTION_ID")
-//    private Question question;
-//    public void addQuestion(Question question) {
-//        this.question = question;
-//    }
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member memberId;
+
+    @ManyToOne
+    @JoinColumn(name = "QUESTION_ID")
+    private Question questionId;
+
 }
