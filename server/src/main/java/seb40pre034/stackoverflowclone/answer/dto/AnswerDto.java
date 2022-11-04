@@ -29,7 +29,7 @@ public class AnswerDto {
 
         @NotBlank(message = "답변 내용을 입력해 주세요.")
         private String answer_content;
-        private List<String> ImgUrls;
+        private List<String> imgUrls;
 
         public void setAnswerId(long answerId) {
             this.answerId = answerId;
