@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import seb40pre034.stackoverflowclone.config.auth.CustomAuthorityUtils;
 import seb40pre034.stackoverflowclone.exception.BusinessLogicException;
 import seb40pre034.stackoverflowclone.exception.ExceptionCode;
 import seb40pre034.stackoverflowclone.member.entity.Member;
@@ -18,15 +19,20 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
 
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder,
+                         CustomAuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authorityUtils = authorityUtils;
     }
 
     public Member createdMember(Member member) {
         verifyExistsEmail(member.getEmail());
         member.setPassword(passwordEncoder.encode(member.getPassword()));
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
 
         return memberRepository.save(member);
     }
