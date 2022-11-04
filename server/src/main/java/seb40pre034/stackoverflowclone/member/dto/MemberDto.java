@@ -52,7 +52,7 @@ public class MemberDto {
         private Long memberId;
         private String email;
         private String nickName;
-        private String password;
+       // private String password;
         private Member.MemberStatus memberStatus;
 
         public String getMemberStatus() {
