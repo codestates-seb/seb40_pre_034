@@ -1,16 +1,13 @@
 package seb40pre034.stackoverflowclone.member.entity;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import seb40pre034.stackoverflowclone.audit.Auditable;
-import seb40pre034.stackoverflowclone.question.entity.Question;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +56,11 @@ public class Member extends Auditable {
             this.status = status;
         }
     }
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
+
 
     /*
     @OneToMany(mappedBy = "member")
