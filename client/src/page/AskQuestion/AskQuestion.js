@@ -71,7 +71,7 @@ function AskQuestion() {
         .post(
           // "http://ec2-54-180-153-246.ap-northeast-2.compute.amazonaws.com:8080/questions/ask",
           // eslint-disable-next-line no-undef
-          `${process.env.REACT_APP_API_URL}/questions/ask`,
+          `${process.env.REACT_APP_API_URL}questions/ask`,
           {
             title: title,
             content: content,

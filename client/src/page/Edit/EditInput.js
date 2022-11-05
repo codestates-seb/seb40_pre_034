@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import CustomEditor from "../../components/Edit/CustomEditor";
 import axios from "axios";
 import dompurify from "dompurify";
+import AskQTags from "../AskQuestion/AskQTags";
 
 const InputContainer = styled.div`
   margin-top: 70px;
@@ -46,7 +47,9 @@ const EditorContainer = styled.div`
   align-items: center;
 `;
 const TextContainer = styled.div``;
-const TagContainer = styled.div``;
+const TagContainer = styled.div`
+  width: 630px;
+`;
 
 const ButtonContainer = styled.div`
   margin-top: 16px;
@@ -68,7 +71,8 @@ const EditInput = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/questions/" + id)
+      // eslint-disable-next-line no-undef
+      .get(`${process.env.REACT_APP_API_URL}questions/` + id)
       .then((res) => {
         setTitle(res.data.title);
         setValue(res.data.content);
@@ -85,7 +89,8 @@ const EditInput = () => {
       tags: tags,
     };
     axios
-      .patch("http://localhost:4000/questions/" + id, edit)
+      // eslint-disable-next-line no-undef
+      .patch(`${process.env.REACT_APP_API_URL}questions/` + id, edit)
       .then(() => navigate(`/${id}`)) //질문상세페이지로 화면이동
       .catch((err) => console.log(err));
   };
@@ -115,7 +120,7 @@ const EditInput = () => {
       <TagContainer>
         <Title>Tags</Title>
         {/* 나중에 버튼 형식으로 가져오기 */}
-        <Input type="text" defaultValue={setTags ? tags : null} />
+        <AskQTags tags={tags} setTags={setTags} />
       </TagContainer>
       <ButtonContainer>
         <BlueButton text="Save edits" handleSubmit={onSubmitHandler} />
