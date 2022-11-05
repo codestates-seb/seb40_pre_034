@@ -26,7 +26,6 @@ import java.util.Optional;
 @RequestMapping("/questions")
 @Validated
 @AllArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class QuestionController {
     private final QuestionService questionService;
     private final TagService tagService;
