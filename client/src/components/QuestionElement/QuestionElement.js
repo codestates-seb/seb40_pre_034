@@ -42,10 +42,7 @@ const QuestionCotent = styled.div`
   h3 {
     font-size: 17px;
     margin-bottom: 10px;
-
-    a {
-      color: #0074cc;
-    }
+    color: #0074cc;
   }
 
   & > p {
