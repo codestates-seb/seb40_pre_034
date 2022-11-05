@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { ReactComponent as SidebarPicture } from "../../img/SidebarPicture.svg";
 import { RiEarthLine } from "react-icons/ri";
-// import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
-  width: 190px;
+  /* width: 190px; */
   border-right: 1px solid #e5e5e5;
   padding-right: 50px;
 `;
@@ -20,7 +20,7 @@ export const CategoryTemplate = styled.div`
 
 export const CategoryTitle = styled.div`
   height: 25px;
-  text-align: left;
+  text-align: center;
   padding-top: 3px;
   color: #b4b4b4;
 `;
@@ -77,16 +77,13 @@ const Sidebar = () => {
           <CategoryLists>
             <CategoryListQu>
               <RiEarthLine />
-              <div>Questions</div>
-              {/* <Link to = "/" >&nbsp; Questions</Link> */}
+              <Link to="/">&nbsp; Questions</Link>
             </CategoryListQu>
             <CategoryListTags>
-              Tags
-              {/* <Link to = "/" >Tags</Link> */}
+              <Link to="/tags">Tags</Link>
             </CategoryListTags>
             <CategoryListUsers>
-              Users
-              {/* <Link to = "/" >Users</Link> */}
+              <Link to="/">Users</Link>
             </CategoryListUsers>
           </CategoryLists>
           {/* <Introduce>

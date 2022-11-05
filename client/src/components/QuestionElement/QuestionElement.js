@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import Char from "../../img/Char.png";
+import { Link } from "react-router-dom";
 
+import Char from "../../img/Char.png";
 import TagButton from "../Button/TagButton";
 
 const Container = styled.div`
@@ -95,7 +96,7 @@ const Ima = styled.div`
   margin-right: 7px;
 `;
 
-const QuestionElement = ({ voteCnt, answersCnt, viewsCnt, title, content, tags, nickname, createdAt }) => {
+const QuestionElement = ({ id, voteCnt, answersCnt, viewsCnt, title, content, tags, nickname, createdAt }) => {
   return (
     <Container>
       <QuestionOption>
@@ -105,21 +106,22 @@ const QuestionElement = ({ voteCnt, answersCnt, viewsCnt, title, content, tags, 
       </QuestionOption>
       <QuestionMain>
         <QuestionCotent>
-          <h3>
-            <a href="/">{title}</a>
-          </h3>
+          <Link to={`/${id}`}>
+            <h3>{title}</h3>
+          </Link>
           <p>{content}</p>
         </QuestionCotent>
 
         <QuestionInfo>
           <Tags>
-            {tags.map((tag, idx) => {
-              return (
-                <li key={idx}>
-                  <TagButton text={tag} />
-                </li>
-              );
-            })}
+            {tags &&
+              tags.map((tag, idx) => {
+                return (
+                  <li key={idx}>
+                    <TagButton text={tag} />
+                  </li>
+                );
+              })}
           </Tags>
           <Register>
             <Ima />

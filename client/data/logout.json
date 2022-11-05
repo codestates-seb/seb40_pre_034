@@ -1,0 +1,49 @@
+{
+  "logout": [
+    {
+      "id": 1,
+      "email": "test@example.com",
+      "password": "12345678"
+    },
+    {
+      "logout": [
+        {
+          "id": 4,
+          "email": "test@gmail.com",
+          "password": "12345678"
+        },
+        {
+          "id": 5,
+          "email": "test@gmail.com",
+          "password": "12345678"
+        },
+        {
+          "id": 6,
+          "email": "test@gmail.com",
+          "password": "12345678"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "logout": [
+        {
+          "id": 1,
+          "email": "test@gmail.com",
+          "password": "12345678"
+        },
+        {
+          "id": 2,
+          "email": "test2@gmail.com",
+          "password": "12345678"
+        },
+        {
+          "id": 3,
+          "email": "test3@gmail.com",
+          "password": "12345678"
+        }
+      ],
+      "id": 3
+    }
+  ]
+}

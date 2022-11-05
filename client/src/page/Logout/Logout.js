@@ -1,8 +1,11 @@
 import styled from "styled-components";
-import { CardStyle } from "../components/SideCard/CardStyle";
-import Checkbox from "../components/Checkbox/Checkbox";
-import BlueButton from "../components/Button/BlueButton";
+import { CardStyle } from "../../components/SideCard/CardStyle";
+import Checkbox from "../../components/Checkbox/Checkbox";
+// import BlueButton from "../../components/Button/BlueButton";
 import LogoutIcon from "./LogoutIcon";
+import axios from "axios";
+// import { useEffect } from "react";
+
 const LogoutContainer = styled.section`
   background-color: hsl(210, 8%, 95%);
   max-width: 100%;
@@ -74,7 +77,34 @@ const ExtraInfo = styled.div`
   font-size: 12px;
   text-align: left;
 `;
+
+const BlueButton2 = styled.button`
+  width: ${(props) => (props.width ? props.width : "auto")};
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(206, 100%, 52%);
+  border: 1px solid hsl(206, 100%, 52%);
+  &:hover {
+    background-color: hsl(206, 100%, 40%);
+  }
+  &:active {
+    background-color: hsl(209, 100%, 37.5%);
+  }
+`;
 const Logout = () => {
+  const onClickHandler = () => {
+    axios
+      .get("http://localhost:4000/logout")
+      .then((res) => console.log(res.data))
+      .catch((error) => console.log(error));
+  };
+  // {
+  // if (res.data) {
+  // navigate("/login");
+  //페이지 전환하기
+  // } else {
+  // alert("로그아웃에 실패했습니다");
+  // }
+  // }
   return (
     <LogoutContainer>
       <Content>
@@ -84,9 +114,9 @@ const Logout = () => {
             <LogoutIcon />
             <Checkbox text="Log out on all devices" />
             <BtnArea>
-              <BlueButton text="Log out" />
+              <BlueButton2 onClick={onClickHandler}>Log out</BlueButton2>
               <AnchorBox>
-                <Anchor href="https://stackoverflow.com/"> Cancel</Anchor>
+                <Anchor href="/"> Cancel</Anchor>
               </AnchorBox>
             </BtnArea>
             <ExtraInfo>
