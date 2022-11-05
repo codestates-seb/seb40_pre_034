@@ -90,13 +90,15 @@ const BlueButton2 = styled.button`
     background-color: hsl(209, 100%, 37.5%);
   }
 `;
-const Logout = () => {
-  const onClickHandler = () => {
-    axios
-      .get("http://localhost:4000/logout")
-      .then((res) => console.log(res.data))
-      .catch((error) => console.log(error));
-  };
+const Logout = ({ userInfo, setIsLogin, setUserInfo }) => {
+  // const onClickHandler = () => {
+  //   axios
+  //     // eslint-disable-next-line no-undef
+  //     .get(`${process.env.REACT_APP_API_URL}members/logout`)
+  //     .then((res) => console.log(res.data))
+  //     .catch((error) => console.log(error));
+  // };
+
   // {
   // if (res.data) {
   // navigate("/login");
@@ -105,6 +107,22 @@ const Logout = () => {
   // alert("로그아웃에 실패했습니다");
   // }
   // }
+
+  const logoutHandler = () => {
+    return (
+      axios
+        // eslint-disable-next-line no-undef
+        .post("http://localhost:4000/users", userInfo)
+        .then((res) => {
+          setUserInfo(null);
+          setIsLogin(false);
+          console.log(res);
+        })
+        .catch((err) => {
+          alert(err);
+        })
+    );
+  };
   return (
     <LogoutContainer>
       <Content>
@@ -114,7 +132,7 @@ const Logout = () => {
             <LogoutIcon />
             <Checkbox text="Log out on all devices" />
             <BtnArea>
-              <BlueButton2 onClick={onClickHandler}>Log out</BlueButton2>
+              <BlueButton2 /*onClick={onClickHandler}*/ onClick={logoutHandler}>Log out</BlueButton2>
               <AnchorBox>
                 <Anchor href="/"> Cancel</Anchor>
               </AnchorBox>

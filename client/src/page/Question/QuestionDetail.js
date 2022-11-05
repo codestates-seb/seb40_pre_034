@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
-import TopBar from "../../components/TopBar/NotLoginTopBar";
+// import TopBar from "../../components/TopBar/NotLoginTopBar";
 import VoteButton from "../../components/Button/VoteButton";
 import BlueButton from "../../components/Button/BlueButton";
 import TagButton from "../../components/Button/TagButton";
@@ -255,9 +255,7 @@ const QuestionDetail = () => {
   return (
     <>
       <Container>
-        <HeaderSection>
-          <TopBar />
-        </HeaderSection>
+        <HeaderSection>{/* <TopBar /> */}</HeaderSection>
         <MainSection>
           <SidebarSection>
             <Sidebar />

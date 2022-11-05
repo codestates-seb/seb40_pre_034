@@ -26,14 +26,14 @@ const Content = styled.div`
 `;
 const Items = styled.div``;
 
-const Login = () => {
+const Login = (/*{ setUserInfo, setIsLogin }*/) => {
   return (
     <LoginContainer>
       <Content>
         <Items>
           <LoginLogo />
           <SocialBtn />
-          <LoginInput />
+          <LoginInput /*setIsLogin={setIsLogin} setUserInfo={setUserInfo}*/ />
           <SingupInfoAdd />
         </Items>
       </Content>
