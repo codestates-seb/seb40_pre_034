@@ -57,6 +57,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
+
 //    @Bean
 //    CorsConfigurationSource corsConfigurationSource() {
 //        CorsConfiguration configuration = new CorsConfiguration();
@@ -81,5 +82,4 @@ public class SecurityConfig {
                     .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
         }
     }
-
 }
