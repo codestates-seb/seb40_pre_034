@@ -3,6 +3,7 @@ package seb40pre034.stackoverflowclone.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -28,6 +29,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
     private final JwtTokenizer tokenizer;
     private final CustomAuthorityUtils authorityUtils;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -42,10 +44,12 @@ public class SecurityConfig {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/questions/ask").authenticated()
-                        .antMatchers("/questions/edit/**").authenticated()
-                        .antMatchers("/questions/delete/**").authenticated()
-                        .antMatchers("/answers/**").authenticated()
+                        .antMatchers(HttpMethod.POST, "/questions/ask").authenticated()
+                        .antMatchers(HttpMethod.PATCH, "/questions/edit/**").authenticated()
+                        .antMatchers(HttpMethod.DELETE, "/questions/delete/**").authenticated()
+                        .antMatchers(HttpMethod.POST, "/answers").authenticated()
+                        .antMatchers(HttpMethod.PATCH, "/answers/edit/**").authenticated()
+                        .antMatchers(HttpMethod.DELETE, "/answers/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .logout()
