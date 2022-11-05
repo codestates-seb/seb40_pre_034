@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-// import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
+import Sidebar from "../../components/Sidebar/Sidebar";
 import BlueButton from "../../components/Button/BlueButton";
 import SortedTab from "../../components/SortedTab/SortedTab";
 import QuestionsCount from "../../components/QuestionsCount/QuestionsCount";
@@ -10,11 +12,17 @@ import QuestionElement from "../../components/QuestionElement/QuestionElement";
 import Pagination from "../../components/Pagination/Pagination";
 import YellowCard from "../../components/SideCard/YellowCard/YCExample";
 import WhiteCard from "../../components/SideCard/WhiteCard";
+import SearchNotFound from "../../components/Search/SearchNotFound";
 
 const Container = styled.div`
   display: flex;
-  max-width: 1280px;
-  padding: 20px;
+  justify-content: center;
+  margin-top: 80px;
+`;
+
+const MainContainer = styled.div`
+  display: flex;
+  margin-bottom: 100px;
 
   ul {
     list-style: none;
@@ -25,6 +33,7 @@ const Container = styled.div`
 const SideDescription = styled.div``;
 
 const QuestionContainer = styled.div`
+  max-width: 900px;
   padding: 0 20px;
 `;
 
@@ -34,6 +43,7 @@ const QuestionHeader = styled.div`
 
   h1 {
     font-size: 1.5rem;
+    font-weight: 400;
   }
 `;
 
@@ -45,93 +55,89 @@ const QuestionOption = styled.div`
   padding-top: 30px;
 `;
 
-const QuestionSort = styled.div`
-  margin-right: 20px;
-`;
+const QuestionSort = styled.div``;
 
 const Questions = styled.ul`
   margin-bottom: 50px;
-  border-bottom: solid 1px #babfc4;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
 `;
 
 const Search = () => {
+  const navigate = useNavigate();
+  /* const [sortTab, setSortTab] = useState("Newest"); */
   const [questions, setQuestions] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * 10;
-
-  // const navigate = useNavigate();
-
-  const [sortTab, setSortTab] = useState("Newest");
-
-  //   const location = useLocation();
-  //   let keyword = location.state ? location.state.keyword : undefined;
-  let keyword = "test";
+  const keyword = useSelector((state) => state.search);
 
   useEffect(() => {
     axios
-      .get("/search", {
+      .get(/* `${process.env.REACT_APP_API_URL}search` */ "http://localhost:4000/questions", {
         params: {
-          tab: sortTab,
-          keyword: keyword,
+          /* tab: sortTab, */
+          /* keyword: keyword, */
+          title: keyword,
         },
       })
       .then((res) => {
-        setQuestions(res.data);
+        setQuestions(res.data /* .data */);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [keyword]);
 
   return (
     <Container>
-      <QuestionContainer>
-        <QuestionHeader>
-          <h1>Search Results</h1>
-          <BlueButton text="Ask Question" /* onClick={() => navigate("/ask")} */ />
-        </QuestionHeader>
+      <Sidebar />
+      <MainContainer>
+        <QuestionContainer>
+          <QuestionHeader>
+            <h1>Search Results</h1>
+            <BlueButton text="Ask Question" onClick={() => navigate("/ask")} />
+          </QuestionHeader>
 
-        <QuestionOption>
-          <QuestionsCount count={questions.length} text="results" />
-          <ButtonContainer>
+          <QuestionOption>
+            <QuestionsCount count={questions.length} text="results" />
             <QuestionSort>
-              <SortedTab text="Newest" handleSortTab={setSortTab} />
-              <SortedTab text="Popular" handleSortTab={setSortTab} />
+              <SortedTab text="Newest" /* handleSortTab={setSortTab} */ />
+              <SortedTab text="Popular" /* handleSortTab={setSortTab} */ />
             </QuestionSort>
-          </ButtonContainer>
-        </QuestionOption>
+          </QuestionOption>
 
-        <Questions>
-          {questions.slice(offset, offset + limit).map((question, idx) => {
-            return (
-              <li key={idx}>
-                <QuestionElement
-                  id={question.id}
-                  voteCnt={question.vote}
-                  answersCnt={question.answers}
-                  viewsCnt={question.views}
-                  title={question.title}
-                  content={question.content}
-                  tags={question.tags}
-                  nickname={question.nickname}
-                  createdAt={question.createdAt}
-                />
-              </li>
-            );
-          })}
-        </Questions>
+          <Questions>
+            {questions.length > 0 ? (
+              questions.slice(offset, offset + limit).map((question) => {
+                return (
+                  <li key={question./* questionId */ id}>
+                    <QuestionElement
+                      id={question./* questionId */ id}
+                      voteCnt={question.vote}
+                      answersCnt={question.answers}
+                      viewsCnt={question.views}
+                      title={question.title}
+                      content={question.content}
+                      tags={question.tags}
+                      nickname={question.nickname}
+                      createdAt={question.createdAt}
+                    />
+                  </li>
+                );
+              })
+            ) : (
+              <SearchNotFound />
+            )}
+          </Questions>
 
-        <Pagination total={questions.length} limit={limit} page={page} setPage={setPage} setLimit={setLimit} />
-      </QuestionContainer>
+          {questions.length > 0 && (
+            <Pagination total={questions.length} limit={limit} page={page} setPage={setPage} setLimit={setLimit} />
+          )}
+        </QuestionContainer>
 
-      <SideDescription>
-        <YellowCard />
-        <WhiteCard text="Custom Filters" />
-        <WhiteCard text="Watched Tags" />
-      </SideDescription>
+        <SideDescription>
+          <YellowCard />
+          <WhiteCard text="Custom Filters" />
+          <WhiteCard text="Watched Tags" />
+        </SideDescription>
+      </MainContainer>
     </Container>
   );
 };

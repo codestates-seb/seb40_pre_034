@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setKeyword } from "../../redux/actions/searchAction";
 import { BiSearchAlt2 } from "react-icons/bi";
 
 const Container = styled.div`
@@ -33,17 +36,20 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchBar = ({ width, keyword, setKeyword, handleSearch }) => {
+const SearchBar = ({ width }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    if (e.target.value.length > 0 && e.key === "Enter") {
+      dispatch(setKeyword(e.target.value));
+      navigate("/search");
+    }
+  };
+
   return (
     <Container>
-      <SearchInput
-        type="text"
-        width={width}
-        value={keyword}
-        placeholder="Search..."
-        onChange={(e) => setKeyword(e.target.value)}
-        onKeyDown={handleSearch}
-      />
+      <SearchInput type="text" width={width} placeholder="Search..." onKeyDown={handleSearch} />
       <BiSearchAlt2 />
     </Container>
   );
