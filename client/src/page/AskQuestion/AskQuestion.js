@@ -83,11 +83,10 @@ function AskQuestion() {
             title: title,
             content: content,
             tags: tags,
-            questionId: questionId,
           },
         )
         .then((res) => navigate(`/${res.data.id}`));
-      console.log(res);
+      console.log(res); //res 어떻게 들어오는지 확인 후에 아이디값 선택해주기
     } catch (err) {
       console.log(err);
     }
