@@ -9,6 +9,11 @@ const Container = styled.footer`
   justify-content: center;
   padding: 30px 50px;
   background-color: #232629;
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
 `;
 
 const Footer = () => {

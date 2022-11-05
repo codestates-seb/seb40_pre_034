@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Anchor = styled.a`
   color: hsl(206, 100%, 40%);
@@ -19,7 +20,7 @@ const SingupInfoAdd = () => {
     <InfoContainer>
       <Info>
         <span>Don`t have an account?</span>
-        <Anchor href="/">Sign up</Anchor>
+        <Link to="/signup">Sign up</Link>
       </Info>
       <Info>
         <span>Are you an employer?</span>
