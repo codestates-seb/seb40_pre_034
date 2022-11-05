@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import seb40pre034.stackoverflowclone.config.auth.CustomAuthorityUtils;
 import seb40pre034.stackoverflowclone.config.auth.filter.JwtAuthenticationFilter;
 import seb40pre034.stackoverflowclone.config.auth.JwtTokenizer;
@@ -68,6 +69,7 @@ public class SecurityConfig {
 //        source.registerCorsConfiguration("/**", configuration);
 //        return source;
 //    }
+
 
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
