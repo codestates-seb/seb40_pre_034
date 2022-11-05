@@ -1,24 +1,38 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
+import Sidebar from "../../components/Sidebar/Sidebar";
 import BlueButton from "../../components/Button/BlueButton";
-// import LightBlueButtonWithIcon from "../../components/Button/LightBlueButtonWithIcon";
 import SortedTab from "../../components/SortedTab/SortedTab";
 import QuestionsCount from "../../components/QuestionsCount/QuestionsCount";
 import QuestionElement from "../../components/QuestionElement/QuestionElement";
 import Pagination from "../../components/Pagination/Pagination";
 import YellowCard from "../../components/SideCard/YellowCard/YCExample";
 import WhiteCard from "../../components/SideCard/WhiteCard";
+import QuestionNotFound from "../../components/QuestionElement/QuestionNotFound";
 
 const Container = styled.div`
   display: flex;
-  padding: 20px;
+  justify-content: center;
+  margin-top: 80px;
+`;
+
+const MainContainer = styled.div`
+  display: flex;
+  margin-bottom: 100px;
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
 `;
 
 const SideDescription = styled.div``;
 
 const QuestionContainer = styled.div`
+  max-width: 900px;
   padding: 0 20px;
 `;
 
@@ -28,6 +42,7 @@ const QuestionHeader = styled.div`
 
   h1 {
     font-size: 1.5rem;
+    font-weight: 400;
   }
 `;
 
@@ -39,72 +54,79 @@ const QuestionOption = styled.div`
   padding-top: 30px;
 `;
 
-const QuestionSort = styled.div`
-  margin-right: 20px;
-`;
+const QuestionSort = styled.div``;
 
-const Questions = styled.ul``;
-
-const ButtonContainer = styled.div`
-  display: flex;
+const Questions = styled.ul`
+  margin-bottom: 50px;
 `;
 
 const QuestionList = () => {
   const [questions, setQuestions] = useState([]);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(15);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * 10;
 
-  const [sortTab, setSortTab] = useState("Newest");
+  /* const [sortTab, setSortTab] = useState("Newest"); */
 
   useEffect(() => {
     axios
-      .get("/", { params: { tab: sortTab } })
-      .then((res) => setQuestions(res.data))
+      // eslint-disable-next-line no-undef
+      .get(
+        /* `${process.env.REACT_APP_API_URL}questions` */ "http://localhost:4000/questions" /* , { params: { tab: sortTab } } */,
+      )
+      .then((res) => setQuestions(res.data /* .data */))
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <Container>
-      <QuestionContainer>
-        <QuestionHeader>
-          <h1>All Questions</h1>
-          <BlueButton text="Ask Question" />
-        </QuestionHeader>
+      <Sidebar />
+      <MainContainer>
+        <QuestionContainer>
+          <QuestionHeader>
+            <h1>All Questions</h1>
+            <Link to="/ask">
+              <BlueButton text="Ask Question" />
+            </Link>
+          </QuestionHeader>
 
-        <QuestionOption>
-          <QuestionsCount count={questions.length} text="questions" />
-          <ButtonContainer>
+          <QuestionOption>
+            <QuestionsCount count={questions.length} text="questions" />
             <QuestionSort>
-              <SortedTab text="Newest" handleSortTab={setSortTab} />
-              <SortedTab text="Popular" handleSortTab={setSortTab} />
+              <SortedTab text="Newest" /* handleSortTab={setSortTab} */ />
+              <SortedTab text="Popular" /* handleSortTab={setSortTab} */ />
             </QuestionSort>
-            {/* <LightBlueButtonWithIcon isFilter="true" text="Filter" /> */}
-          </ButtonContainer>
-        </QuestionOption>
+          </QuestionOption>
 
-        <Questions>
-          {questions.slice(offset, offset + limit).map((question) => {
-            return (
-              <li key={question.id}>
-                <QuestionElement
-                  voteCnt={question.vote}
-                  answersCnt={question.answers}
-                  viewsCnt={question.views}
-                  title={question.title}
-                  content={question.content}
-                  tags={question.tags}
-                  nickname={question.nickname}
-                  createdAt={question.createdAt}
-                />
-              </li>
-            );
-          })}
-        </Questions>
+          <Questions>
+            {questions.length > 0 ? (
+              questions.slice(offset, offset + limit).map((question) => {
+                return (
+                  <li key={question./* questionId */ id}>
+                    <QuestionElement
+                      id={question./* questionId */ id}
+                      voteCnt={question.vote}
+                      answersCnt={question.answers}
+                      viewsCnt={question.views}
+                      title={question.title}
+                      content={question.content}
+                      tags={question.tags}
+                      nickname={question.nickname}
+                      createdAt={question.createdAt}
+                    />
+                  </li>
+                );
+              })
+            ) : (
+              <QuestionNotFound />
+            )}
+          </Questions>
 
-        <Pagination total={questions.length} limit={limit} page={page} setPage={setPage} setLimit={setLimit} />
-      </QuestionContainer>
-
+          {questions.length > 0 && (
+            <Pagination total={questions.length} limit={limit} page={page} setPage={setPage} setLimit={setLimit} />
+          )}
+        </QuestionContainer>
+      </MainContainer>
       <SideDescription>
         <YellowCard />
         <WhiteCard text="Custom Filters" />
