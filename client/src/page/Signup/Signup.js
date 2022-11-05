@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import SignupInfo from "../../components/SignupInfo/SignupInfo";
@@ -62,6 +63,7 @@ const Signup = () => {
   const [nameErrorMsg, setNameErrorMsg] = useState("");
   const [emailErrorMsg, setEmailErrorMsg] = useState("");
   const [pwdErrorMsg, setPwdErrorMsg] = useState("");
+  const navigate = useNavigate();
 
   const isValid = (type, value) => {
     const pattern = {
@@ -82,36 +84,53 @@ const Signup = () => {
   const checkInputVal = () => {
     if (name.length <= 0) {
       setNameErrorMsg("Name cannot be empty");
+      return false;
     } else if (!isValid("nickname", name)) {
       setNameErrorMsg(`${name} is not a valid name`);
+      return false;
     }
 
     if (email.length <= 0) {
       setEmailErrorMsg("Email cannot be empty");
+      return false;
     } else if (!isValid("email", email)) {
       setEmailErrorMsg(`${email} is not a valid email address`);
+      return false;
     }
 
     if (password.length <= 0) {
       setPwdErrorMsg("Password cannot be empty");
+      return false;
     } else if (!isValid("password", password)) {
       setPwdErrorMsg(`${password} is not a valid password`);
+      return false;
     }
+
+    return true;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    checkInputVal();
+    if (!checkInputVal()) {
+      return false;
+    }
 
     axios
-      .post("/members/signup", {
+      // eslint-disable-next-line no-undef
+      .post(/* `${process.env.REACT_APP_API_URL}members/signup` */ "http://localhost:4000/users", {
         nickName: name,
         email: email,
         password: password,
       })
-      .then((res) => console.log(res.status))
-      .catch((error) => console.log(error));
+      .then(() => {
+        alert("회원가입 성공!");
+        navigate("/");
+      })
+      .catch((error) => {
+        alert("회원가입 실패!");
+        console.log(error);
+      });
   };
 
   return (
