@@ -16,7 +16,6 @@ public class CustomAuthorityUtils {
     private String adminMailAddress;
 
     private final List<GrantedAuthority> ADMIN_ROLES = AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_USER");
-
     private final List<GrantedAuthority> USER_ROLES = AuthorityUtils.createAuthorityList("ROLE_USER");
     private final List<String> ADMIN_ROLES_STRING = List.of("ADMIN", "USER");
     private final List<String> USER_ROLES_STRING = List.of("USER");
@@ -44,7 +43,6 @@ public class CustomAuthorityUtils {
         if (email.equals(adminMailAddress)) {
             return ADMIN_ROLES_STRING;
         }
-        System.out.println("Authorization create!!!!!!!");
         return USER_ROLES_STRING;
     }
 }
