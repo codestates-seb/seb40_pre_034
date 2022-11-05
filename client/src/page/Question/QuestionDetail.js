@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
-import TopBar from "../../components/TopBar/TopBar";
+import TopBar from "../../components/TopBar/NotLoginTopBar";
 import VoteButton from "../../components/Button/VoteButton";
 import BlueButton from "../../components/Button/BlueButton";
 import TagButton from "../../components/Button/TagButton";
@@ -211,15 +211,17 @@ const QuestionDetail = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/questions/" + id)
+      // eslint-disable-next-line no-undef
+      .get(`${process.env.REACT_APP_API_URL}questions/` + id)
       .then((res) => setQuestionDetail(res.data))
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4002/answers`)
-      .then((res) => setAnswers(res.data))
+      // eslint-disable-next-line no-undef
+      .get(`${process.env.REACT_APP_API_URL}answers` + id)
+      .then((res) => setAnswers(res.data.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -227,7 +229,8 @@ const QuestionDetail = () => {
     e.preventDefault();
 
     axios
-      .post(`http://localhost:4002/answers`, {
+      // eslint-disable-next-line no-undef
+      .post(`${process.env.REACT_APP_API_URL}answers`, {
         answer: editorVal,
       })
       .then((res) => console.log(res.status));
@@ -243,9 +246,10 @@ const QuestionDetail = () => {
 
   const onAnswerDelete = (id) => {
     axios
-      .delete("http://localhost:4001/answers/" + id)
-      .then((res) => console.log(res.status))
-      .then(() => (window.location.href = "http://localhost:3000/"));
+      // eslint-disable-next-line no-undef
+      .delete(`${process.env.REACT_APP_API_URL}answers/` + id)
+      .then((res) => console.log(res.status));
+    // .then(() => (window.location.href = "http://localhost:3000/"));
   };
 
   return (

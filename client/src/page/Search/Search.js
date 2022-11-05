@@ -74,7 +74,8 @@ const Search = () => {
 
   useEffect(() => {
     axios
-      .get("/search", {
+      // eslint-disable-next-line no-undef
+      .get(`${process.env.REACT_APP_API_URL}search`, {
         params: {
           tab: sortTab,
           keyword: keyword,

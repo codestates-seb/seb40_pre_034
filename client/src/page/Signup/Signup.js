@@ -107,7 +107,8 @@ const Signup = () => {
     checkInputVal();
 
     axios
-      .post("/members/signup", {
+      // eslint-disable-next-line no-undef
+      .post(`${process.env.REACT_APP_API_URL}members/signup`, {
         nickName: name,
         email: email,
         password: password,
