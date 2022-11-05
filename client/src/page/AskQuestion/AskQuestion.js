@@ -9,15 +9,26 @@ import AskQForm, { TextInput } from "./AskQForm";
 
 const Container = styled.div`
   flex-grow: 1;
+  background-color: #f1f2f3;
 
   .input_bgc {
+    position: relative;
+    left: 4%;
+    top: 50px;
+    width: 75%;
+    display: flex;
+    justify-content: center;
     padding: 16px;
     border-radius: 3px;
     box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
+    margin-bottom: 70px;
+    margin-top: 7px;
     background-color: #ffffff;
+    padding: 10px;
+    font-size: 13px;
   }
 
   label {
@@ -31,21 +42,17 @@ const Container = styled.div`
     margin: 5px 0;
     font-weight: 400;
   }
-
-  button {
-    margin-top: 32px;
-    padding: 10px;
-    font-size: 13px;
-    background-color: #0074cc;
-    border: 1px solid #ffffff;
-    border-radius: 5px;
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-  }
-
   ul {
     list-style: none;
   }
+`;
+
+const Reviewbutton = styled.div`
+  margin-top: 1px;
+  padding-bottom: 80px;
+  left: 4%;
+  position: relative;
+  background-color: #f1f2f3;
 `;
 
 function AskQuestion() {
@@ -55,6 +62,7 @@ function AskQuestion() {
 
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
+  const [questionId, setQuestionId] = useState();
   // console.log(title);
 
   const navigate = useNavigate();
@@ -66,7 +74,6 @@ function AskQuestion() {
 
   const postQuestions = async () => {
     try {
-      // 질문 번호
       const res = await axios
         .post(
           // "http://ec2-54-180-153-246.ap-northeast-2.compute.amazonaws.com:8080/questions/ask",
@@ -79,7 +86,7 @@ function AskQuestion() {
           },
         )
         .then((res) => navigate(`/${res.data.id}`));
-      console.log(res);
+      console.log(res); //res 어떻게 들어오는지 확인 후에 아이디값 선택해주기
     } catch (err) {
       console.log(err);
     }
@@ -119,11 +126,10 @@ function AskQuestion() {
           <AskQTags tags={tags} setTags={setTags} />
         </div>
       </div>
-      <BlueButton
-        // type="button"
-        text="Review your question"
-        handleSubmit={postQuestions}
-      />
+
+      <Reviewbutton questionId={questionId} setQuestionId={setQuestionId}>
+        <BlueButton text="Review your question" handleSubmit={postQuestions} />
+      </Reviewbutton>
     </Container>
   );
 }

@@ -7,8 +7,7 @@ import { BiSearchAlt2 } from "react-icons/bi";
 const Container = styled.div`
   display: flex;
   justify-items: center;
-  align-items: center;
-  width: ${(props) => (props.width ? props.width : "50%")};
+  align-items: center;s
   color: hsl(0, 0%, 100%);
   margin: ${(props) => (props.margin ? props.margin : "10px")};
   svg {
