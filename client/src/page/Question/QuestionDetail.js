@@ -14,7 +14,7 @@ import dompurify from "dompurify";
 
 export const Container = styled.div`
   display: flex;
-  flex-flow: row wrap;
+
   justify-content: center;
 `;
 
@@ -26,36 +26,23 @@ export const HeaderSection = styled.header`
   height: 50px;
   background-color: var(--black-025);
   box-shadow: 0px 1px 2px var(--black-100);
-  z-index: 2;
 `;
 
 export const MainSection = styled.main`
   position: relative;
   width: 100vw;
   display: flex;
-  flex-flow: row nowrap;
+
   justify-content: center;
   padding-top: 50px;
 `;
-export const SidebarSection = styled.div`
-  position: sticky;
-  row-gap: 20px;
-  top: 50px;
-  width: 190px;
-  padding-top: 15px;
-`;
+
 export const ContentSection = styled.div`
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 420px);
+
   max-width: 1300px;
   overflow-x: hidden;
-`;
-export const FooterSection = styled.footer`
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  background-color: var(--black-800);
 `;
 
 export const ContentTemplate = styled.div`
@@ -63,7 +50,6 @@ export const ContentTemplate = styled.div`
   flex-direction: column;
   padding: 24px;
   height: 100%;
-  border-left: 1px solid rgb(227, 230, 232);
 `;
 export const ContentHeader = styled.div`
   display: flex;
@@ -139,16 +125,11 @@ export const QuestionContainerLeftMainAside = styled.aside`
 `;
 
 export const QuestionContainerLeftMainIntroduce = styled.section`
-  flex-grow: 1;
   font-size: 15px;
   font-weight: 500;
   line-height: 22.5px;
 
   & > div {
-    padding: 0px;
-    border: 0px;
-    font: inherit;
-    vertical-align: baseline;
     font-size: 12px;
     color: gray;
     margin: 10px 0;
@@ -160,7 +141,7 @@ export const QuestionContainerLeftMainIntroduce = styled.section`
 
 export const LanguageBtn = styled.section`
   display: flex;
-  flex-wrap: wrap;
+
   margin: 24px 0px;
 `;
 
@@ -173,13 +154,6 @@ export const CustomerEditorArea = styled.div`
   flex-direction: column;
   padding-top: 20px;
   margin-bottom: 30px;
-`;
-
-export const AnswerButton = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 30px;
-  gap: 20px;
 `;
 
 export const AnswerArea = styled.div`
@@ -202,9 +176,16 @@ export const AnswerBtn = styled.button`
   background-color: transparent;
   color: gray;
 `;
-export const QuestionDetailContent = styled.div``;
+export const QuestionDetailContent = styled.div`
+  width: 700px;
+  overflow: hidden;
+`;
 export const AnswerAnswer = styled.div``;
-export const TagBtnArea = styled.div``;
+export const TagBtnArea = styled.div`
+  > button {
+    margin-right: 5px;
+  }
+`;
 
 const QuestionDetail = () => {
   const [questionDetail, setQuestionDetail] = useState([]);
@@ -233,6 +214,7 @@ const QuestionDetail = () => {
 
     axios
       .post("http://localhost:4001/answers/", {
+        //답변 생성할때 글번호 번호 보내줘야하는지
         answer: editorVal,
         vote: 0,
       })
@@ -259,9 +241,8 @@ const QuestionDetail = () => {
           <TopBar />
         </HeaderSection>
         <MainSection>
-          <SidebarSection>
-            <Sidebar />
-          </SidebarSection>
+          <Sidebar />
+
           <ContentSection>
             <ContentTemplate>
               <ContentHeader>
@@ -302,7 +283,6 @@ const QuestionDetail = () => {
                               return <TagButton key={idx} text={tag} />;
                             })}
                         </TagBtnArea>
-
                         {/* <TagButton text={questionDetail.tags} /> */}
                       </LanguageBtn>
                       <UseBtn>
@@ -313,7 +293,6 @@ const QuestionDetail = () => {
                       </UseBtn>
                     </QuestionContainerLeftMainIntroduce>
                   </QuestionContainerLeftMain>
-
                   {answers &&
                     answers.map((answer) => {
                       return (
@@ -323,7 +302,6 @@ const QuestionDetail = () => {
                           </QuestionContainerLeftMainAside>
                           <QuestionContainerLeftMainIntroduce>
                             {answer.id === 1 ? <h1>{answers.length} Answers</h1> : ""}
-
                             <AnswerAnswer dangerouslySetInnerHTML={{ __html: sanitizer(answer.answer) }}></AnswerAnswer>
                             <LanguageBtn></LanguageBtn>
                             <UsedBtn>
@@ -336,17 +314,13 @@ const QuestionDetail = () => {
                         </QuestionContainerLeftMaind>
                       );
                     })}
-
                   <CustomerEditorArea>
                     <AnswerArea>
                       <h1>Your Answer </h1>
                       <CustomEditor handleValue={setEditiorVal} />
                     </AnswerArea>
-
                     <EditorArea>
-                      <AnswerButton>
-                        <BlueButton text="Post Your Answer" handleSubmit={onSubmitHandler} />
-                      </AnswerButton>
+                      <BlueButton text="Post Your Answer" handleSubmit={onSubmitHandler} />
                     </EditorArea>
                   </CustomerEditorArea>
                 </QuestionContainerLeft>
