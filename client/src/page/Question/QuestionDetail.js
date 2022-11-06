@@ -9,6 +9,7 @@ import BlueButton from "../../components/Button/BlueButton";
 import TagButton from "../../components/Button/TagButton";
 import CustomEditor from "../../components/Edit/CustomEditor";
 import YellowSideCard from "../../components/SideCard/YellowCard/YellowSideCard";
+import ShareLink from "../../components/ShareLink/ShareLink";
 import axios from "axios";
 import dompurify from "dompurify";
 
@@ -145,7 +146,9 @@ export const LanguageBtn = styled.section`
   margin: 24px 0px;
 `;
 
-export const UseBtn = styled(LanguageBtn)``;
+export const UseBtn = styled(LanguageBtn)`
+  position: relative;
+`;
 
 export const UsedBtn = styled(UseBtn)``;
 
@@ -186,7 +189,8 @@ export const TagBtnArea = styled.div`
     margin-right: 5px;
   }
 `;
-
+const QuestionBtn1 = styled(QuestionBtn)``;
+const ShareLinkStyle = styled.div``;
 const QuestionDetail = () => {
   const [questionDetail, setQuestionDetail] = useState([]);
   const [answers, setAnswers] = useState([]);
@@ -204,7 +208,7 @@ const QuestionDetail = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4001/answers/" + id)
+      .get("http://localhost:4001/answers/")
       .then((res) => setAnswers(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -215,26 +219,28 @@ const QuestionDetail = () => {
     axios
       .post("http://localhost:4001/answers/", {
         //답변 생성할때 글번호 번호 보내줘야하는지
-        id: id,
+        // id: id,
         answer: editorVal,
         vote: 0,
       })
-      .then((res) => console.log(res.status))
-      .then(() => (window.location.href = "http://localhost:3000/"));
+      .then((res) => console.log(res.status));
   };
 
   const onQuestionDelete = () => {
     axios
       .delete("http://localhost:4000/questions/" + id)
       .then((res) => console.log(res.status))
-      .then(() => (window.location.href = "http://localhost:3000/"));
+      .then(() => navigate("/"));
   };
 
   const onAnswerDelete = (id) => {
     axios.delete("http://localhost:4001/answers/" + id).then((res) => console.log(res.status));
     // .then(() => (window.location.href = "http://localhost:3000/"));
   };
-
+  const [isModal, setIsModal] = useState(false);
+  const ModalHandler = () => {
+    setIsModal((prev) => !prev);
+  };
   return (
     <>
       <Container>
@@ -287,7 +293,16 @@ const QuestionDetail = () => {
                         {/* <TagButton text={questionDetail.tags} /> */}
                       </LanguageBtn>
                       <UseBtn>
-                        <QuestionBtn>Share</QuestionBtn>
+                        {isModal ? (
+                          <>
+                            <QuestionBtn1 onClick={ModalHandler}>Share</QuestionBtn1>
+                            <ShareLinkStyle>
+                              <ShareLink onClick={ModalHandler} />
+                            </ShareLinkStyle>
+                          </>
+                        ) : (
+                          <QuestionBtn1 onClick={ModalHandler}>Share</QuestionBtn1>
+                        )}
                         <QuestionBtn onClick={() => navigate(`/edit/${id}`)}>Edit</QuestionBtn>
                         <QuestionBtn>Follow</QuestionBtn>
                         <QuestionBtn onClick={() => onQuestionDelete(questionDetail.id)}>Delete</QuestionBtn>

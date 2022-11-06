@@ -97,14 +97,14 @@ const LoginTopBar = () => {
   return (
     <HeaderContainer>
       <TopBarContainer>
-        <Link to="/question">
+        <Link to="/">
           <LogoContainer>
             <LogoArea />
           </LogoContainer>
         </Link>
 
         <NavItems>
-          <NavAnchor href="/question">Products</NavAnchor>
+          <NavAnchor href="/">Products</NavAnchor>
         </NavItems>
 
         <SearchBar width="700px" />

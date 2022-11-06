@@ -73,17 +73,17 @@ const Sidebar = () => {
             <CategoryList>
               <ListStyle>
                 <RiEarthLine size="16" className="icon" />
-                <Link to="/question">Questions</Link>
+                <Link to="/">Questions</Link>
               </ListStyle>
             </CategoryList>
             <CategoryList>
               <ListStyle2>
-                <Link to="/question">Tags</Link>
+                <Link to="/">Tags</Link>
               </ListStyle2>
             </CategoryList>
             <CategoryList>
               <ListStyle2>
-                <Link to="/question">Users</Link>
+                <Link to="/">Users</Link>
               </ListStyle2>
             </CategoryList>
           </CategoryLists>

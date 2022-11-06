@@ -73,7 +73,7 @@ function App() {
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/question" element={<QuestionList />} />
+            <Route path="/" element={<QuestionList />} />
             <Route path="/question/:id" element={<QuestionDetail />} />
             <Route path="/search" element={<Search />} />
             <Route path="/ask" element={<AskQuestion />} />

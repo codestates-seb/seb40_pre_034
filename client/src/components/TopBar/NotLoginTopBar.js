@@ -91,7 +91,7 @@ const NotLoginTopBar = () => {
   return (
     <HeaderContainer>
       <TopBarContainer>
-        <Link to="/question">
+        <Link to="/">
           <LogoContainer>
             <LogoArea />
           </LogoContainer>
@@ -99,13 +99,13 @@ const NotLoginTopBar = () => {
 
         <Nav>
           <NavItems>
-            <NavAnchor href="/question">About</NavAnchor>
+            <NavAnchor href="/">About</NavAnchor>
           </NavItems>
           <NavItems>
-            <NavAnchor href="/question">Products</NavAnchor>
+            <NavAnchor href="/">Products</NavAnchor>
           </NavItems>
           <NavItems>
-            <NavAnchor href="/question">For Teams</NavAnchor>
+            <NavAnchor href="/">For Teams</NavAnchor>
           </NavItems>
         </Nav>
 
