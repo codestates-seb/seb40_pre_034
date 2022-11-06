@@ -49,9 +49,9 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     }
 
     private void setAuthenticationToContext(Map<String, Object> claims) {
-        String username = (String) claims.get("username");   // (4-1)
-        List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));  // (4-2)
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);  // (4-3)
-        SecurityContextHolder.getContext().setAuthentication(authentication); // (4-4)
+        String username = (String) claims.get("username");
+        List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
+        Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

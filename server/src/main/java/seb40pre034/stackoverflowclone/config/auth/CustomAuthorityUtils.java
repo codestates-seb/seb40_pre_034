@@ -34,7 +34,6 @@ public class CustomAuthorityUtils {
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toList());
 
-        System.out.println("authorities : " + authorities);
         return authorities;
     }
 
