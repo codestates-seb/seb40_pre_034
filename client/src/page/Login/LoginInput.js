@@ -125,16 +125,15 @@ const LoginInput = ({ setUserInfo, setIsLogin }) => {
     await new Promise((r) => setTimeout(r, 1000));
 
     const login = {
-      email: data.email,
+      username: data.email,
       password: data.password,
     };
     console.log(login);
 
     axios
       // eslint-disable-next-line no-undef
-      // .post(`${process.env.REACT_APP_API_URL}members/login`, login)
-      .post("http://localhost:4000/login", login)
-
+      .post(`${process.env.REACT_APP_API_URL}members/login`, login)
+      // .post("http://localhost:4000/login", login)
       .then((res) => {
         setIsLogin(true);
         setUserInfo(res.data);

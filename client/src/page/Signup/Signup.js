@@ -118,7 +118,7 @@ const Signup = () => {
 
     axios
       // eslint-disable-next-line no-undef
-      .post(/* `${process.env.REACT_APP_API_URL}members/signup` */ "http://localhost:4000/users", {
+      .post(`${process.env.REACT_APP_API_URL}members/signup` /* "http://localhost:4000/users"*/, {
         nickName: name,
         email: email,
         password: password,

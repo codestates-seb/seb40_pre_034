@@ -65,9 +65,9 @@ function AskQuestion() {
     try {
       await axios
         .post(
-          "http://localhost:4000/questions",
+          // "http://localhost:4000/questions",
           // eslint-disable-next-line no-undef
-          // `${process.env.REACT_APP_API_URL}questions/ask`,
+          `${process.env.REACT_APP_API_URL}questions/ask`,
           {
             title: title,
             content: content,

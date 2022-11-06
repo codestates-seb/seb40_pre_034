@@ -76,8 +76,8 @@ const EditInput = () => {
   useEffect(() => {
     axios
       // eslint-disable-next-line no-undef
-      // .get(`${process.env.REACT_APP_API_URL}questions/` + id)
-      .get("http://localhost:4002/questions/" + id)
+      .get(`${process.env.REACT_APP_API_URL}questions/` + id)
+      // .get("http://localhost:4002/questions/" + id)
       .then((res) => {
         setTitle(res.data.title);
         setValue(res.data.content);
@@ -95,7 +95,7 @@ const EditInput = () => {
     };
     axios
       // eslint-disable-next-line no-undef
-      .patch(/* `${process.env.REACT_APP_API_URL}questions/` */ `http://localhost:4002/questions/` + id, edit)
+      .patch(`${process.env.REACT_APP_API_URL}questions/` + id, /* `http://localhost:4002/questions/`*/ edit)
       .then(() => navigate(`/question/${id}`))
       .catch((err) => console.log(err));
   };

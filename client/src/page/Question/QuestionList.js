@@ -75,9 +75,10 @@ const QuestionList = () => {
 
   useEffect(() => {
     axios
-      // eslint-disable-next-line no-undef
+
       .get(
-        /* `${process.env.REACT_APP_API_URL}questions` */ "http://localhost:4000/questions" /* , { params: { tab: sortTab } } */,
+        // eslint-disable-next-line no-undef
+        `${process.env.REACT_APP_API_URL}questions` /*"http://localhost:4000/questions"*/ /* , { params: { tab: sortTab } } */,
       )
       .then((res) => setQuestions(res.data /* .data */))
       .catch((err) => console.log(err));

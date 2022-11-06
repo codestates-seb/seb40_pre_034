@@ -165,7 +165,9 @@ export const LanguageBtn = styled.section`
   margin: 24px 0px;
 `;
 
-export const UseBtn = styled(LanguageBtn)``;
+export const UseBtn = styled(LanguageBtn)`
+  position: relative;
+`;
 
 export const UsedBtn = styled(UseBtn)``;
 
@@ -215,14 +217,8 @@ export const TagBtnArea = styled.div`
   }
 `;
 
-const QuestionBtn1 = styled(QuestionBtn)`
-  position: relative;
-`;
-const ShareLinkStyle = styled.div`
-  position: absolute;
-  top: 334px;
-  right: 745px;
-`;
+const QuestionBtn1 = styled(QuestionBtn)``;
+const ShareLinkStyle = styled.div``;
 const QuestionDetail = () => {
   const [questionDetail, setQuestionDetail] = useState([]);
   const [answers, setAnswers] = useState([]);
@@ -233,14 +229,18 @@ const QuestionDetail = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4002/questions/" + id)
+      // eslint-disable-next-line no-undef
+      .get(`${process.env.REACT_APP_API_URL}questions` + id)
       .then((res) => setQuestionDetail(res.data))
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     axios
-      .get("http://localhost:4002/answers/" + id)
+      // .get("http://localhost:4002/answers/" + id)
+      // eslint-disable-next-line no-undef
+      .get(`${process.env.REACT_APP_API_URL}answers` + id)
+
       .then((res) => setAnswers(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -249,7 +249,8 @@ const QuestionDetail = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:4002/answers", {
+      // eslint-disable-next-line no-undef
+      .post(`${process.env.REACT_APP_API_URL}answers`, {
         // 답변 생성할 때 글번호를 보내줘야할 것!
         answer: editorVal,
         vote: 0,
@@ -259,13 +260,15 @@ const QuestionDetail = () => {
 
   const onQuestionDelete = () => {
     axios
-      .delete("http://localhost:4000/questions/" + id)
+      // eslint-disable-next-line no-undef
+      .delete(`${process.env.REACT_APP_API_URL}questions` + id)
       .then((res) => console.log(res.status))
       .then(() => navigate("/question"));
   };
 
   const onAnswerDelete = (id) => {
-    axios.delete("http://localhost:4002/answers/" + id).then((res) => console.log(res.status));
+    // eslint-disable-next-line no-undef
+    axios.delete(`${process.env.REACT_APP_API_URL}answers` + id).then((res) => console.log(res.status));
     // .then(() => (window.location.href = "http://localhost:3000/"));
   };
   const [isModal, setIsModal] = useState(false);
@@ -334,10 +337,6 @@ const QuestionDetail = () => {
                         ) : (
                           <QuestionBtn1 onClick={ModalHandler}>Share</QuestionBtn1>
                         )}
-                        {/* <QuestionBtn1 onClick={ModalHandler}>Share</QuestionBtn1>
-                        <ShareLinkStyle>
-                          <ShareLink onClick={ModalHandler} />
-                        </ShareLinkStyle> */}
                         <QuestionBtn onClick={() => navigate(`/edit/${id}`)}>Edit</QuestionBtn>
                         <QuestionBtn>Follow</QuestionBtn>
                         <QuestionBtn onClick={() => onQuestionDelete(questionDetail.id)}>Delete</QuestionBtn>
