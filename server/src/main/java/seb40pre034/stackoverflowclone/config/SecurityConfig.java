@@ -36,7 +36,8 @@ public class SecurityConfig {
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
-                .cors().configurationSource(corsConfigurationSource())
+//                .cors().configurationSource(corsConfigurationSource())
+                .cors()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)  // (1) 추가
                 .and()
