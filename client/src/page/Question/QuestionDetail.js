@@ -9,13 +9,12 @@ import BlueButton from "../../components/Button/BlueButton";
 import TagButton from "../../components/Button/TagButton";
 import CustomEditor from "../../components/Edit/CustomEditor";
 import YellowSideCard from "../../components/SideCard/YellowCard/YellowSideCard";
-import ShareLink from "../../components/ShareLink/ShareLink";
 import axios from "axios";
 import dompurify from "dompurify";
 
 export const Container = styled.div`
   display: flex;
-  flex-flow: row wrap;
+
   justify-content: center;
 `;
 
@@ -27,36 +26,23 @@ export const HeaderSection = styled.header`
   height: 50px;
   background-color: var(--black-025);
   box-shadow: 0px 1px 2px var(--black-100);
-  z-index: 2;
 `;
 
 export const MainSection = styled.main`
   position: relative;
   width: 100vw;
   display: flex;
-  flex-flow: row nowrap;
+
   justify-content: center;
   padding-top: 50px;
 `;
-export const SidebarSection = styled.div`
-  position: sticky;
-  row-gap: 20px;
-  top: 50px;
-  width: 190px;
-  /* padding-top: 15px; */
-`;
+
 export const ContentSection = styled.div`
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 420px);
+
   max-width: 1300px;
   overflow-x: hidden;
-`;
-export const FooterSection = styled.footer`
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  background-color: var(--black-800);
 `;
 
 export const ContentTemplate = styled.div`
@@ -64,7 +50,6 @@ export const ContentTemplate = styled.div`
   flex-direction: column;
   padding: 24px;
   height: 100%;
-  /* border-left: 1px solid rgb(227, 230, 232); */
 `;
 export const ContentHeader = styled.div`
   display: flex;
@@ -140,16 +125,11 @@ export const QuestionContainerLeftMainAside = styled.aside`
 `;
 
 export const QuestionContainerLeftMainIntroduce = styled.section`
-  flex-grow: 1;
   font-size: 15px;
   font-weight: 500;
   line-height: 22.5px;
 
   & > div {
-    padding: 0px;
-    border: 0px;
-    font: inherit;
-    vertical-align: baseline;
     font-size: 12px;
     color: gray;
     margin: 10px 0;
@@ -161,13 +141,11 @@ export const QuestionContainerLeftMainIntroduce = styled.section`
 
 export const LanguageBtn = styled.section`
   display: flex;
-  flex-wrap: wrap;
+
   margin: 24px 0px;
 `;
 
-export const UseBtn = styled(LanguageBtn)`
-  position: relative;
-`;
+export const UseBtn = styled(LanguageBtn)``;
 
 export const UsedBtn = styled(UseBtn)``;
 
@@ -176,13 +154,6 @@ export const CustomerEditorArea = styled.div`
   flex-direction: column;
   padding-top: 20px;
   margin-bottom: 30px;
-`;
-
-export const AnswerButton = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 30px;
-  gap: 20px;
 `;
 
 export const AnswerArea = styled.div`
@@ -208,7 +179,6 @@ export const AnswerBtn = styled.button`
 export const QuestionDetailContent = styled.div`
   width: 700px;
   overflow: hidden;
-  word-wrap: break-word;
 `;
 export const AnswerAnswer = styled.div``;
 export const TagBtnArea = styled.div`
@@ -217,8 +187,6 @@ export const TagBtnArea = styled.div`
   }
 `;
 
-const QuestionBtn1 = styled(QuestionBtn)``;
-const ShareLinkStyle = styled.div``;
 const QuestionDetail = () => {
   const [questionDetail, setQuestionDetail] = useState([]);
   const [answers, setAnswers] = useState([]);
@@ -229,18 +197,14 @@ const QuestionDetail = () => {
 
   useEffect(() => {
     axios
-      // eslint-disable-next-line no-undef
-      .get(`${process.env.REACT_APP_API_URL}questions` + id)
+      .get("http://localhost:4000/questions/" + id)
       .then((res) => setQuestionDetail(res.data))
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     axios
-      // .get("http://localhost:4002/answers/" + id)
-      // eslint-disable-next-line no-undef
-      .get(`${process.env.REACT_APP_API_URL}answers` + id)
-
+      .get("http://localhost:4001/answers/" + id)
       .then((res) => setAnswers(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -249,32 +213,28 @@ const QuestionDetail = () => {
     e.preventDefault();
 
     axios
-      // eslint-disable-next-line no-undef
-      .post(`${process.env.REACT_APP_API_URL}answers`, {
-        // 답변 생성할 때 글번호를 보내줘야할 것!
+      .post("http://localhost:4001/answers/", {
+        //답변 생성할때 글번호 번호 보내줘야하는지
+        id: id,
         answer: editorVal,
         vote: 0,
       })
-      .then((res) => console.log(res.status));
+      .then((res) => console.log(res.status))
+      .then(() => (window.location.href = "http://localhost:3000/"));
   };
 
   const onQuestionDelete = () => {
     axios
-      // eslint-disable-next-line no-undef
-      .delete(`${process.env.REACT_APP_API_URL}questions` + id)
+      .delete("http://localhost:4000/questions/" + id)
       .then((res) => console.log(res.status))
-      .then(() => navigate("/question"));
+      .then(() => (window.location.href = "http://localhost:3000/"));
   };
 
   const onAnswerDelete = (id) => {
-    // eslint-disable-next-line no-undef
-    axios.delete(`${process.env.REACT_APP_API_URL}answers` + id).then((res) => console.log(res.status));
+    axios.delete("http://localhost:4001/answers/" + id).then((res) => console.log(res.status));
     // .then(() => (window.location.href = "http://localhost:3000/"));
   };
-  const [isModal, setIsModal] = useState(false);
-  const ModalHandler = () => {
-    setIsModal((prev) => !prev);
-  };
+
   return (
     <>
       <Container>
@@ -282,9 +242,8 @@ const QuestionDetail = () => {
           <TopBar />
         </HeaderSection>
         <MainSection>
-          <SidebarSection>
-            <Sidebar />
-          </SidebarSection>
+          <Sidebar />
+
           <ContentSection>
             <ContentTemplate>
               <ContentHeader>
@@ -325,26 +284,17 @@ const QuestionDetail = () => {
                               return <TagButton key={idx} text={tag} />;
                             })}
                         </TagBtnArea>
+                        {/* <TagButton text={questionDetail.tags} /> */}
                       </LanguageBtn>
                       <UseBtn>
-                        {isModal ? (
-                          <>
-                            <QuestionBtn1 onClick={ModalHandler}>Share</QuestionBtn1>
-                            <ShareLinkStyle>
-                              <ShareLink onClick={ModalHandler} />
-                            </ShareLinkStyle>
-                          </>
-                        ) : (
-                          <QuestionBtn1 onClick={ModalHandler}>Share</QuestionBtn1>
-                        )}
+                        <QuestionBtn>Share</QuestionBtn>
                         <QuestionBtn onClick={() => navigate(`/edit/${id}`)}>Edit</QuestionBtn>
                         <QuestionBtn>Follow</QuestionBtn>
                         <QuestionBtn onClick={() => onQuestionDelete(questionDetail.id)}>Delete</QuestionBtn>
                       </UseBtn>
                     </QuestionContainerLeftMainIntroduce>
                   </QuestionContainerLeftMain>
-
-                  {answers.length > 0 &&
+                  {answers &&
                     answers.map((answer) => {
                       return (
                         <QuestionContainerLeftMaind key={answer.id}>
@@ -353,12 +303,10 @@ const QuestionDetail = () => {
                           </QuestionContainerLeftMainAside>
                           <QuestionContainerLeftMainIntroduce>
                             {answer.id === 1 ? <h1>{answers.length} Answers</h1> : ""}
-
                             <AnswerAnswer dangerouslySetInnerHTML={{ __html: sanitizer(answer.answer) }}></AnswerAnswer>
                             <LanguageBtn></LanguageBtn>
                             <UsedBtn>
                               <AnswerBtn>Share</AnswerBtn>
-
                               <AnswerBtn>Edit</AnswerBtn>
                               <AnswerBtn></AnswerBtn>
                               <AnswerBtn onClick={() => onAnswerDelete(answer.id)}>Delete</AnswerBtn>
@@ -367,17 +315,13 @@ const QuestionDetail = () => {
                         </QuestionContainerLeftMaind>
                       );
                     })}
-
                   <CustomerEditorArea>
                     <AnswerArea>
                       <h1>Your Answer </h1>
                       <CustomEditor handleValue={setEditiorVal} />
                     </AnswerArea>
-
                     <EditorArea>
-                      <AnswerButton>
-                        <BlueButton text="Post Your Answer" handleSubmit={onSubmitHandler} />
-                      </AnswerButton>
+                      <BlueButton text="Post Your Answer" handleSubmit={onSubmitHandler} />
                     </EditorArea>
                   </CustomerEditorArea>
                 </QuestionContainerLeft>
