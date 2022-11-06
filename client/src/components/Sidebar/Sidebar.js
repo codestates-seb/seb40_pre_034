@@ -7,7 +7,6 @@ export const Container = styled.div`
   padding-top: 26px;
   border-right: 1px solid hsl(210, 8%, 85%);
   width: 164px;
-  height: 100vh;
 `;
 
 export const SidebarTemplate = styled.div``;

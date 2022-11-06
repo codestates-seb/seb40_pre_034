@@ -9,6 +9,7 @@ import BlueButton from "../../components/Button/BlueButton";
 import TagButton from "../../components/Button/TagButton";
 import CustomEditor from "../../components/Edit/CustomEditor";
 import YellowSideCard from "../../components/SideCard/YellowCard/YellowSideCard";
+import ShareLink from "../../components/ShareLink/ShareLink";
 import axios from "axios";
 import dompurify from "dompurify";
 
@@ -214,6 +215,14 @@ export const TagBtnArea = styled.div`
   }
 `;
 
+const QuestionBtn1 = styled(QuestionBtn)`
+  position: relative;
+`;
+const ShareLinkStyle = styled.div`
+  position: absolute;
+  top: 334px;
+  right: 745px;
+`;
 const QuestionDetail = () => {
   const [questionDetail, setQuestionDetail] = useState([]);
   const [answers, setAnswers] = useState([]);
@@ -259,7 +268,10 @@ const QuestionDetail = () => {
     axios.delete("http://localhost:4002/answers/" + id).then((res) => console.log(res.status));
     // .then(() => (window.location.href = "http://localhost:3000/"));
   };
-
+  const [isModal, setIsModal] = useState(false);
+  const ModalHandler = () => {
+    setIsModal((prev) => !prev);
+  };
   return (
     <>
       <Container>
@@ -312,7 +324,20 @@ const QuestionDetail = () => {
                         </TagBtnArea>
                       </LanguageBtn>
                       <UseBtn>
-                        <QuestionBtn>Share</QuestionBtn>
+                        {isModal ? (
+                          <>
+                            <QuestionBtn1 onClick={ModalHandler}>Share</QuestionBtn1>
+                            <ShareLinkStyle>
+                              <ShareLink onClick={ModalHandler} />
+                            </ShareLinkStyle>
+                          </>
+                        ) : (
+                          <QuestionBtn1 onClick={ModalHandler}>Share</QuestionBtn1>
+                        )}
+                        {/* <QuestionBtn1 onClick={ModalHandler}>Share</QuestionBtn1>
+                        <ShareLinkStyle>
+                          <ShareLink onClick={ModalHandler} />
+                        </ShareLinkStyle> */}
                         <QuestionBtn onClick={() => navigate(`/edit/${id}`)}>Edit</QuestionBtn>
                         <QuestionBtn>Follow</QuestionBtn>
                         <QuestionBtn onClick={() => onQuestionDelete(questionDetail.id)}>Delete</QuestionBtn>
@@ -334,6 +359,7 @@ const QuestionDetail = () => {
                             <LanguageBtn></LanguageBtn>
                             <UsedBtn>
                               <AnswerBtn>Share</AnswerBtn>
+
                               <AnswerBtn>Edit</AnswerBtn>
                               <AnswerBtn></AnswerBtn>
                               <AnswerBtn onClick={() => onAnswerDelete(answer.id)}>Delete</AnswerBtn>
