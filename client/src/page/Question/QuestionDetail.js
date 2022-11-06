@@ -198,17 +198,19 @@ const QuestionDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const sanitizer = dompurify.sanitize;
-
+  // .post(`${process.env.REACT_APP_API_URL}answers`, userInfo)
   useEffect(() => {
     axios
-      .get("http://localhost:4000/questions/" + id)
+      // eslint-disable-next-line no-undef
+      .get(`${process.env.REACT_APP_API_URL}questions` + id)
       .then((res) => setQuestionDetail(res.data))
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     axios
-      .get("http://localhost:4001/answers/")
+      // eslint-disable-next-line no-undef
+      .get(`${process.env.REACT_APP_API_URL}answers`)
       .then((res) => setAnswers(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -217,7 +219,8 @@ const QuestionDetail = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:4001/answers/", {
+      // eslint-disable-next-line no-undef
+      .post(`${process.env.REACT_APP_API_URL}answers`, {
         //답변 생성할때 글번호 번호 보내줘야하는지
         // id: id,
         answer: editorVal,
@@ -228,13 +231,15 @@ const QuestionDetail = () => {
 
   const onQuestionDelete = () => {
     axios
-      .delete("http://localhost:4000/questions/" + id)
+      // eslint-disable-next-line no-undef
+      .delete(`${process.env.REACT_APP_API_URL}questions` + id)
       .then((res) => console.log(res.status))
       .then(() => navigate("/"));
   };
 
   const onAnswerDelete = (id) => {
-    axios.delete("http://localhost:4001/answers/" + id).then((res) => console.log(res.status));
+    // eslint-disable-next-line no-undef
+    axios.delete(`${process.env.REACT_APP_API_URL}answers` + id).then((res) => console.log(res.status));
     // .then(() => (window.location.href = "http://localhost:3000/"));
   };
   const [isModal, setIsModal] = useState(false);
