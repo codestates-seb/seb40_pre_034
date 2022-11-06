@@ -37,20 +37,27 @@ const Input = styled.input`
     outline: none;
   }
 `;
-const EditorContainer = styled.div``;
+const EditorContainer = styled.div`
+  width: 630px;
+`;
 
 const Display = styled.div`
   width: 630px;
-  margin: 0.6rem 0;
+
+  margin: 0.8rem 0;
 `;
 
-const TextContainer = styled.div``;
+const TextContainer = styled.div`
+  width: 630px;
+  overflow: hidden;
+  word-wrap: break-word;
+`;
 const TagContainer = styled.div`
   width: 630px;
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 16px;
+  margin: 16px 0;
   width: 630px;
   & :first-child {
     margin-right: 10px;
@@ -63,13 +70,14 @@ const EditInput = () => {
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
   const [editorVal, setEditorVal] = useState("");
-  const [tags, setTags] = useState("");
+  const [tags, setTags] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
       // eslint-disable-next-line no-undef
       .get(`${process.env.REACT_APP_API_URL}questions/` + id)
+      // .get("http://localhost:4002/questions/" + id)
       .then((res) => {
         setTitle(res.data.title);
         setValue(res.data.content);
@@ -87,9 +95,12 @@ const EditInput = () => {
     };
     axios
       // eslint-disable-next-line no-undef
-      .patch(/* `${process.env.REACT_APP_API_URL}questions/` */ `http://localhost:4000/questions/` + id, edit)
+      .patch(`${process.env.REACT_APP_API_URL}questions/` + id, /* `http://localhost:4002/questions/`*/ edit)
       .then(() => navigate(`/question/${id}`))
       .catch((err) => console.log(err));
+  };
+  const onClickHandler = () => {
+    navigate(`/question/${id}`);
   };
 
   return (
@@ -101,7 +112,7 @@ const EditInput = () => {
       <TextContainer>
         <Title>Body</Title>
         <EditorContainer>
-          <CustomEditor width="630px" handleValue={setEditorVal} value={value} />
+          <CustomEditor handleValue={setEditorVal} value={value} />
           <Display dangerouslySetInnerHTML={{ __html: sanitizer(editorVal) }} />
         </EditorContainer>
       </TextContainer>
@@ -111,7 +122,7 @@ const EditInput = () => {
       </TagContainer>
       <ButtonContainer>
         <BlueButton text="Save edits" handleSubmit={onSubmitHandler} />
-        <WhiteButton text="Cancel" />
+        <WhiteButton text="Cancel" onClickHandler={onClickHandler} />
       </ButtonContainer>
     </InputContainer>
   );

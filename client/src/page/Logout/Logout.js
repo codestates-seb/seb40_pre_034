@@ -112,7 +112,8 @@ const Logout = ({ userInfo, setIsLogin, setUserInfo }) => {
     return (
       axios
         // eslint-disable-next-line no-undef
-        .post("http://localhost:4000/users", userInfo)
+        .post(`${process.env.REACT_APP_API_URL}members/logout`, userInfo)
+        // .post("http://localhost:4000/users", userInfo)
         .then((res) => {
           setUserInfo(null);
           setIsLogin(false);

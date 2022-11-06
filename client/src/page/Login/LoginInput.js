@@ -3,7 +3,7 @@ import styled from "styled-components";
 import BlueButton from "../../components/Button/BlueButton";
 import { CardStyle } from "../../components/SideCard/CardStyle";
 import axios from "axios";
-// import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const InputArea = styled.div`
@@ -62,7 +62,7 @@ const ErrorMSG = styled.div`
   margin-bottom: 6px;
 `;
 
-const LoginInput = (/*{ setUserInfo, setIsLogin }*/) => {
+const LoginInput = ({ setUserInfo, setIsLogin }) => {
   const {
     register,
     handleSubmit,
@@ -70,14 +70,14 @@ const LoginInput = (/*{ setUserInfo, setIsLogin }*/) => {
   } = useForm();
 
   const navigate = useNavigate();
-  // const [loginInfo, setLoginInfo] = useState({
-  //   username: "",
-  //   password: "",
-  // });
+  const [loginInfo, setLoginInfo] = useState({
+    username: "",
+    password: "",
+  });
 
-  // const handleInputValue = (key) => (e) => {
-  //   setLoginInfo({ ...loginInfo, [key]: e.target.value });
-  // };
+  const handleInputValue = (key) => (e) => {
+    setLoginInfo({ ...loginInfo, [key]: e.target.value });
+  };
 
   // const onSubmit = async (data) => {
   //   await new Promise((r) => setTimeout(r, 1000));
@@ -125,24 +125,25 @@ const LoginInput = (/*{ setUserInfo, setIsLogin }*/) => {
     await new Promise((r) => setTimeout(r, 1000));
 
     const login = {
-      email: data.email,
+      username: data.email,
       password: data.password,
     };
     console.log(login);
 
     axios
       // eslint-disable-next-line no-undef
-      // .post(`${process.env.REACT_APP_API_URL}members/login`, login)
-      .post("http://localhost:4000/login", login)
-
+      .post(`${process.env.REACT_APP_API_URL}members/login`, login)
+      // .post("http://localhost:4000/login", login)
       .then((res) => {
+        setIsLogin(true);
+        setUserInfo(res.data);
         console.log(res);
         const { accessToken } = res.data;
 
         // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
         // accessToken을 localStorage, cookie 등에 저장하지 않는다!
-        navigate("/");
+        navigate("/question");
       })
       .catch((error) => console.log(error));
   };
@@ -199,7 +200,7 @@ const LoginInput = (/*{ setUserInfo, setIsLogin }*/) => {
                 message: "이메일 형식에 맞지 않습니다.",
               },
             })}
-            // onChange={handleInputValue("username")}
+            onChange={handleInputValue("username")}
           />
           {errors.email && <ErrorMSG role="alert">{errors.email.message}</ErrorMSG>}
           <PwArea>
@@ -221,7 +222,7 @@ const LoginInput = (/*{ setUserInfo, setIsLogin }*/) => {
                 message: "영문, 숫자, 특수기호 조합으로 8-20자리 이상 입력해주세요.",
               },
             })}
-            // onChange={handleInputValue("password")}
+            onChange={handleInputValue("password")}
           />
           {errors.password && <ErrorMSG role="alert">{errors.password.message}</ErrorMSG>}
           <BlueButton text="Log in" type="submit" disabled={isSubmitting} />
