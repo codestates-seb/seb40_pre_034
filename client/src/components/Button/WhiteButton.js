@@ -13,8 +13,12 @@ const WhiteButtonStyle = styled.button`
   }
 `;
 
-const WhiteButton = ({ text, width }) => {
-  return <WhiteButtonStyle width={width}>{text}</WhiteButtonStyle>;
+const WhiteButton = ({ text, width, onClickHandler }) => {
+  return (
+    <WhiteButtonStyle width={width} onClick={onClickHandler}>
+      {text}
+    </WhiteButtonStyle>
+  );
 };
 export default WhiteButton;
 

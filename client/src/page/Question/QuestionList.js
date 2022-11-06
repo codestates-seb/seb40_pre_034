@@ -16,12 +16,15 @@ import QuestionNotFound from "../../components/QuestionElement/QuestionNotFound"
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 80px;
+  padding-top: 54px;
+  width: 100vw;
+  height: 100vh;
 `;
 
 const MainContainer = styled.div`
   display: flex;
   margin-bottom: 100px;
+  padding-top: 26px;
 
   ul {
     list-style: none;
@@ -29,7 +32,9 @@ const MainContainer = styled.div`
   }
 `;
 
-const SideDescription = styled.div``;
+const SideDescription = styled.div`
+  padding-top: 26px;
+`;
 
 const QuestionContainer = styled.div`
   max-width: 900px;

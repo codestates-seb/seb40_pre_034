@@ -30,8 +30,13 @@ const TopBarContainer = styled.div`
 
 const LogoContainer = styled.div`
   display: flex;
+  width: 164px;
+  height: 50px;
+  justify-content: center;
+  align-content: center;
   align-items: center;
-  height: 100%;
+  overflow: hidden;
+
   &:hover {
     background-color: hsl(210, 8%, 90%);
   }

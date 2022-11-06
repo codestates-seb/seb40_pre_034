@@ -1,73 +1,67 @@
 import styled from "styled-components";
-import { ReactComponent as SidebarPicture } from "../../img/SidebarPicture.svg";
+// import { ReactComponent as SidebarPicture } from "../../img/SidebarPicture.svg";
 import { RiEarthLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
-  padding-right: 50px;
-
-  a {
-    color: #525960;
-  }
+  padding-top: 26px;
+  border-right: 1px solid hsl(210, 8%, 85%);
+  width: 164px;
+  height: 100vh;
 `;
 
-export const SidebarTemplate = styled.div`
-  height: 500px;
-`;
+export const SidebarTemplate = styled.div``;
 
-export const CategoryTemplate = styled.div`
-  height: 200px;
-  padding-top: 10px;
-`;
+export const CategoryTemplate = styled.div``;
 
 export const CategoryTitle = styled.div`
-  height: 25px;
-  text-align: center;
-  padding-top: 3px;
-  color: #b4b4b4;
+  color: hsl(210, 8%, 45%);
+  font-size: 15px;
+  margin: 5px 0;
 `;
 
 export const CategoryLists = styled.ul`
-  height: 155px;
+  font-size: 17px;
+  padding: 0;
+  list-style: none;
 `;
 
-export const CategoryListQu = styled.li`
+export const CategoryList = styled.li`
+  color: hsl(210, 8%, 35%);
+  a {
+    color: hsl(210, 8%, 35%);
+  }
+  a:hover {
+    color: hsl(210, 8%, 5%);
+  }
+  & :hover {
+    background-color: hsl(210, 8%, 95%);
+    color: hsl(210, 8%, 5%);
+  }
+`;
+
+const ListStyle = styled.div`
+  padding: 8px 0 8px 10px;
   display: flex;
   align-items: center;
-  color: #6a737c;
-  height: 50px;
-  div {
-    margin-left: 5px;
-  }
+  width: 100%;
   &:hover {
-    background-color: hsl(210, 8%, 90%);
-    border-right: 3px solid #e98433;
+    background-color: hsl(210, 8%, 95%);
+    border-right: 3px solid hsl(27, 90%, 55%);
+    color: hsl(210, 8%, 5%);
+  }
+  &:target {
+    background-color: hsl(210, 8%, 95%);
+    border-right: 3px solid hsl(27, 90%, 55%);
+    color: hsl(210, 8%, 5%);
+    font-weight: 800;
+  }
+  > .icon {
+    margin-right: 10px;
   }
 `;
-
-export const CategoryListTags = styled(CategoryListQu)`
-  padding-left: 24px;
-`;
-
-export const CategoryListUsers = styled(CategoryListTags)``;
-
-export const Introduce = styled.div`
-  height: 300px;
-`;
-
-export const IntroudceTitle = styled.div`
-  height: 40px;
-  padding-top: 10px;
-  text-align: left;
-`;
-
-export const IntroduceContent = styled(IntroudceTitle)`
-  .SidebarPicture {
-    width: 160px;
-    height: 160px;
-    box-sizing: border-box;
-    background-image: url(${SidebarPicture});
-  }
+const ListStyle2 = styled(ListStyle)`
+  padding-left: 36px;
 `;
 
 const Sidebar = () => {
@@ -77,16 +71,22 @@ const Sidebar = () => {
         <CategoryTemplate>
           <CategoryTitle>PUBLIC</CategoryTitle>
           <CategoryLists>
-            <CategoryListQu>
-              <RiEarthLine />
-              <Link to="/question">&nbsp; Questions</Link>
-            </CategoryListQu>
-            <CategoryListTags>
-              <Link to="/question">Tags</Link>
-            </CategoryListTags>
-            <CategoryListUsers>
-              <Link to="/question">Users</Link>
-            </CategoryListUsers>
+            <CategoryList>
+              <ListStyle>
+                <RiEarthLine size="16" className="icon" />
+                <Link to="/question">Questions</Link>
+              </ListStyle>
+            </CategoryList>
+            <CategoryList>
+              <ListStyle2>
+                <Link to="/question">Tags</Link>
+              </ListStyle2>
+            </CategoryList>
+            <CategoryList>
+              <ListStyle2>
+                <Link to="/question">Users</Link>
+              </ListStyle2>
+            </CategoryList>
           </CategoryLists>
         </CategoryTemplate>
       </SidebarTemplate>

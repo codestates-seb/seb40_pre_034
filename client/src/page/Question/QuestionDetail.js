@@ -42,7 +42,7 @@ export const SidebarSection = styled.div`
   row-gap: 20px;
   top: 50px;
   width: 190px;
-  padding-top: 15px;
+  /* padding-top: 15px; */
 `;
 export const ContentSection = styled.div`
   position: relative;
@@ -63,7 +63,7 @@ export const ContentTemplate = styled.div`
   flex-direction: column;
   padding: 24px;
   height: 100%;
-  border-left: 1px solid rgb(227, 230, 232);
+  /* border-left: 1px solid rgb(227, 230, 232); */
 `;
 export const ContentHeader = styled.div`
   display: flex;
@@ -202,9 +202,17 @@ export const AnswerBtn = styled.button`
   background-color: transparent;
   color: gray;
 `;
-export const QuestionDetailContent = styled.div``;
+export const QuestionDetailContent = styled.div`
+  width: 700px;
+  overflow: hidden;
+  word-wrap: break-word;
+`;
 export const AnswerAnswer = styled.div``;
-export const TagBtnArea = styled.div``;
+export const TagBtnArea = styled.div`
+  > button {
+    margin-right: 5px;
+  }
+`;
 
 const QuestionDetail = () => {
   const [questionDetail, setQuestionDetail] = useState([]);
@@ -216,7 +224,7 @@ const QuestionDetail = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/questions/" + id)
+      .get("http://localhost:4002/questions/" + id)
       .then((res) => setQuestionDetail(res.data))
       .catch((err) => console.log(err));
   }, []);
