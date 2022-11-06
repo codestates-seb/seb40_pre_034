@@ -28,11 +28,7 @@ public class AnswerService {
 
     //조회 기능
     @Transactional
-    public Answer findAnswer(long answerId) {
-        return findVerifiedAnswer(answerId);
-    }
-
-    public List<Answer> findAnswers() {
+    public List<Answer> findAnswers(long questionId) {
         return answerRepository.findAll();
     }
 
