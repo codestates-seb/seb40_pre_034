@@ -93,8 +93,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://ec2-43-201-20-129.ap-northeast-2.compute.amazonaws.com");
-        configuration.addAllowedOrigin("http://dfsadf.com");
+        configuration.addAllowedOrigin("http://seb40-pre-034.s3-website.ap-northeast-2.amazonaws.com");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
