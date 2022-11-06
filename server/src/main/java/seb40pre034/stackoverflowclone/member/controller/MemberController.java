@@ -20,7 +20,6 @@ import java.util.List;
 @RequestMapping("/members")
 @Validated
 @Slf4j
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
