@@ -4,9 +4,11 @@ import { RiEarthLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
-  /* width: 190px; */
-  border-right: 1px solid #e5e5e5;
   padding-right: 50px;
+
+  a {
+    color: #525960;
+  }
 `;
 
 export const SidebarTemplate = styled.div`
@@ -38,7 +40,7 @@ export const CategoryListQu = styled.li`
     margin-left: 5px;
   }
   &:hover {
-    background-color: #c8c8c8;
+    background-color: hsl(210, 8%, 90%);
     border-right: 3px solid #e98433;
   }
 `;
@@ -77,22 +79,15 @@ const Sidebar = () => {
           <CategoryLists>
             <CategoryListQu>
               <RiEarthLine />
-              <Link to="/">&nbsp; Questions</Link>
+              <Link to="/question">&nbsp; Questions</Link>
             </CategoryListQu>
             <CategoryListTags>
-              <Link to="/tags">Tags</Link>
+              <Link to="/question">Tags</Link>
             </CategoryListTags>
             <CategoryListUsers>
-              <Link to="/">Users</Link>
+              <Link to="/question">Users</Link>
             </CategoryListUsers>
           </CategoryLists>
-          {/* <Introduce>
-            <IntroudceTitle>Stack Overflow for Teams</IntroudceTitle>
-            <IntroduceContent>
-              -Start collaborating and sharing organizational knowledge
-              <SidebarPicture />
-            </IntroduceContent>
-          </Introduce> */}
         </CategoryTemplate>
       </SidebarTemplate>
     </Container>

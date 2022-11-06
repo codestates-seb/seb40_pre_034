@@ -125,7 +125,7 @@ const Signup = () => {
       })
       .then(() => {
         alert("회원가입 성공!");
-        navigate("/");
+        navigate("/login");
       })
       .catch((error) => {
         alert("회원가입 실패!");

@@ -1,12 +1,11 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+// import { FaStackExchange } from "react-icons/fa";
 
-import SearchBar from "../Search/SearchBar";
 import { BsInboxFill } from "react-icons/bs";
 import { AiFillTrophy, AiFillQuestionCircle } from "react-icons/ai";
-// import { FaStackExchange } from "react-icons/fa";
-import { useState } from "react";
-import { Link /* useNavigate */ } from "react-router-dom";
 import WhiteButton from "../Button/WhiteButton";
+import SearchBar from "../Search/SearchBar";
 
 const HeaderContainer = styled.header`
   background-color: hsl(210, 8%, 97.5%);
@@ -90,32 +89,20 @@ const AddStyle2 = styled.div`
 `;
 
 const LoginTopBar = () => {
-  const [keyword, setKeyword] = useState("");
-  // const navigate = useNavigate();
-
-  const handleSearch = (e) => {
-    if (keyword.length > 0 && e.key === "Enter") {
-      // navigate("/search", { state: { keyword: keyword } });
-      // setKeyword("");
-    }
-  };
-
-  console.log(keyword);
-
   return (
     <HeaderContainer>
       <TopBarContainer>
-        <Link to="/">
+        <Link to="/question">
           <LogoContainer>
             <LogoArea />
           </LogoContainer>
         </Link>
 
         <NavItems>
-          <NavAnchor href="/">Products</NavAnchor>
+          <NavAnchor href="/question">Products</NavAnchor>
         </NavItems>
 
-        <SearchBar width="700px" keyword={keyword} setKeyword={setKeyword} handleSearch={handleSearch} />
+        <SearchBar width="700px" />
 
         <>
           <AddStyle2>

@@ -1,11 +1,10 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+// import { FaStackExchange } from "react-icons/fa";
+
 import LightBlueButton from "../Button/LightBlueButton";
 import BlueButton from "../Button/BlueButton";
 import SearchBar from "../Search/SearchBar";
-
-// import { FaStackExchange } from "react-icons/fa";
-import { useState } from "react";
-import { Link /* useNavigate */ } from "react-router-dom";
 
 const HeaderContainer = styled.header`
   background-color: hsl(210, 8%, 97.5%);
@@ -84,22 +83,10 @@ const AddStyle = styled.div`
 `;
 
 const NotLoginTopBar = () => {
-  const [keyword, setKeyword] = useState("");
-  // const navigate = useNavigate();
-
-  const handleSearch = (e) => {
-    if (keyword.length > 0 && e.key === "Enter") {
-      // navigate("/search", { state: { keyword: keyword } });
-      // setKeyword("");
-    }
-  };
-
-  console.log(keyword);
-
   return (
     <HeaderContainer>
       <TopBarContainer>
-        <Link to="/">
+        <Link to="/question">
           <LogoContainer>
             <LogoArea />
           </LogoContainer>
@@ -107,17 +94,17 @@ const NotLoginTopBar = () => {
 
         <Nav>
           <NavItems>
-            <NavAnchor href="/">About</NavAnchor>
+            <NavAnchor href="/question">About</NavAnchor>
           </NavItems>
           <NavItems>
-            <NavAnchor href="/">Products</NavAnchor>
+            <NavAnchor href="/question">Products</NavAnchor>
           </NavItems>
           <NavItems>
-            <NavAnchor href="/">For Teams</NavAnchor>
+            <NavAnchor href="/question">For Teams</NavAnchor>
           </NavItems>
         </Nav>
 
-        <SearchBar width="700px" keyword={keyword} setKeyword={setKeyword} handleSearch={handleSearch} />
+        <SearchBar width="700px" />
 
         <BtnArea2>
           <Link to="/login">

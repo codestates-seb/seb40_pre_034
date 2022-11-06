@@ -4,10 +4,10 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const Container = styled.div`
-  max-width: ${(props) => props.width || 700}px;
+  max-width: ${(width) => width || 700}px;
 
   .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
-    height: ${(props) => props.height || 300}px;
+    height: ${(height) => height || 300}px;
   }
 `;
 

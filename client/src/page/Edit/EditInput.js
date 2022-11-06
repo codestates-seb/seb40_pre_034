@@ -37,15 +37,13 @@ const Input = styled.input`
     outline: none;
   }
 `;
+const EditorContainer = styled.div``;
+
 const Display = styled.div`
   width: 630px;
   margin: 0.6rem 0;
 `;
-const EditorContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+
 const TextContainer = styled.div``;
 const TagContainer = styled.div`
   width: 630px;
@@ -66,7 +64,6 @@ const EditInput = () => {
   const [title, setTitle] = useState("");
   const [editorVal, setEditorVal] = useState("");
   const [tags, setTags] = useState("");
-  console.log(tags);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -90,41 +87,30 @@ const EditInput = () => {
     };
     axios
       // eslint-disable-next-line no-undef
-      .patch(`${process.env.REACT_APP_API_URL}questions/` + id, edit)
-      .then(() => navigate(`/${id}`)) //질문상세페이지로 화면이동
+      .patch(/* `${process.env.REACT_APP_API_URL}questions/` */ `http://localhost:4000/questions/` + id, edit)
+      .then(() => navigate(`/question/${id}`))
       .catch((err) => console.log(err));
   };
-
-  // const onChangeHandler = (e) => {
-  //   setTitle(e.target.value);
-  //   setTags(e.target.value);
-  // };
 
   return (
     <InputContainer>
       <TitleContainer>
         <Title>Title</Title>
-        <Input
-          type="text"
-          defaultValue={title /* setTitle ? value.title : null */}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <Input type="text" defaultValue={title} onChange={(e) => setTitle(e.target.value)} />
       </TitleContainer>
       <TextContainer>
         <Title>Body</Title>
         <EditorContainer>
-          <CustomEditor width="630" handleValue={setEditorVal} value={value} />
+          <CustomEditor width="630px" handleValue={setEditorVal} value={value} />
           <Display dangerouslySetInnerHTML={{ __html: sanitizer(editorVal) }} />
         </EditorContainer>
       </TextContainer>
       <TagContainer>
         <Title>Tags</Title>
-        {/* 나중에 버튼 형식으로 가져오기 */}
         <AskQTags tags={tags} setTags={setTags} />
       </TagContainer>
       <ButtonContainer>
         <BlueButton text="Save edits" handleSubmit={onSubmitHandler} />
-        {/* 질문 상세페이지로 화면 이동 */}
         <WhiteButton text="Cancel" />
       </ButtonContainer>
     </InputContainer>

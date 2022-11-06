@@ -1,19 +1,20 @@
+import { Suspense, lazy, useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import axios from "axios";
 
-import Layout from "./page/Layout";
+import Loading from "./components/Loading/Loading";
 import LoginTopBar from "./components/TopBar/LoginTopBar";
 import NotLoginTopBar from "./components/TopBar/NotLoginTopBar";
-import QuestionList from "./page/Question/QuestionList";
-import TagPage from "./page/TagPage/TagPage";
-import Search from "./page/Search/Search";
-import QuestionDetail from "./page/Question/QuestionDetail";
-import AskQuestion from "./page/AskQuestion/AskQuestion";
-import Edit from "./page/Edit/Edit";
-import Login from "./page/Login/Login";
-import Signup from "./page/Signup/Signup";
-import Logout from "./page/Logout/Logout";
-import axios from "axios";
-import { useState, useEffect } from "react";
+const Layout = lazy(() => import("./page/Layout"));
+const QuestionList = lazy(() => import("./page/Question/QuestionList"));
+const Search = lazy(() => import("./page/Search/Search"));
+const QuestionDetail = lazy(() => import("./page/Question/QuestionDetail"));
+const AskQuestion = lazy(() => import("./page/AskQuestion/AskQuestion"));
+const Edit = lazy(() => import("./page/Edit/Edit"));
+const Login = lazy(() => import("./page/Login/Login"));
+const Signup = lazy(() => import("./page/Signup/Signup"));
+const Logout = lazy(() => import("./page/Logout/Logout"));
+const NotFound = lazy(() => import("./components/NotFound/NotFound"));
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -67,21 +68,21 @@ function App() {
       ) : (
         <NotLoginTopBar />
       )}
-      {/* <NotLoginTopBar /> */}
-      <Routes>
-        <Route element={<Layout></Layout>}>
-          <Route path="/" element={<QuestionList></QuestionList>} />
-          <Route path="/:id" element={<QuestionDetail></QuestionDetail>} />
-          <Route path="/tags" element={<TagPage></TagPage>} />
-          {/* <Route path="/users" element={<TagPage></TagPage>} /> */}
-          <Route path="/search" element={<Search></Search>} />
-          <Route path="/ask" element={<AskQuestion></AskQuestion>} />
-          <Route path="/edit/:id" element={<Edit></Edit>} />
-        </Route>
-        <Route path="/signup" element={<Signup></Signup>} />
-        <Route path="/login" element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}></Login>} />
-        <Route path="/logout" element={<Logout setIsLogin={setIsLogin} setUserInfo={setUserInfo}></Logout>} />
-      </Routes>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/question" element={<QuestionList />} />
+            <Route path="/question/:id" element={<QuestionDetail />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/ask" element={<AskQuestion />} />
+            <Route path="/edit/:id" element={<Edit />} />
+          </Route>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo} />} />
+          <Route path="/logout" element={<Logout setIsLogin={setIsLogin} setUserInfo={setUserInfo} />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }

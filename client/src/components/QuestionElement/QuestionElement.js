@@ -103,7 +103,7 @@ const QuestionElement = ({ id, voteCnt, answersCnt, viewsCnt, title, content, ta
       </QuestionOption>
       <QuestionMain>
         <QuestionCotent>
-          <Link to={`/${id}`}>
+          <Link to={`/question/${id}`}>
             <h3>{title}</h3>
           </Link>
           <p>{content}</p>

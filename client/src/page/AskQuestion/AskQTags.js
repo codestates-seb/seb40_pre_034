@@ -17,7 +17,7 @@ const Container = styled.div`
     flex-grow: 1;
     border: none;
     font-size: 14px;
-    padding: 7px;
+    padding: 10px;
     :focus {
       outline: transparent;
     }

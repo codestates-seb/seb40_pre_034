@@ -5,6 +5,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   color: #232629;
+  height: 100vh;
 
   a {
     color: #0074cc;
