@@ -38,7 +38,7 @@ const LogoContainer = styled.div`
     background-color: hsl(210, 8%, 90%);
   }
 `;
-const LogoArea = styled.a`
+const LogoArea = styled.div`
   display: inline-block;
   background-image: url(https://cdn.sstatic.net/Img/unified/sprites.svg?v=fcc0ea44ba27);
   background-position: 0 -500px;

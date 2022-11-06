@@ -2,7 +2,33 @@
   "answers": [
     {
       "answer": "<p>되라ㅡㅡ</p>",
+      "vote": 1,
       "id": 1
+    },
+    {
+      "answer": "<p>ㅎㅇㅎㅇ</p>",
+      "vote": 2,
+      "id": 2
+    },
+    {
+      "answer": "<p>ㅁㄴㄻㄴㄻㄴㄱㄹ</p>",
+      "vote": 3,
+      "id": 4
+    },
+    {
+      "answer": "<p>추가용</p>",
+      "vote": 1,
+      "id": 6
+    },
+    {
+      "answer": "<p>한번더</p>",
+      "vote": 1,
+      "id": 7
+    },
+    {
+      "answer": "<p>ㅐㅑㅕㅐ</p>",
+      "vote": 0,
+      "id": 8
     }
   ]
 }

@@ -10,7 +10,6 @@ import TagButton from "../../components/Button/TagButton";
 import CustomEditor from "../../components/Edit/CustomEditor";
 import YellowSideCard from "../../components/SideCard/YellowCard/YellowSideCard";
 import axios from "axios";
-import { IoClose } from "react-icons/io5";
 import dompurify from "dompurify";
 
 export const Container = styled.div`
@@ -165,12 +164,9 @@ export const LanguageBtn = styled.section`
   margin: 24px 0px;
 `;
 
-export const UseBtn = styled(LanguageBtn)`
-  & > button {
-    background-color: transparent;
-    color: gray;
-  }
-`;
+export const UseBtn = styled(LanguageBtn)``;
+
+export const UsedBtn = styled(UseBtn)``;
 
 export const CustomerEditorArea = styled.div`
   display: flex;
@@ -198,13 +194,22 @@ export const EditorArea = styled.div`
 export const IconArea = styled.div`
   float: right;
 `;
+export const QuestionBtn = styled.button`
+  background-color: transparent;
+  color: gray;
+`;
+export const AnswerBtn = styled.button`
+  background-color: transparent;
+  color: gray;
+`;
+export const QuestionDetailContent = styled.div``;
+export const AnswerAnswer = styled.div``;
+export const TagBtnArea = styled.div``;
 
 const QuestionDetail = () => {
   const [questionDetail, setQuestionDetail] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [editorVal, setEditiorVal] = useState(""); // 답변만 관리
-  // const [questionDelete, setQuestionDelete] = useState("");
-  // const [answerDelete, setAnswerDelete] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
   const sanitizer = dompurify.sanitize;
@@ -218,7 +223,7 @@ const QuestionDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4002/answers`)
+      .get("http://localhost:4001/answers/" + id)
       .then((res) => setAnswers(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -227,25 +232,24 @@ const QuestionDetail = () => {
     e.preventDefault();
 
     axios
-      .post(`http://localhost:4002/answers`, {
+      .post("http://localhost:4001/answers/", {
         answer: editorVal,
+        vote: 0,
       })
-      .then((res) => console.log(res.status));
-    // .then(() => (window.location.href = "http://localhost:3000/"));
-  };
-
-  // const onQuestionDelete = () => {
-  //   axios
-  //     .delete("http://localhost:4000/questionTitle/")
-  //     .then((res) => console.log(res.status))
-  //     .then(() => (window.location.href = "http://localhost:3000/"));
-  // };
-
-  const onAnswerDelete = (id) => {
-    axios
-      .delete("http://localhost:4001/answers/" + id)
       .then((res) => console.log(res.status))
       .then(() => (window.location.href = "http://localhost:3000/"));
+  };
+
+  const onQuestionDelete = () => {
+    axios
+      .delete("http://localhost:4000/questions/" + id)
+      .then((res) => console.log(res.status))
+      .then(() => (window.location.href = "http://localhost:3000/"));
+  };
+
+  const onAnswerDelete = (id) => {
+    axios.delete("http://localhost:4001/answers/" + id).then((res) => console.log(res.status));
+    // .then(() => (window.location.href = "http://localhost:3000/"));
   };
 
   return (
@@ -262,9 +266,7 @@ const QuestionDetail = () => {
             <ContentTemplate>
               <ContentHeader>
                 <ContentTitle>{questionDetail.title}</ContentTitle>
-                {/* <IoClose size="24" onClick={() => onQuestionDelete()} /> */}
-                {/* ask question 페이지로 이동 */}
-                <IoClose size="24" />
+
                 <Link to="/ask">
                   <BlueButton text="Ask Question" width="120px" />
                 </Link>
@@ -287,54 +289,53 @@ const QuestionDetail = () => {
                 <QuestionContainerLeft>
                   <QuestionContainerLeftMain>
                     <QuestionContainerLeftMainAside>
-                      <VoteButton />
+                      <VoteButton number="1" />
                     </QuestionContainerLeftMainAside>
                     <QuestionContainerLeftMainIntroduce>
-                      <div dangerouslySetInnerHTML={{ __html: sanitizer(questionDetail.content) }}></div>
+                      <QuestionDetailContent
+                        dangerouslySetInnerHTML={{ __html: sanitizer(questionDetail.content) }}
+                      ></QuestionDetailContent>
                       <LanguageBtn>
-                        {questionDetail.tags &&
-                          questionDetail.tags.map((tag, idx) => {
-                            return <TagButton key={idx} text={tag} />;
-                          })}
+                        <TagBtnArea>
+                          {questionDetail.tags &&
+                            questionDetail.tags.map((tag, idx) => {
+                              return <TagButton key={idx} text={tag} />;
+                            })}
+                        </TagBtnArea>
+
                         {/* <TagButton text={questionDetail.tags} /> */}
                       </LanguageBtn>
                       <UseBtn>
-                        <button>Share</button>
-                        <button onClick={() => navigate(`/edit/${id}`)}>Edit</button>
-                        <button>Follow</button>
+                        <QuestionBtn>Share</QuestionBtn>
+                        <QuestionBtn onClick={() => navigate(`/edit/${id}`)}>Edit</QuestionBtn>
+                        <QuestionBtn>Follow</QuestionBtn>
+                        <QuestionBtn onClick={() => onQuestionDelete(questionDetail.id)}>Delete</QuestionBtn>
                       </UseBtn>
                     </QuestionContainerLeftMainIntroduce>
                   </QuestionContainerLeftMain>
 
-                  {answers.map((answer) => {
-                    return (
-                      <QuestionContainerLeftMaind key={answer.id}>
-                        <QuestionContainerLeftMainAside>
-                          <VoteButton />
-                        </QuestionContainerLeftMainAside>
-                        <QuestionContainerLeftMainIntroduce>
-                          <IconArea>
-                            <IoClose size="24" onClick={() => onAnswerDelete(answer.id)} />
-                          </IconArea>
+                  {answers &&
+                    answers.map((answer) => {
+                      return (
+                        <QuestionContainerLeftMaind key={answer.id}>
+                          <QuestionContainerLeftMainAside>
+                            <VoteButton number={answer.vote} />
+                          </QuestionContainerLeftMainAside>
+                          <QuestionContainerLeftMainIntroduce>
+                            {answer.id === 1 ? <h1>{answers.length} Answers</h1> : ""}
 
-                          {answer.id === 1 ? <h1>{answers.length} Answers</h1> : ""}
-
-                          <div dangerouslySetInnerHTML={{ __html: sanitizer(answer.answer) }} />
-                          <LanguageBtn>
-                            {answer.tags &&
-                              answer.tags.map((tag, idx) => {
-                                return <TagButton key={idx} text={tag} />;
-                              })}
-                          </LanguageBtn>
-                          <UseBtn>
-                            <button>Share</button>
-                            <button>Edit</button>
-                            <button>Follow</button>
-                          </UseBtn>
-                        </QuestionContainerLeftMainIntroduce>
-                      </QuestionContainerLeftMaind>
-                    );
-                  })}
+                            <AnswerAnswer dangerouslySetInnerHTML={{ __html: sanitizer(answer.answer) }}></AnswerAnswer>
+                            <LanguageBtn></LanguageBtn>
+                            <UsedBtn>
+                              <AnswerBtn>Share</AnswerBtn>
+                              <AnswerBtn>Edit</AnswerBtn>
+                              <AnswerBtn></AnswerBtn>
+                              <AnswerBtn onClick={() => onAnswerDelete(answer.id)}>Delete</AnswerBtn>
+                            </UsedBtn>
+                          </QuestionContainerLeftMainIntroduce>
+                        </QuestionContainerLeftMaind>
+                      );
+                    })}
 
                   <CustomerEditorArea>
                     <AnswerArea>
