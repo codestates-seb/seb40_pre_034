@@ -61,8 +61,9 @@ public class AnswerController {
     }
 
     @DeleteMapping("/{answer-id}")
-    public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId) {
-        answerService.deleteAnswer(answerId);
+    public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId,
+                                       @PathVariable("question-id") @Positive long questionId) {
+        answerService.deleteAnswer(answerId,questionId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
