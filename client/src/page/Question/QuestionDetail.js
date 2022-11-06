@@ -213,8 +213,9 @@ const QuestionDetail = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:4001/answers/" + id, {
+      .post("http://localhost:4001/answers/", {
         //답변 생성할때 글번호 번호 보내줘야하는지
+        id: id,
         answer: editorVal,
         vote: 0,
       })
