@@ -37,4 +37,12 @@ public class Answer extends Auditable {
     @JoinColumn(name = "QUESTION_ID")
     private Question questionId;
 
+    public void setMemberId(Member memberId) {
+        this.memberId = memberId;
+    }
+    public void setQuestionId(Question questionId) {
+        this.questionId = questionId;
+    }
+
 }
+

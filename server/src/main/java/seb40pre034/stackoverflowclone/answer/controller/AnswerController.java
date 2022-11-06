@@ -3,6 +3,7 @@ package seb40pre034.stackoverflowclone.answer.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import seb40pre034.stackoverflowclone.answer.dto.AnswerDto;
 import seb40pre034.stackoverflowclone.answer.entity.Answer;
@@ -17,6 +18,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/answers")
+@Validated
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AnswerController {
     private final AnswerService answerService;
     private final AnswerMapper mapper;
@@ -50,25 +53,18 @@ public class AnswerController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/{answer-id}")
-    public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId) {
-        Answer answer = answerService.findAnswer(answerId);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.answerToAnswerResponse(answer)),
-                HttpStatus.OK);
-    }
-
-    @GetMapping
-    public ResponseEntity getAnswers() {
-        List<Answer> answers = answerService.findAnswers();
+    @GetMapping("/{question-id}")
+    public ResponseEntity getAnswers(@PathVariable("question-id") @Positive long questionId) {
+        List<Answer> answers = answerService.findAnswers(questionId);
         return new ResponseEntity(new MultiResponseDto<>(mapper.answersToAnswerResponseDtos(answers)),
                 HttpStatus.OK);
     }
 
     @DeleteMapping("/{answer-id}")
-    public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId) {
-        answerService.deleteAnswer(answerId);
+    public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId,
+                                       @PathVariable("question-id") @Positive long questionId) {
+        answerService.deleteAnswer(answerId,questionId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
+

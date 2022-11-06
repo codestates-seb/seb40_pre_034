@@ -5,6 +5,7 @@ import seb40pre034.stackoverflowclone.answer.entity.Answer;
 import seb40pre034.stackoverflowclone.answer.repository.AnswerRepository;
 import seb40pre034.stackoverflowclone.exception.BusinessLogicException;
 import seb40pre034.stackoverflowclone.exception.ExceptionCode;
+import seb40pre034.stackoverflowclone.question.service.QuestionService;
 
 
 import javax.transaction.Transactional;
@@ -16,8 +17,11 @@ import java.util.Optional;
 public class AnswerService {
     private final AnswerRepository answerRepository;
 
-    public AnswerService(AnswerRepository answerRepository) {
+    private final QuestionService questionService;
+
+    public AnswerService(AnswerRepository answerRepository, QuestionService questionService) {
         this.answerRepository = answerRepository;
+        this.questionService = questionService;
     }
 
     //유저 답변 저장
@@ -28,11 +32,7 @@ public class AnswerService {
 
     //조회 기능
     @Transactional
-    public Answer findAnswer(long answerId) {
-        return findVerifiedAnswer(answerId);
-    }
-
-    public List<Answer> findAnswers() {
+    public List<Answer> findAnswers(long questionId) {
         return answerRepository.findAll();
     }
 
@@ -48,8 +48,10 @@ public class AnswerService {
     }
 
     //삭제 기능
-    public void deleteAnswer(long answerId) {
+    public void deleteAnswer(long questionId,long answerId) {
+        questionService.findQuestion(questionId);
         Answer findAnswer = findVerifiedAnswer(answerId);
+
         answerRepository.delete(findAnswer);
     }
 
