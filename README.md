@@ -8,10 +8,31 @@
 |FE|FE|FE|FE|BE|BE|BE|
 |<img src="https://avatars.githubusercontent.com/u/62630941?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/97860973?s…00&u=283d254fe2aee49934315015d0231f60846ddd17&v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/91938347?s=400&u=7c01e6702381f4e9cfc9cf83d99dea7ee4996a88&v=4" width="100">|<img src="https://user-images.githubusercontent.com/107424698/198162060-0f6ac665-f9d7-4ef5-b504-8f448a47e0e3.jpeg" width="100" height="99">|<img src="https://avatars.githubusercontent.com/u/107402848?s=400&u=49c5663085a62585c413787c0bee12c27959163d&v=4" width="100" height="99">|<img src="https://avatars.githubusercontent.com/u/61817672?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/107456299?s=400&u=298e050f6b18e0d0c3ed502f1930a55cc0551434&v=4" width="100">|
 
-### 구현 기능
-
+---
 ### 기술 스택
 <img src="https://i.ibb.co/w4FXykx/tools.png" alt="tools" border="0" width="800px">
+
+### 구현 기능
+- 회원가입
+<img src="https://user-images.githubusercontent.com/61817672/200298327-2f8b4ec7-5e99-4eab-b9b2-6cbffb2d8762.gif">
+
+- 로그인
+<img src="https://user-images.githubusercontent.com/61817672/200298323-a1fb11fa-236f-4b09-999f-6e35c49c109f.gif">
+
+- 질문 작성
+<img src="https://user-images.githubusercontent.com/61817672/200298319-d3c99d4c-b40c-4fe7-8da4-a89e3c2b26c4.gif">
+
+- 답변 작성
+<img src="https://user-images.githubusercontent.com/61817672/200298317-aea1de8c-58b5-4532-8596-4c3efd398081.gif">
+
+- 답변 삭제
+<img src="https://user-images.githubusercontent.com/61817672/200298315-910f11dd-94e9-44f4-bf7f-a7ea93fd20c5.gif">
+
+- 질문 수정
+<img src="https://user-images.githubusercontent.com/61817672/200298298-a6fc4b3c-6e83-4667-a22d-a10996af29e4.gif">
+
+- 질문 삭제
+<img src="https://user-images.githubusercontent.com/61817672/200298736-e96cd056-700a-412f-ad05-0c2828f3e77f.gif">
 
 ### 문서
 [유저플로어](https://www.figma.com/file/1QiRTJMH7PXSwYBtATqlcm/%ED%94%84%EB%A6%AC%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EC%9C%A0%EC%A0%80%ED%94%8C%EB%A1%9C%EC%96%B4?node-id=0%3A1)
