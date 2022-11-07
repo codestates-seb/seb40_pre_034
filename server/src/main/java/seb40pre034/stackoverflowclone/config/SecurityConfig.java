@@ -21,6 +21,7 @@ import seb40pre034.stackoverflowclone.config.auth.JwtTokenizer;
 import seb40pre034.stackoverflowclone.config.auth.filter.JwtVerificationFilter;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -92,9 +93,9 @@ public class SecurityConfig {
     }
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
+        final CorsConfiguration configuration = new CorsConfiguration();
 //        configuration.addAllowedOrigin("http://seb40-pre-034.s3-website.ap-northeast-2.amazonaws.com");
-        configuration.addAllowedOrigin("*");
+        configuration.setAllowedOrigins(List.of("*"));
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
