@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import seb40pre034.stackoverflowclone.answer.entity.Answer;
 import seb40pre034.stackoverflowclone.audit.Auditable;
 import seb40pre034.stackoverflowclone.member.entity.Member;
 
@@ -40,8 +41,11 @@ public class Question extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<QuestionTag> questionTags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    private List<Answer> answer = new ArrayList<>();
 
     public void setMember(Member member) {
         this.member = member;
