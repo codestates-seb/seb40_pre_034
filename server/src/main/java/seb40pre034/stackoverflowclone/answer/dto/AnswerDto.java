@@ -2,6 +2,7 @@ package seb40pre034.stackoverflowclone.answer.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import seb40pre034.stackoverflowclone.member.entity.Member;
 
@@ -14,6 +15,7 @@ public class AnswerDto {
 
     @AllArgsConstructor
     @Getter
+    @NoArgsConstructor
     public static class Post {
 
         @NotBlank(message = "답변 내용을 입력해 주세요.")
