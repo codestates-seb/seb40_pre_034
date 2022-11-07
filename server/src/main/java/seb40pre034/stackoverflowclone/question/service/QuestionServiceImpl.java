@@ -11,6 +11,7 @@ import seb40pre034.stackoverflowclone.question.entity.Question;
 import seb40pre034.stackoverflowclone.question.entity.QuestionTag;
 import seb40pre034.stackoverflowclone.question.repository.QuestionRepository;
 import seb40pre034.stackoverflowclone.question.repository.QuestionTagRepository;
+import seb40pre034.stackoverflowclone.tag.entity.Tag;
 import seb40pre034.stackoverflowclone.tag.repository.TagRepository;
 
 import java.util.List;
@@ -22,6 +23,8 @@ import java.util.Optional;
 public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository questionRepository;
+    private final QuestionTagRepository questionTagRepository;
+    private final TagRepository tagRepository;
 
     @Override
     public Question createQuestion(Question question) {
@@ -38,6 +41,13 @@ public class QuestionServiceImpl implements QuestionService {
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
         Optional.ofNullable(question.getVote()).ifPresent(findQuestion::setVote);
+        if (Optional.ofNullable(question.getQuestionTags()).isPresent()) {
+            for (QuestionTag qt : findQuestion.getQuestionTags()) {
+                findQuestion.getQuestionTags().remove(qt);
+                qt.getTag().getQuestionTags().remove(qt);
+                questionTagRepository.delete(qt);
+            }
+        }
 
         return questionRepository.save(findQuestion);
     }
