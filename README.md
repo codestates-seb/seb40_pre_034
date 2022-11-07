@@ -4,8 +4,8 @@
 |[김윤희](https://github.com/kyh1685)|[김은서](https://github.com/EUNSEO814)|[나호연](https://github.com/nahoyeon)|[오현지](https://github.com/opc13579)|[김찬중](https://github.com/ClimberCode)|[김현욱](https://github.com/oasis791)|[이주영](https://github.com/homebird9)|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |FE|FE|FE|FE|BE|BE|BE|
-|<img src="https://avatars.githubusercontent.com/u/62630941?v=4" width="100">|사진|사진|사진|사진|사진|사진|
-
+|<img src="https://avatars.githubusercontent.com/u/62630941?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/97860973?s…00&u=283d254fe2aee49934315015d0231f60846ddd17&v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/91938347?s=400&u=7c01e6702381f4e9cfc9cf83d99dea7ee4996a88&v=4" width="100">|<img src="https://user-images.githubusercontent.com/107424698/198162060-0f6ac665-f9d7-4ef5-b504-8f448a47e0e3.jpeg" width="100" height="99">|사진|<img src="https://avatars.githubusercontent.com/u/61817672?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/107456299?s=400&u=298e050f6b18e0d0c3ed502f1930a55cc0551434&v=4" width="100">|
+	
 ### Commit Message
 |Tag Name|Description|
 |------|---|
