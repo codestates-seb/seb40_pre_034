@@ -1,15 +1,14 @@
 
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2
   datasource:
-    url: jdbc:h2:mem:test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${datasource}
+    username: ${username}
+    password: ${password}
   jpa:
     hibernate:
-      ddl-auto: create  # (1) ??? ?? ??
-    show-sql: true      # (2) SQL ?? ??
+      ddl-auto: create
+    show-sql: true
     properties:
       hibernate:
         format_sql: true  # (3) SQL pretty print
@@ -27,8 +26,8 @@ server:
     encoding:
       force-response: true
 jwt:
-  secret-key: asdfasdfwqeraszcvbsiuhgiuhrgkjhxdfuygbkuyasgfuyasdf         # 민감한 정보는 시스템 환경 변수에서 로드한다.
-  access-token-expiration-minutes: 30
+  secret-key: ${jwt.secret-key}
+  access-token-expiration-minutes: 60
   refresh-token-expiration-minutes: 420
 mail:
   address:
