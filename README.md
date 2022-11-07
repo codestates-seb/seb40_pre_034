@@ -14,13 +14,13 @@
 <img src="https://i.ibb.co/w4FXykx/tools.png" alt="tools" border="0" width="800px">
 
 ### 문서
-- [유저플로어](https://www.figma.com/file/1QiRTJMH7PXSwYBtATqlcm/%ED%94%84%EB%A6%AC%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EC%9C%A0%EC%A0%80%ED%94%8C%EB%A1%9C%EC%96%B4?node-id=0%3A1)
+[유저플로어](https://www.figma.com/file/1QiRTJMH7PXSwYBtATqlcm/%ED%94%84%EB%A6%AC%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EC%9C%A0%EC%A0%80%ED%94%8C%EB%A1%9C%EC%96%B4?node-id=0%3A1)
 
-- [API 명세서](https://codestates.notion.site/API-5fbd973a38464d36b55e30607c232d01)
+[API 명세서](https://codestates.notion.site/API-5fbd973a38464d36b55e30607c232d01)
 
-- [테이블 명세서](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f9f91b24-9bcb-4e97-954b-652a621f8a11/pre-project_034__-1.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221107%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221107T110020Z&X-Amz-Expires=86400&X-Amz-Signature=7feb33eb70f49d0c881c37d50ed67541684407398025ca4d4aa9387ddacae74d&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22pre-project_034__-1.pdf%22&x-id=GetObject)
+[테이블 명세서](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f9f91b24-9bcb-4e97-954b-652a621f8a11/pre-project_034__-1.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221107%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221107T110020Z&X-Amz-Expires=86400&X-Amz-Signature=7feb33eb70f49d0c881c37d50ed67541684407398025ca4d4aa9387ddacae74d&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22pre-project_034__-1.pdf%22&x-id=GetObject)
 
-- [요구사항 정의서](https://codestates.notion.site/6793b6bfceef41fd975ed22f143cfa4a)
+[요구사항 정의서](https://codestates.notion.site/6793b6bfceef41fd975ed22f143cfa4a)
 
 ### Commit Message
 |Tag Name|Description|
