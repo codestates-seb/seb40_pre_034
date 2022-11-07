@@ -19,6 +19,7 @@ public class QuestionDto {
         private String title;
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         private String content;
+        private Long memberId;
         private List<String> imgUrls;
         private List<String> tags;
     }
@@ -45,14 +46,13 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Response {
         private long questionId;
+        private String nickName;
         private String title;
         private String content;
         private Integer vote;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-        private String nickname;
         private List<String> tags;
         private Integer views;
-        private Integer answers;
     }
 }

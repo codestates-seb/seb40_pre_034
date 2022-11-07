@@ -20,7 +20,6 @@ import java.util.List;
 @RequestMapping("/members")
 @Validated
 @Slf4j
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
@@ -38,7 +37,7 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.memberToMemberResponse(createdMember)), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{member-id}")
+    @PatchMapping("/edit/{member-id}")
     public ResponseEntity patchMember(@PathVariable("member-id") @Positive Long memberId,
                                       @Valid @RequestBody MemberDto.Patch requestBody) {
         requestBody.setMemberId(memberId);
@@ -50,7 +49,7 @@ public class MemberController {
                         mapper.memberToMemberResponse(updatedMember)), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{member-id}")
+    @GetMapping("/get/{member-id}")
     public ResponseEntity getMember(@PathVariable("member-id") @Positive Long memberId) {
         Member findMember = memberService.findMember(memberId);
         return new ResponseEntity<>(
@@ -58,7 +57,7 @@ public class MemberController {
                         mapper.memberToMemberResponse(findMember)), HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/gets")
     public ResponseEntity getMembers() {
         List<Member> findMembers = memberService.findMembers();
         return new ResponseEntity<>(
@@ -66,7 +65,7 @@ public class MemberController {
                         mapper.membersToMemberResponse(findMembers)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{member-id}")
+    @DeleteMapping("/delete/{member-id}")
     public ResponseEntity deleteMember(@PathVariable("member-id") Long memberId) {
         memberService.deleteMember(memberId);
 

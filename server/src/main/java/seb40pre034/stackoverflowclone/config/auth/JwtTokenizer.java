@@ -15,7 +15,6 @@ import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.Objects;
 
 @Component
 public class JwtTokenizer {
@@ -63,11 +62,12 @@ public class JwtTokenizer {
 
     public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
-
+        System.out.println(key);
         Jws<Claims> claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(jws);
+        System.out.println(claims);
 
         return claims;
     }
@@ -83,7 +83,6 @@ public class JwtTokenizer {
     private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
         Key key = Keys.hmacShaKeyFor(keyBytes);
-
         return key;
     }
 }

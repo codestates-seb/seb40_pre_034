@@ -3,6 +3,7 @@ package seb40pre034.stackoverflowclone.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -20,20 +21,21 @@ import seb40pre034.stackoverflowclone.config.auth.filter.JwtVerificationFilter;
 
 import java.util.Arrays;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtTokenizer tokenizer;
     private final CustomAuthorityUtils authorityUtils;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
-                .cors(withDefaults())
+//                .cors().configurationSource(corsConfigurationSource())
+                .cors()
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)  // (1) 추가
                 .and()
                 .formLogin().disable()
@@ -41,24 +43,25 @@ public class SecurityConfig {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers(HttpMethod.POST, "/questions/ask").authenticated()
+                        .antMatchers(HttpMethod.PATCH, "/questions/edit/**").authenticated()
+                        .antMatchers(HttpMethod.DELETE, "/questions/delete/**").authenticated()
+                        .antMatchers(HttpMethod.POST, "/answers").authenticated()
+                        .antMatchers(HttpMethod.PATCH, "/answers/edit/**").authenticated()
+                        .antMatchers(HttpMethod.DELETE, "/answers/**").authenticated()
+                        .antMatchers(HttpMethod.GET, "/questions/**").permitAll()
+                        .antMatchers(HttpMethod.GET, "/answers/**").permitAll()
                         .anyRequest().permitAll()
-                );
+                )
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/questions");
         return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
     }
 
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
@@ -74,5 +77,19 @@ public class SecurityConfig {
                     .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
         }
     }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
 
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.addAllowedOriginPattern("*");
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","PATCH","OPTIONS","DELETE"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+        configuration.addExposedHeader("Authorization");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
+    }
 }
