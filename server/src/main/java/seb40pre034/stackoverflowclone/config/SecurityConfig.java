@@ -94,9 +94,9 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.addAllowedOrigin("http://seb40-pre-034.s3-website.ap-northeast-2.amazonaws.com");
-        configuration.addAllowedOrigin("*");
-        configuration.addAllowedOriginPattern("*");
+        configuration.addAllowedOrigin("http://seb40-pre-034.s3-website.ap-northeast-2.amazonaws.com");
+//        configuration.addAllowedOrigin("*");
+//        configuration.addAllowedOriginPattern("*");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
