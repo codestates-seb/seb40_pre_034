@@ -1,0 +1,31 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "users": [
+    {
+      "email": "eunseo814@gmail.com",
+      "password": "$2a$10$o/0VE.gq28xwvDd6ThElSe0BXXyAmRNcVbUO5ip9fbGmcBExnhW62",
+      "id": 1
+    },
+    {
+      "email": "eunseo8145@gmail.com",
+      "password": "$2a$10$FlsID9HHwPcoDphxlCTT0.8FSrPHYVLzfDohFsAo2nWB4n9tyewoq",
+      "id": 2
+    }
+  ]
+}

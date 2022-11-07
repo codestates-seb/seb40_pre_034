@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"nickname\":\"이름\",\"email\":\"이메일\",\"password\":\"비밀번호\"}",
+      "id": 1
+    },
+    {
+      "nickname": "투투",
+      "email": "투투메일",
+      "password": "투투워드",
+      "id": 2
+    }
+  ]
+}
