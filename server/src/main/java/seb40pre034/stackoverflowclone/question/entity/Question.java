@@ -38,13 +38,13 @@ public class Question extends Auditable {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    private Member memberId;
+    private Member member;
 
     @OneToMany(mappedBy = "question")
     private List<QuestionTag> questionTags = new ArrayList<>();
 
-    public void setMemberId(Member memberId) {
-        this.memberId = memberId;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public void setQuestionTags(List<QuestionTag> questionTags) {

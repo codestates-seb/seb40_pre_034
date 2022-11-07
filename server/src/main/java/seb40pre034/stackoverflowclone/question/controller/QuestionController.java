@@ -7,6 +7,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import seb40pre034.stackoverflowclone.dto.MultiResponseDto;
 import seb40pre034.stackoverflowclone.dto.SingleResponseDto;
+import seb40pre034.stackoverflowclone.member.entity.Member;
+import seb40pre034.stackoverflowclone.member.service.MemberService;
 import seb40pre034.stackoverflowclone.question.dto.QuestionDto;
 import seb40pre034.stackoverflowclone.question.entity.Question;
 import seb40pre034.stackoverflowclone.question.entity.QuestionTag;
@@ -28,14 +30,16 @@ import java.util.Optional;
 @AllArgsConstructor
 public class QuestionController {
     private final QuestionService questionService;
+    private final MemberService memberService;
     private final TagService tagService;
     private final QuestionMapper questionMapper;
     private final TagMapper tagMapper;
 
     @PostMapping("/ask")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post requestBody) {
-
+        Member foundMember = memberService.findMember(requestBody.getMemberId());
         Question question = questionMapper.questionPostDtoToQuestion(requestBody);
+        question.setMember(foundMember);
         Question createdQuestion = questionService.createQuestion(question);
 
         List<String> tags = new ArrayList<>();
@@ -46,6 +50,7 @@ public class QuestionController {
 
         QuestionDto.Response response = questionMapper.questionToQuestionResponse(createdQuestion);
         response.setTags(tags);
+        response.setNickName(foundMember.getNickName());
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
@@ -78,6 +83,7 @@ public class QuestionController {
         questionService.increaseViews(questionId);
         QuestionDto.Response response = questionMapper.questionToQuestionResponse(question);
         response.setTags(tagMapper.tagsListToStringList(tags));
+        response.setNickName(question.getMember().getNickName());
         return new ResponseEntity(new SingleResponseDto<>(response),
                 HttpStatus.OK);
     }
@@ -97,6 +103,7 @@ public class QuestionController {
             for (QuestionDto.Response response : responses) {
                 if (response.getQuestionId() == q.getQuestionId()) {
                     response.setTags(tagMapper.tagsListToStringList(tags));
+                    response.setNickName(q.getMember().getNickName());
                     break;
                 }
             }
