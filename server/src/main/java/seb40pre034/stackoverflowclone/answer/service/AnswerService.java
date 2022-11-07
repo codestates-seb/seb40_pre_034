@@ -5,10 +5,12 @@ import seb40pre034.stackoverflowclone.answer.entity.Answer;
 import seb40pre034.stackoverflowclone.answer.repository.AnswerRepository;
 import seb40pre034.stackoverflowclone.exception.BusinessLogicException;
 import seb40pre034.stackoverflowclone.exception.ExceptionCode;
+import seb40pre034.stackoverflowclone.question.entity.Question;
 import seb40pre034.stackoverflowclone.question.service.QuestionService;
 
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +18,6 @@ import java.util.Optional;
 @Transactional
 public class AnswerService {
     private final AnswerRepository answerRepository;
-
     private final QuestionService questionService;
 
     public AnswerService(AnswerRepository answerRepository, QuestionService questionService) {
@@ -33,7 +34,9 @@ public class AnswerService {
     //조회 기능
     @Transactional
     public List<Answer> findAnswers(long questionId) {
-        return answerRepository.findAll();
+        List<Answer> answers = answerRepository.findAll();
+        answers.removeIf(answer -> answer.getQuestion().getQuestionId() != questionId);
+        return answers;
     }
 
     // 업데이트 기능
