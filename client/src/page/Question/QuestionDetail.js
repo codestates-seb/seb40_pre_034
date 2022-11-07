@@ -203,7 +203,7 @@ const QuestionDetail = () => {
     axios
       // eslint-disable-next-line no-undef
       .get(`${process.env.REACT_APP_API_URL}questions` + id)
-      .then((res) => setQuestionDetail(res.data))
+      .then((res) => setQuestionDetail(res.data.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -211,7 +211,7 @@ const QuestionDetail = () => {
     axios
       // eslint-disable-next-line no-undef
       .get(`${process.env.REACT_APP_API_URL}answers`)
-      .then((res) => setAnswers(res.data))
+      .then((res) => setAnswers(res.data.data))
       .catch((err) => console.log(err));
   }, []);
 

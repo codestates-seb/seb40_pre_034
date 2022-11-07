@@ -79,48 +79,6 @@ const LoginInput = ({ setUserInfo, setIsLogin }) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
 
-  // const onSubmit = async (data) => {
-  //   await new Promise((r) => setTimeout(r, 1000));
-
-  //   const loginInfo = {
-  //     username: data.email,
-  //     password: data.password,
-  //   };
-  //   console.log(loginInfo);
-
-  //   axios
-  //     // eslint-disable-next-line no-undef
-  //     .post("http://localhost:4000/login", loginInfo)
-  //     .then((res) => {
-  //       // if (res.status === 201) {
-  //       console.log(res);
-  //       setIsLogin(true);
-  //       setUserInfo(res.data);
-  //       const { accessToken } = res.data;
-  //       axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-  //       navigate("/");
-  //       // }
-  //     })
-  //     .catch((err) => console.log("err:", err));
-  // };
-
-  //   axios
-  //     // eslint-disable-next-line no-undef
-  //     .post(`${process.env.REACT_APP_API_URL}members/login`, loginInfo)
-  //     .then((res) => {
-  //       // if (res.status === 201) {
-  //       console.log(res);
-  //       setIsLogin(true);
-  //       setUserInfo(res.data);
-  //       // const { accessToken } = res.data;
-  //       // axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-  //       navigate("/");
-  //       // }
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
-
-  // 2
   const onSubmit = async (data) => {
     await new Promise((r) => setTimeout(r, 1000));
 
@@ -133,57 +91,21 @@ const LoginInput = ({ setUserInfo, setIsLogin }) => {
     axios
       // eslint-disable-next-line no-undef
       .post(`${process.env.REACT_APP_API_URL}members/login`, login)
-      // .post("http://localhost:4000/login", login)
+      .then((res) => {
+        if (res.headers.authorization) {
+          localStorage.setItem("accessToken", res.headers.authorization);
+          localStorage.setItem("refreshToken", res.headers.refresh);
+        }
+      })
       .then((res) => {
         setIsLogin(true);
-        setUserInfo(res.data);
+        setUserInfo(res);
         console.log(res);
-        const { accessToken } = res.data;
-
-        // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-        // accessToken을 localStorage, cookie 등에 저장하지 않는다!
         navigate("/");
       })
       .catch((error) => console.log(error));
   };
 
-  // 3
-  // const JWT_EXPIRY_TIME = 24 * 3600 * 1000; // 만료 시간 (24시간 밀리 초로 표현)
-
-  // const onSubmit = async (data) => {
-  //   await new Promise((r) => setTimeout(r, 1000));
-
-  //   const login = {
-  //     email: data.email,
-  //     password: data.password,
-  //   };
-  //   console.log(login);
-
-  //   axios
-  //     // eslint-disable-next-line no-undef
-  //     .post(`${process.env.REACT_APP_API_URL}members/login`, login)
-  //     .then(onLoginSuccess)
-  //     .catch((err) => console.log(err));
-  // };
-
-  // const onSilentRefresh = () => {
-  //   axios
-  //     // eslint-disable-next-line no-undef
-  //     .post(`${process.env.REACT_APP_API_URL}members/login`, login) //여기 url 확인하고싶어,,,
-  //     .then(onLoginSuccess)
-  //     .catch((err) => console.log(err));
-  // };
-
-  // const onLoginSuccess = (res) => {
-  //   const { accessToken } = res.data;
-
-  //   // accessToken 설정
-  //   axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-
-  //   // accessToken 만료하기 1분 전에 로그인 연장
-  //   setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
-  // };
   return (
     <CardStyle width="316px">
       <InputArea>
@@ -225,7 +147,13 @@ const LoginInput = ({ setUserInfo, setIsLogin }) => {
             onChange={handleInputValue("password")}
           />
           {errors.password && <ErrorMSG role="alert">{errors.password.message}</ErrorMSG>}
-          <BlueButton text="Log in" type="submit" disabled={isSubmitting} />
+          <BlueButton
+            text="Log in"
+            type="submit"
+            disabled={isSubmitting}
+            onClick={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onSubmit)}
+          />
         </InputForm>
       </InputArea>
     </CardStyle>

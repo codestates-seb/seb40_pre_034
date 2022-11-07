@@ -5,6 +5,7 @@ import Checkbox from "../../components/Checkbox/Checkbox";
 import LogoutIcon from "./LogoutIcon";
 import axios from "axios";
 // import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LogoutContainer = styled.section`
   background-color: hsl(210, 8%, 95%);
@@ -90,34 +91,21 @@ const BlueButton2 = styled.button`
     background-color: hsl(209, 100%, 37.5%);
   }
 `;
-const Logout = ({ userInfo, setIsLogin, setUserInfo }) => {
-  // const onClickHandler = () => {
-  //   axios
-  //     // eslint-disable-next-line no-undef
-  //     .get(`${process.env.REACT_APP_API_URL}members/logout`)
-  //     .then((res) => console.log(res.data))
-  //     .catch((error) => console.log(error));
-  // };
-
-  // {
-  // if (res.data) {
-  // navigate("/login");
-  //페이지 전환하기
-  // } else {
-  // alert("로그아웃에 실패했습니다");
-  // }
-  // }
+const Logout = ({ setIsLogin }) => {
+  const navigate = useNavigate();
 
   const logoutHandler = () => {
     return (
       axios
         // eslint-disable-next-line no-undef
-        .post(`${process.env.REACT_APP_API_URL}members/logout`, userInfo)
-        // .post("http://localhost:4000/users", userInfo)
-        .then((res) => {
-          setUserInfo(null);
+        .delete(`${process.env.REACT_APP_API_URL}members/logout`, {
+          headers: { Refresh: `${localStorage.getItem("refreshToken")}` },
+        })
+        .then(() => {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
           setIsLogin(false);
-          console.log(res);
+          navigate(`/`);
         })
         .catch((err) => {
           alert(err);

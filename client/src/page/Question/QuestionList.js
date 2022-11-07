@@ -80,7 +80,7 @@ const QuestionList = () => {
         // eslint-disable-next-line no-undef
         `${process.env.REACT_APP_API_URL}questions` /*"http://localhost:4000/questions"*/ /* , { params: { tab: sortTab } } */,
       )
-      .then((res) => setQuestions(res.data /* .data */))
+      .then((res) => setQuestions(res.data.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -108,9 +108,9 @@ const QuestionList = () => {
             {questions.length > 0 ? (
               questions.slice(offset, offset + limit).map((question) => {
                 return (
-                  <li key={question./* questionId */ id}>
+                  <li key={question.questionId}>
                     <QuestionElement
-                      id={question./* questionId */ id}
+                      id={question.questionId}
                       voteCnt={question.vote}
                       answersCnt={question.answers}
                       viewsCnt={question.views}
