@@ -13,6 +13,8 @@ import seb40pre034.stackoverflowclone.question.repository.QuestionRepository;
 import seb40pre034.stackoverflowclone.question.repository.QuestionTagRepository;
 import seb40pre034.stackoverflowclone.tag.entity.Tag;
 import seb40pre034.stackoverflowclone.tag.repository.TagRepository;
+import seb40pre034.stackoverflowclone.tag.service.TagService;
+import seb40pre034.stackoverflowclone.tag.service.TagServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,20 +37,36 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
-    public Question updateQuestion(Question question) {
+    public Question updateQuestion(Question question, List<String> tags) {
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());
 
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
         Optional.ofNullable(question.getVote()).ifPresent(findQuestion::setVote);
-        if (Optional.ofNullable(question.getQuestionTags()).isPresent()) {
-            for (QuestionTag qt : findQuestion.getQuestionTags()) {
-                findQuestion.getQuestionTags().remove(qt);
-                qt.getTag().getQuestionTags().remove(qt);
-                questionTagRepository.delete(qt);
+        if (Optional.ofNullable(tags).isPresent()) {
+            for (int i = 0; i < findQuestion.getQuestionTags().size(); i++) {
+                QuestionTag questionTag = findQuestion.getQuestionTags().get(i);
+                findQuestion.getQuestionTags().remove(questionTag);
+                questionTag.getTag().getQuestionTags().remove(questionTag);
+                questionTagRepository.delete(questionTag);
+                i--;
+            }
+
+            for (String tag : tags) {
+                if (tagRepository.findByTagName(tag).isEmpty()) {
+                    Tag newTag = new Tag();
+                    newTag.setTagName(tag);
+                    tagRepository.save(newTag);
+                }
+                Tag foundTag = tagRepository.findByTagName(tag).get();
+                QuestionTag questionTag = new QuestionTag();
+                questionTag.setTag(foundTag);
+                questionTag.setQuestion(question);
+                findQuestion.getQuestionTags().add(questionTag);
+                foundTag.getQuestionTags().add(questionTag);
+                questionTagRepository.save(questionTag);
             }
         }
-
         return questionRepository.save(findQuestion);
     }
 
