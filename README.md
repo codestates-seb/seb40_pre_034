@@ -1,7 +1,7 @@
 # 코드스테이츠 SEB 40기 Pre Project 34
 
+[배포 주소 바로가기](http://seb40-pre-034.s3-website.ap-northeast-2.amazonaws.com/)
 
-## 배포 주소 : http://seb40-pre-034.s3-website.ap-northeast-2.amazonaws.com/
 ### 팀 소개
 |[김윤희](https://github.com/kyh1685)|[김은서](https://github.com/EUNSEO814)|[나호연](https://github.com/nahoyeon)|[오현지](https://github.com/opc13579)|[김찬중](https://github.com/ClimberCode)|[김현욱](https://github.com/oasis791)|[이주영](https://github.com/homebird9)|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
