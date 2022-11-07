@@ -14,16 +14,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 import seb40pre034.stackoverflowclone.config.auth.CustomAuthorityUtils;
 import seb40pre034.stackoverflowclone.config.auth.filter.JwtAuthenticationFilter;
 import seb40pre034.stackoverflowclone.config.auth.JwtTokenizer;
 import seb40pre034.stackoverflowclone.config.auth.filter.JwtVerificationFilter;
 
 import java.util.Arrays;
-import java.util.List;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @RequiredArgsConstructor
@@ -53,7 +49,8 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.POST, "/answers").authenticated()
                         .antMatchers(HttpMethod.PATCH, "/answers/edit/**").authenticated()
                         .antMatchers(HttpMethod.DELETE, "/answers/**").authenticated()
-                        .antMatchers(HttpMethod.GET, "/questions").permitAll()
+                        .antMatchers(HttpMethod.GET, "/questions/**").permitAll()
+                        .antMatchers(HttpMethod.GET, "/answers/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .logout()
@@ -66,18 +63,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
-
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList("*"));
-//        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE", "OPTIONS"));
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
-
 
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
