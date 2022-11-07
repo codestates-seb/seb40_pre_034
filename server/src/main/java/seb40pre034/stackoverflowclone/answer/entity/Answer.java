@@ -31,17 +31,17 @@ public class Answer extends Auditable {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    private Member memberId;
+    private Member member;
 
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
-    private Question questionId;
+    private Question question;
 
-    public void setMemberId(Member memberId) {
-        this.memberId = memberId;
+    public void setMember(Member member) {
+        this.member = member;
     }
-    public void setQuestionId(Question questionId) {
-        this.questionId = questionId;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
 }

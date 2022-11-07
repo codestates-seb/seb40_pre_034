@@ -54,6 +54,5 @@ public class QuestionDto {
         private LocalDateTime modifiedAt;
         private List<String> tags;
         private Integer views;
-        private Integer answers;
     }
 }
