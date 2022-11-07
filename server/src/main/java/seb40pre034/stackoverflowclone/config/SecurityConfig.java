@@ -53,6 +53,7 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.POST, "/answers").authenticated()
                         .antMatchers(HttpMethod.PATCH, "/answers/edit/**").authenticated()
                         .antMatchers(HttpMethod.DELETE, "/answers/**").authenticated()
+                        .antMatchers(HttpMethod.GET, "/questions").permitAll()
                         .anyRequest().permitAll()
                 )
                 .logout()
