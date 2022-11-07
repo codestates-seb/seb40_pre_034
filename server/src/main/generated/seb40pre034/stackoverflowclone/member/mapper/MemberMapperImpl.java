@@ -9,9 +9,8 @@ import seb40pre034.stackoverflowclone.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-03T23:27:50+0900",
+    date = "2022-11-07T15:08:12+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 15.0.1 (Oracle Corporation)"
-
 )
 @Component
 public class MemberMapperImpl implements MemberMapper {
@@ -57,16 +56,14 @@ public class MemberMapperImpl implements MemberMapper {
         Long memberId = null;
         String email = null;
         String nickName = null;
-        String password = null;
         Member.MemberStatus memberStatus = null;
 
         memberId = member.getMemberId();
         email = member.getEmail();
         nickName = member.getNickName();
-        password = member.getPassword();
         memberStatus = member.getMemberStatus();
 
-        MemberDto.Response response = new MemberDto.Response( memberId, email, nickName, password, memberStatus );
+        MemberDto.Response response = new MemberDto.Response( memberId, email, nickName, memberStatus );
 
         return response;
     }

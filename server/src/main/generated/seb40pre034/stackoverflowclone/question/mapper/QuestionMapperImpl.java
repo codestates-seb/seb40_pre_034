@@ -10,9 +10,8 @@ import seb40pre034.stackoverflowclone.question.entity.Question;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-04T00:02:57+0900",
+    date = "2022-11-07T15:08:12+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 15.0.1 (Oracle Corporation)"
-
 )
 @Component
 public class QuestionMapperImpl implements QuestionMapper {
@@ -70,11 +69,10 @@ public class QuestionMapperImpl implements QuestionMapper {
         modifiedAt = question.getModifiedAt();
         views = question.getViews();
 
-        String nickname = null;
+        String nickName = null;
         List<String> tags = null;
-        Integer answers = null;
 
-        QuestionDto.Response response = new QuestionDto.Response( questionId, title, content, vote, createdAt, modifiedAt, nickname, tags, views, answers );
+        QuestionDto.Response response = new QuestionDto.Response( questionId, nickName, title, content, vote, createdAt, modifiedAt, tags, views );
 
         return response;
     }

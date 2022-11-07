@@ -61,13 +61,16 @@ public class QuestionController {
             @Valid @RequestBody QuestionDto.Patch requestBody) {
         requestBody.setQuestionId(questionId);
         Question question = questionMapper.questionPatchDtoToQuestion(requestBody);
-        Question updatedQuestion = questionService.updateQuestion(question);
+        Question updatedQuestion = questionService.updateQuestion(question, requestBody.getTags());
 
-        if(Optional.ofNullable(requestBody.getTags()).isPresent()) {
-            tagService.createTag(requestBody.getTags(), questionId);
+        QuestionDto.Response response = questionMapper.questionToQuestionResponse(updatedQuestion);
+        List<Tag> tags = new ArrayList<>();
+        for (int i = 0; i < updatedQuestion.getQuestionTags().size(); i++) {
+            tags.add(updatedQuestion.getQuestionTags().get(i).getTag());
         }
+        response.setTags(tagMapper.tagsListToStringList(tags));
 
-        return new ResponseEntity<>(new SingleResponseDto<>(questionMapper.questionToQuestionResponse(updatedQuestion)),
+        return new ResponseEntity<>(new SingleResponseDto<>(response),
                 HttpStatus.OK);
     }
 
