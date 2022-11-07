@@ -136,12 +136,13 @@ const LoginInput = ({ setUserInfo, setIsLogin }) => {
       // .post("http://localhost:4000/login", login)
       .then((res) => {
         setIsLogin(true);
-        setUserInfo(res.data);
-        console.log(res);
-        const { accessToken } = res.data;
+        setUserInfo(res.data.data);
+
+        const accessToken = res.headers.authorization;
 
         // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+        localStorage.setItem("Authorization", accessToken);
+        axios.defaults.headers.common["Authorization"] = `${accessToken}`;
         // accessToken을 localStorage, cookie 등에 저장하지 않는다!
         navigate("/");
       })

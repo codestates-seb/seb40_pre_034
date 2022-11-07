@@ -6,6 +6,7 @@ import AskQTags from "./AskQTags";
 import CustomEditor from "../../components/Edit/CustomEditor";
 import axios from "axios";
 import AskQForm, { TextInput } from "./AskQForm";
+import jwt from "jwt-decode";
 
 const Container = styled.div`
   display: flex;
@@ -57,6 +58,13 @@ function AskQuestion() {
   const [content, setContent] = useState();
   const [tags, setTags] = useState([]);
 
+  const token = localStorage.getItem("Authorization");
+  let memberId;
+
+  if (token) {
+    memberId = jwt(token.split(" ")[1]).memberId;
+  }
+
   const onInput = (e) => {
     setTitle(e.target.value);
   };
@@ -69,12 +77,13 @@ function AskQuestion() {
           // eslint-disable-next-line no-undef
           `${process.env.REACT_APP_API_URL}questions/ask`,
           {
+            memberId: memberId,
             title: title,
             content: content,
             tags: tags,
           },
         )
-        .then((res) => navigate(`/question/${res.data.id}`));
+        .then((res) => navigate(`/question/${res.data.data.questionId}`));
     } catch (err) {
       console.log(err);
     }

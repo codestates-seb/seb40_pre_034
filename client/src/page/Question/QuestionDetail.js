@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
@@ -12,6 +13,7 @@ import YellowSideCard from "../../components/SideCard/YellowCard/YellowSideCard"
 import ShareLink from "../../components/ShareLink/ShareLink";
 import axios from "axios";
 import dompurify from "dompurify";
+import jwt from "jwt-decode";
 
 export const Container = styled.div`
   display: flex;
@@ -195,23 +197,27 @@ const QuestionDetail = () => {
   const [questionDetail, setQuestionDetail] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [editorVal, setEditiorVal] = useState(""); // 답변만 관리
-  const { id } = useParams();
+  const questionId = useParams().id;
   const navigate = useNavigate();
   const sanitizer = dompurify.sanitize;
-  // .post(`${process.env.REACT_APP_API_URL}answers`, userInfo)
+  const token = localStorage.getItem("Authorization");
+  let memberId;
+
+  if (token) {
+    memberId = jwt(token.split(" ")[1]).memberId;
+  }
+
   useEffect(() => {
     axios
-      // eslint-disable-next-line no-undef
-      .get(`${process.env.REACT_APP_API_URL}questions` + id)
-      .then((res) => setQuestionDetail(res.data))
+      .get(`${process.env.REACT_APP_API_URL}questions/` + questionId)
+      .then((res) => setQuestionDetail(res.data.data))
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     axios
-      // eslint-disable-next-line no-undef
-      .get(`${process.env.REACT_APP_API_URL}answers`)
-      .then((res) => setAnswers(res.data))
+      .get(`${process.env.REACT_APP_API_URL}answers/` + questionId)
+      .then((res) => setAnswers(res.data.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -219,29 +225,25 @@ const QuestionDetail = () => {
     e.preventDefault();
 
     axios
-      // eslint-disable-next-line no-undef
       .post(`${process.env.REACT_APP_API_URL}answers`, {
-        //답변 생성할때 글번호 번호 보내줘야하는지
-        // id: id,
-        answer: editorVal,
-        vote: 0,
+        memberId: memberId,
+        questionId: questionId,
+        answer_content: editorVal,
       })
       .then((res) => console.log(res.status));
   };
 
   const onQuestionDelete = () => {
     axios
-      // eslint-disable-next-line no-undef
-      .delete(`${process.env.REACT_APP_API_URL}questions` + id)
+      .delete(`${process.env.REACT_APP_API_URL}questions/` + questionId)
       .then((res) => console.log(res.status))
       .then(() => navigate("/"));
   };
 
-  const onAnswerDelete = (id) => {
-    // eslint-disable-next-line no-undef
-    axios.delete(`${process.env.REACT_APP_API_URL}answers` + id).then((res) => console.log(res.status));
-    // .then(() => (window.location.href = "http://localhost:3000/"));
+  const onAnswerDelete = (answerId) => {
+    axios.delete(`${process.env.REACT_APP_API_URL}answers/` + answerId).then((res) => console.log(res.status));
   };
+
   const [isModal, setIsModal] = useState(false);
   const ModalHandler = () => {
     setIsModal((prev) => !prev);
@@ -308,28 +310,30 @@ const QuestionDetail = () => {
                         ) : (
                           <QuestionBtn1 onClick={ModalHandler}>Share</QuestionBtn1>
                         )}
-                        <QuestionBtn onClick={() => navigate(`/edit/${id}`)}>Edit</QuestionBtn>
+                        <QuestionBtn onClick={() => navigate(`/edit/${questionId}`)}>Edit</QuestionBtn>
                         <QuestionBtn>Follow</QuestionBtn>
-                        <QuestionBtn onClick={() => onQuestionDelete(questionDetail.id)}>Delete</QuestionBtn>
+                        <QuestionBtn onClick={() => onQuestionDelete(questionDetail.questionId)}>Delete</QuestionBtn>
                       </UseBtn>
                     </QuestionContainerLeftMainIntroduce>
                   </QuestionContainerLeftMain>
                   {answers &&
                     answers.map((answer) => {
                       return (
-                        <QuestionContainerLeftMaind key={answer.id}>
+                        <QuestionContainerLeftMaind key={answer.answerId}>
                           <QuestionContainerLeftMainAside>
-                            <VoteButton number={answer.vote} />
+                            <VoteButton number={answer.answer_vote} />
                           </QuestionContainerLeftMainAside>
                           <QuestionContainerLeftMainIntroduce>
-                            {answer.id === 1 ? <h1>{answers.length} Answers</h1> : ""}
-                            <AnswerAnswer dangerouslySetInnerHTML={{ __html: sanitizer(answer.answer) }}></AnswerAnswer>
+                            {answer.answerId === 1 ? <h1>{answers.length} Answers</h1> : ""}
+                            <AnswerAnswer
+                              dangerouslySetInnerHTML={{ __html: sanitizer(answer.answer_content) }}
+                            ></AnswerAnswer>
                             <LanguageBtn></LanguageBtn>
                             <UsedBtn>
                               <AnswerBtn>Share</AnswerBtn>
                               <AnswerBtn>Edit</AnswerBtn>
                               <AnswerBtn></AnswerBtn>
-                              <AnswerBtn onClick={() => onAnswerDelete(answer.id)}>Delete</AnswerBtn>
+                              <AnswerBtn onClick={() => onAnswerDelete(answer.answerId)}>Delete</AnswerBtn>
                             </UsedBtn>
                           </QuestionContainerLeftMainIntroduce>
                         </QuestionContainerLeftMaind>

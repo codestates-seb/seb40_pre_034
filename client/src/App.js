@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState /*useEffect*/ } from "react";
+import { Suspense, lazy, useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import axios from "axios";
 
@@ -39,24 +39,24 @@ function App() {
   //2.
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
-  // const authHandler = () => {
-  //   axios
+  const authHandler = () => {
+    axios
 
-  //     // eslint-disable-next-line no-undef
-  //     .get(`${process.env.REACT_APP_API_URL}members/login`)
-  //     .then((res) => {
-  //       setIsLogin(true);
-  //       console.log(res);
-  //       setUserInfo(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+      // eslint-disable-next-line no-undef
+      .get(`${process.env.REACT_APP_API_URL}members/login`)
+      .then((res) => {
+        setIsLogin(true);
+        console.log(res);
+        setUserInfo(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  // useEffect(() => {
-  //   authHandler();
-  // }, []);
+  useEffect(() => {
+    authHandler();
+  }, []);
 
   return (
     <>
