@@ -2,6 +2,7 @@ package seb40pre034.stackoverflowclone.member.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import seb40pre034.stackoverflowclone.member.entity.Member;
 
@@ -14,6 +15,7 @@ public class MemberDto {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Post {
         @NotBlank
         @Email
