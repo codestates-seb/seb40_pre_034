@@ -83,7 +83,7 @@ const QuestionList = () => {
       .then((res) => setQuestions(res.data.data))
       .catch((err) => console.log(err));
   }, []);
-
+  const createAt = new Date().toDateString(questions.createdAt);
   return (
     <Container>
       <Sidebar />
@@ -118,7 +118,7 @@ const QuestionList = () => {
                       content={question.content}
                       tags={question.tags}
                       nickname={question.nickname}
-                      createdAt={question.createdAt}
+                      createdAt={createAt}
                     />
                   </li>
                 );

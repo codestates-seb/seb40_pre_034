@@ -281,6 +281,9 @@ const QuestionDetail = () => {
   const ModalHandler = () => {
     setIsModal((prev) => !prev);
   };
+
+  const createAt = new Date().toDateString(questionDetail.createdAt);
+  const modi = new Date().toDateString(questionDetail.modifiedAt);
   return (
     <>
       <Container>
@@ -302,11 +305,11 @@ const QuestionDetail = () => {
               <QuestionInfo>
                 <QuestionAsked>
                   <span>Asked</span>
-                  <strong>{questionDetail.createdAt}</strong>
+                  <strong>{createAt}</strong>
                 </QuestionAsked>
                 <QuestionModified>
                   <span>Modified</span>
-                  <strong>{questionDetail.modifiedAt}</strong>
+                  <strong>{modi}</strong>
                 </QuestionModified>
                 <QuestionViewed>
                   <span>Viewed</span>
