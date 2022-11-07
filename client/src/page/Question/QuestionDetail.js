@@ -99,6 +99,10 @@ export const QuestionViewed = styled(QuestionAsked)``;
 export const QuestionContainer = styled.div`
   display: flex;
   width: 100%;
+
+  .answersCount {
+    margin-top: 10px;
+  }
 `;
 
 export const QuestionContainerLeft = styled.section`
@@ -162,13 +166,13 @@ export const CustomerEditorArea = styled.div`
 `;
 
 export const AnswerArea = styled.div`
-  & > h1 {
-    padding: 10px;
+  h1 {
+    margin-bottom: 10px;
   }
 `;
 
 export const EditorArea = styled.div`
-  padding: 0px 20px;
+  margin-top: 10px;
 `;
 export const IconArea = styled.div`
   float: right;
@@ -193,14 +197,17 @@ export const TagBtnArea = styled.div`
 `;
 const QuestionBtn1 = styled(QuestionBtn)``;
 const ShareLinkStyle = styled.div``;
+
 const QuestionDetail = () => {
-  const [questionDetail, setQuestionDetail] = useState([]);
-  const [answers, setAnswers] = useState([]);
-  const [editorVal, setEditiorVal] = useState(""); // 답변만 관리
-  const questionId = useParams().id;
-  const navigate = useNavigate();
   const sanitizer = dompurify.sanitize;
-  const token = localStorage.getItem("Authorization");
+  const navigate = useNavigate();
+  const [answers, setAnswers] = useState([]);
+  const questionId = useParams().id;
+  const token = localStorage.getItem("accessToken");
+
+  const [questionDetail, setQuestionDetail] = useState([]);
+  const [editorVal, setEditiorVal] = useState(""); // 답변만 관리
+
   let memberId;
 
   if (token) {
@@ -217,7 +224,9 @@ const QuestionDetail = () => {
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}answers/` + questionId)
-      .then((res) => setAnswers(res.data.data))
+      .then((res) => {
+        setAnswers(res.data.data);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -225,23 +234,47 @@ const QuestionDetail = () => {
     e.preventDefault();
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}answers`, {
-        memberId: memberId,
-        questionId: questionId,
-        answer_content: editorVal,
-      })
-      .then((res) => console.log(res.status));
+      .post(
+        `${process.env.REACT_APP_API_URL}answers`,
+        {
+          memberId: memberId,
+          questionId: questionId,
+          answer_content: editorVal,
+        },
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        },
+      )
+      .then((res) => {
+        setAnswers([...answers, res.data.data]);
+        setEditiorVal("");
+      });
   };
 
   const onQuestionDelete = () => {
     axios
-      .delete(`${process.env.REACT_APP_API_URL}questions/` + questionId)
+      .delete(`${process.env.REACT_APP_API_URL}questions/delete/` + questionId, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      })
       .then((res) => console.log(res.status))
       .then(() => navigate("/"));
   };
 
   const onAnswerDelete = (answerId) => {
-    axios.delete(`${process.env.REACT_APP_API_URL}answers/` + answerId).then((res) => console.log(res.status));
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}answers/` + answerId, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      })
+      .then(() => {
+        const filteredAnswers = answers.filter((answer) => answer.answerId !== answerId);
+        setAnswers(filteredAnswers);
+      });
   };
 
   const [isModal, setIsModal] = useState(false);
@@ -269,11 +302,11 @@ const QuestionDetail = () => {
               <QuestionInfo>
                 <QuestionAsked>
                   <span>Asked</span>
-                  <strong>{/* {questionDetail.asked}  */}hours ago</strong>
+                  <strong>{questionDetail.createdAt}</strong>
                 </QuestionAsked>
                 <QuestionModified>
                   <span>Modified</span>
-                  <strong>{/* {questionDetail.modified} */} mins ago</strong>
+                  <strong>{questionDetail.modifiedAt}</strong>
                 </QuestionModified>
                 <QuestionViewed>
                   <span>Viewed</span>
@@ -287,9 +320,7 @@ const QuestionDetail = () => {
                       <VoteButton number="1" />
                     </QuestionContainerLeftMainAside>
                     <QuestionContainerLeftMainIntroduce>
-                      <QuestionDetailContent
-                        dangerouslySetInnerHTML={{ __html: sanitizer(questionDetail.content) }}
-                      ></QuestionDetailContent>
+                      <QuestionDetailContent dangerouslySetInnerHTML={{ __html: sanitizer(questionDetail.content) }} />
                       <LanguageBtn>
                         <TagBtnArea>
                           {questionDetail.tags &&
@@ -297,7 +328,6 @@ const QuestionDetail = () => {
                               return <TagButton key={idx} text={tag} />;
                             })}
                         </TagBtnArea>
-                        {/* <TagButton text={questionDetail.tags} /> */}
                       </LanguageBtn>
                       <UseBtn>
                         {isModal ? (
@@ -312,11 +342,12 @@ const QuestionDetail = () => {
                         )}
                         <QuestionBtn onClick={() => navigate(`/edit/${questionId}`)}>Edit</QuestionBtn>
                         <QuestionBtn>Follow</QuestionBtn>
-                        <QuestionBtn onClick={() => onQuestionDelete(questionDetail.questionId)}>Delete</QuestionBtn>
+                        <QuestionBtn onClick={onQuestionDelete}>Delete</QuestionBtn>
                       </UseBtn>
                     </QuestionContainerLeftMainIntroduce>
                   </QuestionContainerLeftMain>
-                  {answers &&
+                  <h1 className="answersCount">{answers.length} Answers</h1>
+                  {answers.length > 0 &&
                     answers.map((answer) => {
                       return (
                         <QuestionContainerLeftMaind key={answer.answerId}>
@@ -324,15 +355,10 @@ const QuestionDetail = () => {
                             <VoteButton number={answer.answer_vote} />
                           </QuestionContainerLeftMainAside>
                           <QuestionContainerLeftMainIntroduce>
-                            {answer.answerId === 1 ? <h1>{answers.length} Answers</h1> : ""}
-                            <AnswerAnswer
-                              dangerouslySetInnerHTML={{ __html: sanitizer(answer.answer_content) }}
-                            ></AnswerAnswer>
-                            <LanguageBtn></LanguageBtn>
+                            <AnswerAnswer dangerouslySetInnerHTML={{ __html: sanitizer(answer.answer_content) }} />
                             <UsedBtn>
                               <AnswerBtn>Share</AnswerBtn>
                               <AnswerBtn>Edit</AnswerBtn>
-                              <AnswerBtn></AnswerBtn>
                               <AnswerBtn onClick={() => onAnswerDelete(answer.answerId)}>Delete</AnswerBtn>
                             </UsedBtn>
                           </QuestionContainerLeftMainIntroduce>

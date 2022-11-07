@@ -17,8 +17,8 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 54px;
-  width: 100vw;
-  height: 100vh;
+  /* width: 100vw;
+  height: 100vh */ ;
 `;
 
 const MainContainer = styled.div`
@@ -37,7 +37,7 @@ const SideDescription = styled.div`
 `;
 
 const QuestionContainer = styled.div`
-  max-width: 900px;
+  width: 900px;
   padding: 0 20px;
 `;
 

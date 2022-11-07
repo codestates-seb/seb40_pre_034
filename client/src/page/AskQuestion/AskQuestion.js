@@ -58,7 +58,7 @@ function AskQuestion() {
   const [content, setContent] = useState();
   const [tags, setTags] = useState([]);
 
-  const token = localStorage.getItem("Authorization");
+  const token = localStorage.getItem("accessToken");
   let memberId;
 
   if (token) {
@@ -81,6 +81,11 @@ function AskQuestion() {
             title: title,
             content: content,
             tags: tags,
+          },
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
           },
         )
         .then((res) => navigate(`/question/${res.data.data.questionId}`));

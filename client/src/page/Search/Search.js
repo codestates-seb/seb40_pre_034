@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import axios from "axios";
+// import axios from "axios";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import BlueButton from "../../components/Button/BlueButton";
@@ -33,7 +33,7 @@ const MainContainer = styled.div`
 const SideDescription = styled.div``;
 
 const QuestionContainer = styled.div`
-  max-width: 900px;
+  width: 900px;
   padding: 0 20px;
 `;
 
@@ -71,19 +71,22 @@ const Search = () => {
   const keyword = useSelector((state) => state.search);
 
   useEffect(() => {
-    axios
-      // eslint-disable-next-line no-undef
-      .get(`${process.env.REACT_APP_API_URL}search` /* "http://localhost:4000/questions"*/, {
+    const filteredQuestions = questions.filter(
+      (question) => question.title.includes(keyword) || question.content.includes(keyword),
+    );
+
+    setQuestions(filteredQuestions);
+    /* axios
+      .get("${process.env.REACT_APP_API_URL}search", {
         params: {
-          /* tab: sortTab, */
-          /* keyword: keyword, */
-          title: keyword,
+          tab: sortTab,
+          keyword: keyword,
         },
       })
       .then((res) => {
-        setQuestions(res.data /* .data */);
+        setQuestions(res.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err));*/
   }, [keyword]);
 
   return (

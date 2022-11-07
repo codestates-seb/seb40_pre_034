@@ -61,7 +61,6 @@ const SocialBtn = styled.button`
 
 const ShareLink = () => {
   const text = window.location.href;
-  console.log(text);
 
   const onClickHandler = (text) => {
     navigator.clipboard.writeText(text).then(() => {

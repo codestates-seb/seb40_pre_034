@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState, useEffect } from "react";
+import { Suspense, lazy, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import axios from "axios";
 
@@ -18,45 +18,8 @@ const NotFound = lazy(() => import("./components/NotFound/NotFound"));
 
 axios.defaults.withCredentials = true;
 function App() {
-  // const [isLogin, setIsLogin] = useState(false);
-  // const [userInfo, setUserInfo] = useState(null);
-  // const authHandler = () => {
-  //   axios
-  //     // eslint-disable-next-line no-undef
-  //     .get(`${process.env.REACT_APP_API_URL}members/login`)
-  //     .then((res) => {
-  //       setIsLogin(true);
-  //       setUserInfo(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   authHandler();
-  // }, []);
-  //2.
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(localStorage.getItem("accessToken"));
   const [userInfo, setUserInfo] = useState(null);
-  const authHandler = () => {
-    axios
-
-      // eslint-disable-next-line no-undef
-      .get(`${process.env.REACT_APP_API_URL}members/login`)
-      .then((res) => {
-        setIsLogin(true);
-        console.log(res);
-        setUserInfo(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    authHandler();
-  }, []);
 
   return (
     <>

@@ -72,6 +72,7 @@ const EditInput = () => {
   const [editorVal, setEditorVal] = useState("");
   const [tags, setTags] = useState([]);
   const navigate = useNavigate();
+  const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
     axios
@@ -79,9 +80,9 @@ const EditInput = () => {
       .get(`${process.env.REACT_APP_API_URL}questions/` + id)
       // .get("http://localhost:4002/questions/" + id)
       .then((res) => {
-        setTitle(res.data.title);
-        setValue(res.data.content);
-        setTags(res.data.tags);
+        setTitle(res.data.data.title);
+        setValue(res.data.data.content);
+        setTags(res.data.data.tags);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -95,7 +96,11 @@ const EditInput = () => {
     };
     axios
       // eslint-disable-next-line no-undef
-      .patch(`${process.env.REACT_APP_API_URL}questions/` + id, /* `http://localhost:4002/questions/`*/ edit)
+      .patch(`${process.env.REACT_APP_API_URL}questions/edit/` + id, /* `http://localhost:4002/questions/`*/ edit, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      })
       .then(() => navigate(`/question/${id}`))
       .catch((err) => console.log(err));
   };

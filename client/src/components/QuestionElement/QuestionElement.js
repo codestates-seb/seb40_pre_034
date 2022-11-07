@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import dompurify from "dompurify";
 
 import Char from "../../img/Char.png";
 import TagButton from "../Button/TagButton";
@@ -94,6 +95,8 @@ const Ima = styled.div`
 `;
 
 const QuestionElement = ({ id, voteCnt, answersCnt, viewsCnt, title, content, tags, nickname, createdAt }) => {
+  const sanitizer = dompurify.sanitize;
+
   return (
     <Container>
       <QuestionOption>
@@ -106,7 +109,7 @@ const QuestionElement = ({ id, voteCnt, answersCnt, viewsCnt, title, content, ta
           <Link to={`/question/${id}`}>
             <h3>{title}</h3>
           </Link>
-          <p>{content}</p>
+          <p dangerouslySetInnerHTML={{ __html: sanitizer(content) }} />
         </QuestionCotent>
 
         <QuestionInfo>

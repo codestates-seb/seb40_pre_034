@@ -7,7 +7,9 @@ const Container = styled.div`
   justify-content: space-evenly;
   align-items: flex-start;
   align-content: center;
-  padding: 0 120px;
+  padding: 20px 120px;
+  /* width: 100vw;
+  height: 100vh; */
 `;
 
 const Edit = () => {
