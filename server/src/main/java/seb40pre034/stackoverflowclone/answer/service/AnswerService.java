@@ -48,10 +48,8 @@ public class AnswerService {
     }
 
     //삭제 기능
-    public void deleteAnswer(long questionId,long answerId) {
-        questionService.findQuestion(questionId);
+    public void deleteAnswer(long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
-
         answerRepository.delete(findAnswer);
     }
 
